@@ -1,0 +1,1 @@
+function [model, L] = classLogitVb(X, t)
