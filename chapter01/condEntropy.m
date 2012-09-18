@@ -15,10 +15,10 @@ idx = 1:n;
 Mx = sparse(idx,x,1,n,k,n);
 My = sparse(idx,y,1,n,k,n);
 Pxy = nonzeros(Mx'*My/n); %joint distribution of x and y
-Hxy = -dot(Pxy,log2(Pxy+eps));
+Hxy = -dot(Pxy,log2(Pxy));
 
-Py = mean(My,1);
-Hy = -dot(Py,log2(Py+eps));
+Py = nonzeros(mean(My,1));
+Hy = -dot(Py,log2(Py));
 
 % conditional entropy H(x|y)
 z = Hxy-Hy;

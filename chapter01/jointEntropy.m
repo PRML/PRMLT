@@ -14,4 +14,4 @@ k = max(max(x),max(y));
 idx = 1:n;
 p = nonzeros(sparse(idx,x,1,n,k,n)'*sparse(idx,y,1,n,k,n)/n); %joint distribution of x and y
 
-z = -dot(p,log2(p+eps));
+z = -dot(p,log2(p));
