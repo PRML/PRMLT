@@ -39,14 +39,14 @@ for iter = 2:maxiter
     invS = Ebeta*XX;
     invS(dg) = invS(dg)+Ealpha;
     U = chol(invS);
-    V = U\I;
-    Ew = Ebeta*(V*(V'*Xt));    
+    Ew = Ebeta*(U\(U'\Xt));
     
     w2 = dot(Ew,Ew);
     e2 = sum((t-Ew'*X).^2);    
-    trS = dot(V(:),V(:));
-    XV = X*V;
-    trXSX = dot(XV(:),XV(:));
+    invU = U\I;   
+    trS = dot(invU(:),invU(:));
+    invUX = U\X;
+    trXSX = dot(invUX(:),invUX(:));
     
     b = b0+0.5*(w2+trS);
     d = d0+0.5*(e2+trXSX);
@@ -70,4 +70,3 @@ model.b = b;
 model.c = c;
 model.m = m;
 model.xbar = xbar;
-model.V = V;
