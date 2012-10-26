@@ -1,17 +1,19 @@
-function [model, llh] = regressVb(X, t, prior)
+function [model, energy] = regressVb(X, t, prior)
 % Fit empirical Bayesian linear model with EM
-% X: d x n data
+% X: m x n data
 % t: 1 x n response
 if nargin < 3
-    a0 = 0;
-    b0 = 0;
-    beta = 0.1;
+    a0 = 1e-4;
+    b0 = 1e-4;
+    c0 = 1e-4;
+    d0 = 1e-4;
 else
     a0 = prior.a;
     b0 = prior.b;
-    beta = prior.beta;
+    c0 = prior.c;
+    d0 = prior.d;
 end
-[d,n] = size(X);
+[m,n] = size(X);
 
 xbar = mean(X,2);
 tbar = mean(t,2);
@@ -19,39 +21,53 @@ tbar = mean(t,2);
 X = bsxfun(@minus,X,xbar);
 t = bsxfun(@minus,t,tbar);
 
-C = X*X';
+XX = X*X';
 Xt = X*t';
-dg = sub2ind([d,d],1:d,1:d);
-I = eye(d);
-tol = 1e-4;
+
 maxiter = 100;
-llh = -inf(1,maxiter+1);
+energy = -inf(1,maxiter+1);
+dg = sub2ind([m,m],1:m,1:m);
+I = eye(m);
+tol = 1e-8;
+
+a = a0+m/2;
+c = c0+n/2;
+Ealpha = 1e-4;
+Ebeta = 1e-4;
+const = gammaln(a)-gammaln(a0)+gammaln(c)-gammaln(c0)+a0*log(b0)+c0*log(d0)+0.5*(m-n*log(2*pi));
 for iter = 2:maxiter
-    S = beta*C;
-    S(dg) = S(dg)+alpha;
-    U = chol(S);
+    invS = Ebeta*XX;
+    invS(dg) = invS(dg)+Ealpha;
+    U = chol(invS);
     V = U\I;
-
-    w = beta*(V*(V'*Xt));
-    w2 = dot(w,w);
-    err = sum((t-w'*X).^2);
+    Ew = Ebeta*(V*(V'*Xt));    
     
-    logdetS = 2*sum(log(diag(U)));    
-    llh(iter) = 0.5*(d*log(alpha)+n*log(beta)-alpha*w2-beta*err-logdetS-n*log(2*pi)); 
-    if llh(iter)-llh(iter-1) < tol*abs(llh(iter-1)); break; end
-    
+    w2 = dot(Ew,Ew);
+    e2 = sum((t-Ew'*X).^2);    
     trS = dot(V(:),V(:));
-    Eww = w2+trS;
-    a = a0+d/2;
-    b = b0+Eww/2;
-    alpha = a/b;   
+    XV = X*V;
+    trXSX = dot(XV(:),XV(:));
+    
+    b = b0+0.5*(w2+trS);
+    d = d0+0.5*(e2+trXSX);
+    
+    Ealpha = a/b;
+    Ebeta = c/d; 
+        
+    logdetS = -2*sum(log(diag(U)));        
+    energy(iter) = -a*log(b)-c*log(d)+0.5*logdetS;
+    if energy(iter)-energy(iter-1) < tol*abs(energy(iter-1)); break; end
 end
-b = tbar-dot(w,xbar);
+energy = energy(2:iter)+const;
+w0 = tbar-dot(Ew,xbar);
 
-llh = llh(2:iter);
+model.w0 = w0;
+model.w = Ew;
+model.Ealpha = Ealpha;
+model.Ebeta = Ebeta;
+model.a = a;
 model.b = b;
-model.w = w;
-model.alpha = alpha;
-model.beta = beta;
+model.c = c;
+model.m = m;
 model.xbar = xbar;
 model.V = V;
