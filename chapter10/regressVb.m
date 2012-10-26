@@ -34,7 +34,6 @@ a = a0+m/2;
 c = c0+n/2;
 Ealpha = 1e-4;
 Ebeta = 1e-4;
-const = gammaln(a)-gammaln(a0)+gammaln(c)-gammaln(c0)+a0*log(b0)+c0*log(d0)+0.5*(m-n*log(2*pi));
 for iter = 2:maxiter
     invS = Ebeta*XX;
     invS(dg) = invS(dg)+Ealpha;
@@ -58,6 +57,7 @@ for iter = 2:maxiter
     energy(iter) = -a*log(b)-c*log(d)+0.5*logdetS;
     if energy(iter)-energy(iter-1) < tol*abs(energy(iter-1)); break; end
 end
+const = gammaln(a)-gammaln(a0)+gammaln(c)-gammaln(c0)+a0*log(b0)+c0*log(d0)+0.5*(m-n*log(2*pi));
 energy = energy(2:iter)+const;
 w0 = tbar-dot(Ew,xbar);
 
@@ -68,5 +68,5 @@ model.Ebeta = Ebeta;
 model.a = a;
 model.b = b;
 model.c = c;
-model.m = m;
+model.d = d;
 model.xbar = xbar;
