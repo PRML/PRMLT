@@ -20,6 +20,7 @@ Xt = X*t';
 tol = 1e-4;
 maxiter = 100;
 llh = -inf(1,maxiter+1);
+dg = sub2ind([d,d],1:d,1:d)';
 
 infinity = 1e+10;
 for iter = 2 : maxiter
@@ -27,7 +28,6 @@ for iter = 2 : maxiter
     d = sum(used);
     alphaUsed = alpha(used);
     S = beta*XX(used,used);
-    dg = sub2ind([d,d],1:d,1:d)';
     S(dg) = S(dg)+alphaUsed;
     U = chol(S);   
     V = U\eye(d);    
