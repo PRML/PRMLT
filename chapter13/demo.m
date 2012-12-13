@@ -18,4 +18,12 @@ for i = 2:n
     z(i) = discreternd(A(z(i-1),:));
     x(i) = discreternd(E(z(i),:));
 end
+X = sparse(x,1:n,1,d,n);
+M = E*X;
+
 [model, energy] = hmmEm(x,k);
+% [alpha,energy] = hmmFwd(M,A,s);
+% beta = hmmBwd(M,A);
+% gamma = normalize(alpha.*beta,1);
+
+% [gamma2,alpha2.beta2,loglik] = hmmFwdBack(s, A, M);
