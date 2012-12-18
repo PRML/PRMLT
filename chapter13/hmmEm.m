@@ -20,17 +20,13 @@ maxIter = 100;
 energy = -inf(1,maxIter);
 for iter = 2:maxIter
 %     E-step
-    [alpha,energy(iter)] = hmmFwd(M,A,s);
-    beta = hmmBwd(M,A);
-    Gamma = normalize(alpha.*beta,1);
-    Xi = A.*(alpha(:,1:n-1)*(beta(:,2:n).*M(:,2:n))');
-    
+    [gamma,alpha,beta,c] = hmmSmoother(M,A,s);
+    energy(iter) = sum(log(c(c>0)));
     if energy(iter)-energy(iter-1) < tol*abs(energy(iter-1)); break; end   % check likelihood for convergence
 %     M step 
-    s = Gamma(:,1);
-    A = normalize(Xi,2);    
-    E = bsxfun(@times,Gamma*X',1./sum(Gamma,2));
-    M = E*X;
+    A = normalize(A.*(alpha(:,1:n-1)*bsxfun(@times,beta(:,2:n).*M(:,2:n),1./c(2:end))'),2);
+    s = gamma(:,1);
+    M = bsxfun(@times,gamma*X',1./sum(gamma,2))*X;
 end
 energy = energy(2:iter);
 model.A = A;

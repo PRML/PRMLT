@@ -2,7 +2,7 @@
 % x = rand(10,1000);
 % [model, energy] = dimPcaVb(x);
 d = 3;
-n = 1000;
+n = 100000;
 
 k = 2;
 
