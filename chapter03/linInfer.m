@@ -3,7 +3,7 @@ function [y, sigma, p] = linInfer(X, model, t)
 % X: d x n data
 % t: 1 x n response
 w = model.w;
-b = model.b;
+b = model.w0;
 y = w'*X+b;
 if nargout > 1
     beta = model.beta;
