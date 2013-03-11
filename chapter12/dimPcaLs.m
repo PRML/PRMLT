@@ -1,5 +1,5 @@
-function [V, A] = dimPcaIter(X, p)
-% Perform EM like iteration algorithm for PCA (by Sam Roweis).
+function [V, A] = dimPcaLs(X, p)
+% Perform Least Square iteration algorithm for PCA (by Sam Roweis).
 %   X: d x n data matrix
 %   p: dimension of target space
 % Reference: 
