@@ -5,8 +5,8 @@ A = model.A; % transition matrix
 G = model.G; % transition covariance
 C = model.C; % emission matrix
 S = model.S;  % emision covariance
-mu0 = model.mu; % prior mean
-P = model.P;  % prior covairance
+mu0 = model.mu0; % prior mean
+P = model.P0;  % prior covairance
 
 n = size(X,2);
 q = size(mu0,1);

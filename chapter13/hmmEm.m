@@ -23,7 +23,7 @@ for iter = 2:maxIter
     [gamma,alpha,beta,c] = hmmSmoother(M,A,s);
     energy(iter) = sum(log(c(c>0)));
     if energy(iter)-energy(iter-1) < tol*abs(energy(iter-1)); break; end   % check likelihood for convergence
-%     M step 
+%     M-step 
     A = normalize(A.*(alpha(:,1:n-1)*bsxfun(@times,beta(:,2:n).*M(:,2:n),1./c(2:end))'),2);
     s = gamma(:,1);
     M = bsxfun(@times,gamma*X',1./sum(gamma,2))*X;
