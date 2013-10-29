@@ -25,3 +25,4 @@ Hx = -dot(Px,log2(Px));
 Hy = -dot(Py,log2(Py));
 % mutual information
 z = Hx+Hy-Hxy;
+z = max(0,z);

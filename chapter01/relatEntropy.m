@@ -18,4 +18,4 @@ Px = nonzeros(mean(Mx,1));
 Py = nonzeros(mean(My,1));
 
 z = -dot(Px,log2(Py)-log2(Px));
-
+z = max(0,z);

@@ -28,4 +28,5 @@ Hy = -dot(Py,log2(Py));
 MI = Hx + Hy - Hxy;
 
 % normalized mutual information
-z = max(0,sqrt((MI/Hx)*(MI/Hy)));
+z = sqrt((MI/Hx)*(MI/Hy));
+z = max(0,z);

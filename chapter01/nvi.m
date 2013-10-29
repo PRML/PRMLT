@@ -26,3 +26,4 @@ Hy = -dot(Py,log2(Py));
 
 % nvi
 z = 2-(Hx+Hy)/Hxy;
+z = max(0,z);

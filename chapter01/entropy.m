@@ -6,3 +6,4 @@ x = reshape(x,1,n);
 [u,~,label] = unique(x);
 p = full(mean(sparse(1:n,label,1,n,numel(u),n),1));
 z = -dot(p,log2(p+eps));
+z = max(0,z);
