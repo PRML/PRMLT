@@ -12,5 +12,4 @@ a = U\(U'\(t(:)-tbar));
 model.kn = kn;
 model.a = a;
 model.X = X;
-model.U = U;
 model.tbar = tbar;
