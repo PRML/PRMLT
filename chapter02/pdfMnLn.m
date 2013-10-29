@@ -1,6 +1,6 @@
 function z = pdfMnLn (x, p)
 % Compute log pdf of a multinomial distribution.
-% Written by Mo Chen (mochen80@gmail.com).    
+% Written by Mo Chen (sth4nth@gmail.com).    
     if numel(x) ~= numel(p)
         n = numel(x);
         x = reshape(x,1,n);

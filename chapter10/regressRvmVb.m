@@ -2,6 +2,7 @@ function [model, energy] = regressRvmVb(X, t, prior)
 % Fit empirical Bayesian linear model with EM
 % X: m x n data
 % t: 1 x n response
+% Written by Mo Chen (sth4nth@gmail.com).
 [m,n] = size(X);
 if nargin < 3
     a0 = 1e-4;

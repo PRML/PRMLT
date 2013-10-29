@@ -3,6 +3,7 @@ function [z, v] = hmmViterbi (x, s, P, E)
 % s: starting probability (prior)
 % P: transition probability matrix
 % E: Emmission probability matrix
+% Written by Mo Chen (sth4nth@gmail.com).
 n = length(x);
 k = length(s);
 Z = zeros(k,n);

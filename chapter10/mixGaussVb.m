@@ -3,8 +3,7 @@ function [label, model, L] = mixGaussVb(X, init, prior)
 %   X: d x n data matrix
 %   init: k (1 x 1) or label (1 x n, 1<=label(i)<=k) or center (d x k)
 % Reference: Pattern Recognition and Machine Learning by Christopher M. Bishop (P.474)
-% Written by Michael Chen (sth4nth@gmail.com).
-
+% Written by Mo Chen (sth4nth@gmail.com).
 fprintf('Variational Bayesian Gaussian mixture: running ... \n');
 [d,n] = size(X);
 if nargin < 3

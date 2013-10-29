@@ -1,5 +1,6 @@
 function U = classFda(X, y, d)
 % Fisher (linear) discriminant analysis
+% Written by Mo Chen (sth4nth@gmail.com).
 n = size(X,2);
 k = max(y);
 

@@ -1,5 +1,6 @@
 function [model, energy] = ldsEm(X, model)
 % EM algorithm for parameter estimation of LDS
+% Written by Mo Chen (sth4nth@gmail.com).
 tol = 1e-4;
 maxIter = 100;
 energy = -inf(1,maxIter);

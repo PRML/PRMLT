@@ -2,6 +2,7 @@ function [model, llh] = regressEbEm(X, t, alpha, beta)
 % Fit empirical Bayesian linear model with EM
 % X: d x n data
 % t: 1 x n response
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     alpha = 0.02;
     beta = 0.5;

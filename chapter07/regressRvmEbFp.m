@@ -1,6 +1,7 @@
 function [model, llh] = regressRvmEbFp(X, t, alpha, beta)
 % Relevance Vector Machine regression training by empirical bayesian (ARD)
 % using fix point update (Mackay update)
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     alpha = 0.02;
     beta = 0.5;

@@ -2,6 +2,7 @@ function [y, sigma, p] = linInfer(X, model, t)
 % Compute linear model reponse y = w'*x+b and likelihood
 % X: d x n data
 % t: 1 x n response
+% Written by Mo Chen (sth4nth@gmail.com).
 w = model.w;
 b = model.w0;
 y = w'*X+b;

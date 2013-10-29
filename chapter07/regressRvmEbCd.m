@@ -3,6 +3,7 @@ function [model, llh] = regressRvmEbCd(X, t)
 % Analysis of sparse Bayesian learning. NIPS(2002). By Faul and Tipping
 % Fast marginal likelihood maximisation for sparse Bayesian models.
 % AISTATS(2003). by Tipping and Faul 
+% Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
 xbar = mean(X,2);
 tbar = mean(t,2);

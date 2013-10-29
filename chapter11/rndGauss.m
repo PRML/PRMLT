@@ -1,6 +1,6 @@
 function x = rndGauss(mu,Sigma,n)
 % Sampling from a Gaussian distribution.
-% Written by Michael Chen (sth4nth@gmail.com).
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin == 2
     n = 1;
 end

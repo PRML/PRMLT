@@ -1,6 +1,6 @@
 function [nu, U, Ezz, Ezy, llh] = kalmanSmoother(X, model)
-% DONE
 % Kalman smoother
+% Written by Mo Chen (sth4nth@gmail.com).
 A = model.A; % transition matrix 
 G = model.G; % transition covariance
 C = model.C; % emission matrix

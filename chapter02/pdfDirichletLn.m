@@ -3,7 +3,7 @@ function y = pdfDirichletLn(X, a)
 %   X: d x n data matrix satifying (sum(X,1)==ones(1,n) && X>=0)
 %   a: d x k parameters
 %   y: k x n probability density
-% Written by Mo Chen (mochen80@gmail.com).
+% Written by Mo Chen (sth4nth@gmail.com).
 X = bsxfun(@times,X,1./sum(X,1));
 if size(a,1) == 1
     a = repmat(a,size(X,1),1);

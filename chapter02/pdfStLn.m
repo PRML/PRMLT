@@ -1,6 +1,6 @@
 function y = pdfStLn(X, mu, sigma, v)
 % Compute log pdf of a student-t distribution.
-% Written by mo Chen (mochen80@gmail.com).
+% Written by mo Chen (sth4nth@gmail.com).
 [d,k] = size(mu);
 
 if size(sigma,1)==d && size(sigma,2)==d && k==1

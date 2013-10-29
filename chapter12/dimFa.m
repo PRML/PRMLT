@@ -3,7 +3,7 @@ function model = dimFa(X, p)
 %   X: d x n data matrix
 %   p: dimension of target space
 % Reference: Pattern Recognition and Machine Learning by Christopher M. Bishop 
-% Written by Michael Chen (sth4nth@gmail.com).
+% Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
 mu = mean(X,2);
 X = bsxfun(@minus,X,mu);

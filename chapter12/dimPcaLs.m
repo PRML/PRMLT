@@ -5,7 +5,7 @@ function [V, A] = dimPcaLs(X, p)
 % Reference: 
 %   Pattern Recognition and Machine Learning by Christopher M. Bishop 
 %   EM algorithms for PCA and SPCA by Sam Roweis 
-% Written by Michael Chen (sth4nth@gmail.com).
+% Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
 X = bsxfun(@minus,X,mean(X,2));
 W = rand(d,p); 

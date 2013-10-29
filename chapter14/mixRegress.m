@@ -1,8 +1,7 @@
 function [model, llh, Rnew] = mixRegress(X, y, k)
 % mixture of linear regression model
-
-% adding the bias term
-X = [X;ones(1,size(X,2))];
+% Written by Mo Chen (sth4nth@gmail.com).
+X = [X;ones(1,size(X,2))]; % adding the bias term
 
 [d,n] = size(X);
 

@@ -5,8 +5,7 @@ function [model, energy] = dimPcaVb(X, q, prior)
 % Reference: 
 %   Pattern Recognition and Machine Learning by Christopher M. Bishop 
 %   Probabilistic Principal Component Analysis by Michael E. Tipping & Christopher M. Bishop
-% Written by Michael Chen (sth4nth@gmail.com).
-
+% Written by Mo Chen (sth4nth@gmail.com).
 [m,n] = size(X);
 if nargin < 3
     a0 = 1e-4;

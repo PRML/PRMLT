@@ -1,6 +1,7 @@
 function [model, llh] = classRvmEbEm(X, t, alpha)
 % Relevance Vector Machine classification training by empirical bayesian (ARD)
 % using standard EM update 
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     alpha = 0.02;
 end

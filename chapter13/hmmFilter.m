@@ -4,6 +4,7 @@ function [alpha, energy] = hmmFilter(M, A, s)
 % the alpha returned is the normalized version: alpha(t)=p(z_t|x_{1:t})
 % the unnormalized version alpha(t)=p(z_t,x_{1:t}) grows exponential fast
 % to infinity.
+% Written by Mo Chen (sth4nth@gmail.com).
 [K,T] = size(M);
 At = A';
 energy = zeros(1,T);

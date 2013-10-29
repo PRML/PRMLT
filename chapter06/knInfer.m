@@ -1,5 +1,6 @@
 function [y, sigma, p] = knInfer(x, model)
 % inference for kernel model
+% Written by Mo Chen (sth4nth@gmail.com).
 kn = model.kn;
 a = model.a;
 X = model.X;

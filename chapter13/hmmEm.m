@@ -4,6 +4,7 @@ function [model, energy] = hmmEm(x, k, A, E, s)
 % A: k x k transition matrix
 % E: k x m emission matrix
 % s: k x 1 initial probabilisty
+% Written by Mo Chen (sth4nth@gmail.com).
 n = size(x,2);
 d = max(x);
 X = sparse(x,1:n,1,d,n);

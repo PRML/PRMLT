@@ -1,7 +1,6 @@
 function y = pdfGaussLn(X, mu, sigma)
 % Compute log pdf of a Gaussian distribution.
-% Written by Mo Chen (mochen80@gmail.com).
-
+% Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
 k = size(mu,2);
 if n == k && size(sigma,1) == 1           

@@ -1,5 +1,6 @@
 function [model, llh] = classLogitMul(X, t, lambda, method)
 % logistic regression for multiclass problem (Multinomial likelihood)
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 4
     method = 1;
 end

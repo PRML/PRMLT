@@ -1,5 +1,6 @@
 function [model, llh] = classLogitBin(X, t, lambda)
 % logistic regression for binary classification (Bernoulli likelihood)
+% Written by Mo Chen (sth4nth@gmail.com).
 if any(unique(t) ~= [0,1])
     error('t must be a 0/1 vector!');
 end

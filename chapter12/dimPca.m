@@ -2,8 +2,7 @@ function [V, A] = dimPca(X, p)
 % Perform standard PCA (spectral method).
 %   X: d x n data matrix
 %   p: dimension of target space (p>=1) or ratio (0<p<1)
-% Written by Michael Chen (sth4nth@gmail.com).
-
+% Written by Mo Chen (sth4nth@gmail.com).
 opts.disp = 0;
 opts.issym = 1;
 opts.isreal = 1;

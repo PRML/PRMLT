@@ -2,6 +2,7 @@ function model = regress(X, t, lambda)
 % Fit linear regression model t=w'x+b
 % X: d x n data
 % t: 1 x n response
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     lambda = 0;
 end

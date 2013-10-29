@@ -1,5 +1,6 @@
 function model = regressKn(X, t, lambda, kn)
 % Gaussian process for regression
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 4
     kn = @knGauss;
 end

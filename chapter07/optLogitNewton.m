@@ -4,7 +4,7 @@ function [w, V, llh] = optLogitNewton(X, t, lambda, w)
 % t: 1 x n 0/1 label
 % A: d x d regularization penalty
 % w: d x 1 initial value of w
-
+% Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
 
 if nargin < 4
