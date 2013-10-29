@@ -1,10 +1,8 @@
 % demo
-% x = rand(10,1000);
-% [model, energy] = dimPcaVb(x);
+% TODO: viterbi normalize update
 d = 3;
-n = 100000;
-
 k = 2;
+n = 10000;
 
 A = normalize(rand(k,k),2);
 E = normalize(rand(k,d),2);
@@ -21,7 +19,9 @@ end
 X = sparse(x,1:n,1,d,n);
 M = E*X;
 
-[model, energy] = hmmEm(x,k);
+[z, v] = hmmViterbi(M, A, s);
+
+% [model, energy] = hmmEm(x,k);
 % [alpha,energy] = hmmFwd(M,A,s);
 % beta = hmmBwd(M,A);
 % gamma = normalize(alpha.*beta,1);
