@@ -1,5 +1,5 @@
 function model = regress(X, t, lambda)
-% Fit linear regression model t=w'x+b
+% Fit linear regression model t=w'x+w0
 % X: d x n data
 % t: 1 x n response
 % Written by Mo Chen (sth4nth@gmail.com).
@@ -19,7 +19,7 @@ S(dg) = S(dg)+lambda;
 % w = S\(X*t');
 R = chol(S);
 w = R\(R'\(X*t'));  % 3.15 & 3.28
-b = tbar-dot(w,xbar);  % 3.19
+w0 = tbar-dot(w,xbar);  % 3.19
 
 model.w = w;
-model.b = b;
+model.w0 = w0;

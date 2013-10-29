@@ -1,9 +1,6 @@
 function [model, llh] = classLogitBin(X, t, lambda)
 % logistic regression for binary classification (Bernoulli likelihood)
 % Written by Mo Chen (sth4nth@gmail.com).
-if any(unique(t) ~= [0,1])
-    error('t must be a 0/1 vector!');
-end
 if nargin < 3
     lambda = 1e-4;
 end
@@ -15,37 +12,33 @@ d = d+1;
 tol = 1e-4;
 maxiter = 100;
 llh = -inf(1,maxiter);
-converged = false;
-iter = 1;
-
 
 h = ones(1,n);
 h(t==0) = -1;
 w = zeros(d,1);
 z = w'*X;
-while ~converged && iter < maxiter
-    iter = iter + 1;
+for iter = 2:maxiter
     y = sigmoid(z);
-    
-    g = X*(y-t)'+lambda*w;
-    r = y.*(1-y);
-    R = spdiags(r(:),0,n,n);    
-    H = X*R*X';
+    Xw = bsxfun(@times, X, sqrt(y.*(1-y)));
+    H = Xw*Xw';
     H(dg) = H(dg)+lambda;
-    
+    g = X*(y-t)'+lambda*w;
     p = -H\g;
 
     wo = w;
-    w = wo+p;
-    z = w'*X;   
-    llh(iter) = -sum(log1pexp(-h.*z))-0.5*lambda*dot(w,w);
-    converged = norm(p) < tol || abs(llh(iter)-llh(iter-1)) < tol;
-    while ~converged && llh(iter) < llh(iter-1)
-        p = 0.5*p;
+    while true
         w = wo+p;
-        z = w'*X;    
+        z = w'*X;   
         llh(iter) = -sum(log1pexp(-h.*z))-0.5*lambda*dot(w,w);
-        converged = norm(p) < tol || abs(llh(iter)-llh(iter-1)) < tol;
+        progress = llh(iter)-llh(iter-1);
+        if progress < 0
+            p = p/2;
+        else
+           break;
+        end
+    end
+    if progress < tol
+        break
     end
 end
 llh = llh(2:iter);

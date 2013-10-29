@@ -42,10 +42,10 @@ for iter = 2:maxiter
     gamma = d-alpha*trS;
     beta = n/(err+gamma/beta);
 end
-b = tbar-dot(w,xbar);
+w0 = tbar-dot(w,xbar);
 
 llh = llh(2:iter);
-model.b = b;
+model.w0 = w0;
 model.w = w;
 model.alpha = alpha;
 model.beta = beta;
