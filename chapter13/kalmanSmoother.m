@@ -25,7 +25,7 @@ mu(:,1) = mu0+K*(X(:,1)-C*mu0);
 V(:,:,1) = (I-K*C)*P0;
 P(:,:,1) = P0;  % useless, just make a point
 Amu(:,1) = mu0; % useless, just make a point
-llh(1) = pdfGaussLn(X(:,1),C*mu0,R);
+llh(1) = logGauss(X(:,1),C*mu0,R);
 for i = 2:n    
     [mu(:,i), V(:,:,i), Amu(:,i), P(:,:,i), llh(i)] = ...
         forwardStep(X(:,i), mu(:,i-1), V(:,:,i-1), A, G, C, S, I);
@@ -54,7 +54,7 @@ Amu = A*mu0;
 CAmu = C*Amu;
 mu = Amu+K*(x-CAmu);
 V = (I-K*C)*P;
-llh = pdfGaussLn(x,CAmu,R);
+llh = logGauss(x,CAmu,R);
 
 function [nu, U, Ezz, Ezy] = backwardStep(nu0, U0, mu, V, Amu, P, A)
 J = V*A'/P;   % smoother gain matrix

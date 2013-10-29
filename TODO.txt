@@ -1,1 +1,3 @@
-TODO: derive simpler bound for vb and improve vb functions chapter 10 & 12
+TODO: 
+1) derive simpler bound for vb and improve vb functions chapter 10 & 12
+2) chapter 14

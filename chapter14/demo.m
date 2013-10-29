@@ -17,7 +17,7 @@ y2 = w2 * x2 + b2 - 5;
 X = [x1 x2];
 y = [y1 y2];
 
-[model,llh,R] = mixLinRegress(X, y, 2);
+[model,llh,R] = mixRegress(X, y, 2);
 
 figure();
 subplot(1,3,1);

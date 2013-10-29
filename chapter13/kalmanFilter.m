@@ -20,7 +20,7 @@ R = (C*PC+S);
 K = PC/R;
 mu(:,1) = mu0+K*(X(:,1)-C*mu0);
 V(:,:,1) = (I-K*C)*P;
-llh(1) = pdfGaussLn(X(:,1),C*mu0,R);
+llh(1) = logGauss(X(:,1),C*mu0,R);
 for i = 2:n
     [mu(:,i), V(:,:,i), llh(i)] = ...
         forwardStep(X(:,i), mu(:,i-1), V(:,:,i-1), A, G, C, S, I);
@@ -36,4 +36,4 @@ Amu = A*mu;
 CAmu = C*Amu;
 mu = Amu+K*(x-CAmu);
 V = (I-K*C)*P;
-llh = pdfGaussLn(x,CAmu,R);
+llh = logGauss(x,CAmu,R);
