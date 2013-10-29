@@ -6,6 +6,6 @@ if nargin == 2
 end
 [V,err] = chol(Sigma);
 if err ~= 0
-    error('ERROR: sigma must be a symmetric positive semi-definite matrix.');
+    error('ERROR: sigma must be a symmetric positive definite matrix.');
 end
 x = V'*randn(size(V,1),n)+repmat(mu,1,n);
