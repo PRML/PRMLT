@@ -12,28 +12,13 @@ R = R(:,unique(label));
 tol = 1e-10;
 maxiter = 500;
 llh = -inf(1,maxiter);
-converged = false;
-t = 1;
-while ~converged && t < maxiter
-    t = t+1;
+for iter = 2:maxiter
     model = maximization(X,R);
-    [R, llh(t)] = expectation(X,model);
-   
+    [R, llh(iter)] = expectation(X,model);
     [~,label(:)] = max(R,[],2);
-    u = unique(label);   % non-empty components
-    if size(R,2) ~= size(u,2)
-        R = R(:,u);   % remove empty components
-    else
-        converged = llh(t)-llh(t-1) < tol*abs(llh(t-1));
-    end
-
+    if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter)); break; end;
 end
-llh = llh(2:t);
-if converged
-    fprintf('Converged in %d steps.\n',t-1);
-else
-    fprintf('Not converged in %d steps.\n',maxiter);
-end
+llh = llh(2:iter);
 
 function R = initialization(X, init)
 [d,n] = size(X);
