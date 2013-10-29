@@ -15,7 +15,7 @@ maxiter = 100;
 llh = -inf(1,maxiter);
 infinity = 1e+10;
 for iter = 2:maxiter
-    used = alpha<infinity;
+    used = alpha < infinity;
     alphaUsed = alpha(used);
     [w,V,lllh] = optLogitNewton(X(used,:),t,alphaUsed);  % lllh = logitloglikelihood
     w2 = w.^2;

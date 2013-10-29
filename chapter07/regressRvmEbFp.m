@@ -47,10 +47,10 @@ for iter = 2 : maxiter
 end
 llh = llh(2:iter);
 
-b = tbar-dot(w,xbar(used));
+w0 = tbar-dot(w,xbar(used));
 
 model.used = used;
-model.b = b;
+model.w0 = w0;
 model.w = w;
 model.alpha = alpha;
 model.beta = beta;

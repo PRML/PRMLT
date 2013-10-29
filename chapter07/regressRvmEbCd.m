@@ -122,9 +122,9 @@ for iter = 2:maxiter
     beta = (n-numel(dim)+dot(alpha(dim),diag(Sigma)))/sum((t-mu'*Phi).^2);
 end
 llh = llh(2:iter);
-b = tbar-dot(mu,xbar(dim));
+w0 = tbar-dot(mu,xbar(dim));
 
-model.b = b;
+model.w0 = w0;
 model.w = mu;
 model.alpha = alpha;
 model.beta = beta;
