@@ -24,7 +24,6 @@ for iter = 2:maxiter
     H(dg) = H(dg)+lambda;
     g = X*(y-t)'+lambda*w;
     p = -H\g;
-
     wo = w;
     while true
         w = wo+p;
