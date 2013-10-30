@@ -1,5 +1,5 @@
 % demo
-% TODO: viterbi normalize update
+
 d = 3;
 k = 2;
 n = 10000;

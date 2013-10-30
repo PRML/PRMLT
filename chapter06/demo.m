@@ -1,7 +1,3 @@
-% demo for chapter 06
-% TODO: 1) plot error bar for kernel regression
-% 2) Derive proper formula for GP with kernel space centrization
-% 3) GP for classification
 clear; close all;
 n = 100;
 beta = 1e-1;

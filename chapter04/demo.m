@@ -1,6 +1,4 @@
-% TODO: 
-% 1) plot contour function
-% 2) inference function
+
 clear; close all;
 k = 2;
 n = 1000;
