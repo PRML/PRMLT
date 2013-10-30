@@ -10,7 +10,7 @@ function [model, llh] = pcaEm(X, q)
 mu = mean(X,2);
 X = bsxfun(@minus,X,mu);
 
-tol = 1e-6;
+tol = 1e-4;
 maxiter = 500;
 llh = -inf(1,maxiter);
 
@@ -57,4 +57,3 @@ llh = llh(2:iter);
 model.W = W;
 model.mu = mu;
 model.sigma = s;
-

@@ -1,64 +1,49 @@
-function model = fa(X, p)
+function [model, llh] = fa(X, q)
 % Perform EM algorithm for factor analysis model
-%   X: d x n data matrix
-%   p: dimension of target space
+%   X: m x n data matrix
+%   q: dimension of target space
 % Reference: Pattern Recognition and Machine Learning by Christopher M. Bishop 
 % Written by Mo Chen (sth4nth@gmail.com).
-[d,n] = size(X);
+[m,n] = size(X);
 mu = mean(X,2);
 X = bsxfun(@minus,X,mu);
 
-tol = 1e-8;
-converged = false;
-llh = -inf;
+tol = 1e-4;
+maxiter = 500;
+llh = -inf(1,maxiter);
 
-% initialize parameters
-W = rand(d,p); 
-invpsi = 1./rand(d,1);
-
-% precompute quantities
-I = eye(p);
+I = eye(q);
 r = dot(X,X,2);
 
-U = bsxfun(@times,W,sqrt(invpsi));
-M = U'*U+I;                     % M = W'*inv(Psi)*W+I
-R = chol(M);
-invM = R\(R'\I);
-WinvPsiX = bsxfun(@times,W,invpsi)'*X;       % WinvPsiX = W'*inv(Psi)*X
-while ~converged
-    % E step
-    Ez = invM*WinvPsiX;
-    Ezz = n*invM+Ez*Ez';
-    % end
-    
-    R = chol(Ezz);  
-    XEz = X*Ez';
-    
-    % M step
-    W = (XEz/R)/R';
-    invpsi = n./(r-dot(W,XEz,2));
-    % end
-
+W = rand(m,q); 
+invpsi = 1./rand(m,1);
+for iter = 2:maxiter
     % compute quantities needed
     U = bsxfun(@times,W,sqrt(invpsi));
     M = U'*U+I;                     % M = W'*inv(Psi)*W+I
     R = chol(M);
-    invM = R\(R'\I);
+    G = R\(R'\I);
     WinvPsiX = bsxfun(@times,W,invpsi)'*X;       % WinvPsiX = W'*inv(Psi)*X
-    % end
     
     % likelihood
-    last = llh;
     logdetC = 2*sum(log(diag(R)))-sum(log(invpsi));              % log(det(C))
     Q = R'\WinvPsiX;
     trinvCS = (r'*invpsi-dot(Q(:),Q(:)))/n;  % trace(inv(C)*S)
-    llh = -n*(d*log(2*pi)+logdetC+trinvCS)/2;
-    % end
-    converged = abs(llh-last) < tol*abs(llh);   % check likelihood for convergence
+    llh(iter) = -n*(m*log(2*pi)+logdetC+trinvCS)/2;
+    if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
+    
+    % E step
+    Ez = G*WinvPsiX;
+    Ezz = n*G+Ez*Ez';
+    
+    % M step    
+    R = chol(Ezz);  
+    XEz = X*Ez';
+    W = (XEz/R)/R';
+    invpsi = n./(r-dot(W,XEz,2));
 end
-psi = 1./invpsi;
+llh = llh(2:iter);
 
 model.W = W;
 model.mu = mu;
-model.psi = psi;
-model.llh = llh;
+model.psi = 1./invpsi;
