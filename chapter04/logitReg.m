@@ -1,4 +1,4 @@
-function [model, llh] = logitReg(X, t, lambda)
+function [model, llh, U] = logitReg(X, t, lambda)
 % logistic regression for binary classification (Bernoulli likelihood)
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
@@ -22,8 +22,9 @@ for iter = 2:maxiter
     Xw = bsxfun(@times, X, sqrt(y.*(1-y)));
     H = Xw*Xw';
     H(dg) = H(dg)+lambda;
+    U = chol(H);
     g = X*(y-t)'+lambda.*w;
-    p = -H\g;
+    p = -U\(U'\g);
     wo = w;
     while true
         w = wo+p;
