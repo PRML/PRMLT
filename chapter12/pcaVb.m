@@ -25,8 +25,12 @@ end
 tol = 1e-6;
 maxIter = 500;
 energy = -inf(1,maxIter);
-% init parameters
 
+mu = mean(X,2);
+Xo = bsxfun(@minus, X, mu);
+s = dot(Xo(:),Xo(:));
+I = eye(q);
+% init parameters
 a = a0+m/2;
 c = c0+m*n/2;
 Ealpha = 1e-4;
@@ -34,11 +38,6 @@ Ebeta = 1e-4;
 EW = rand(q,m); 
 EWo = bsxfun(@minus,EW,mean(EW,2));
 EWW = EWo*EWo'/m+EW*EW';
-I = eye(q);
-
-mu = mean(X,2);
-Xo = bsxfun(@minus, X, mu);
-s = dot(Xo(:),Xo(:));
 for iter = 2:maxIter  
 %     q(z)
     CZ = inv(I+Ebeta*EWW);
@@ -73,20 +72,9 @@ for iter = 2:maxIter
     if energy(iter)-energy(iter-1) < tol*abs(energy(iter-1)); break; end   % check likelihood for convergence
 end
 energy = energy(2:iter);
-% W = normalize(orth(W));
-% % [W,R] = qr(W,0); % qr() orthnormalize W which is faster than orth().
-% Z = W'*X;
-% Z = bsxfun(@minus,Z,mean(Z,2));  % for numerical purpose, not really necessary
-% [V,A] = eig(Z*Z');
-% [A,idx] = sort(diag(A),'descend');
-% V = V(:,idx);
-% V = W*V;
 
-% model.V = V;
 model.a = a;
 model.b = b;
 model.c = c;
 model.d = d;
 model.mu = mu;
-
-

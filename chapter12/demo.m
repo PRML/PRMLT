@@ -15,4 +15,4 @@ X = bsxfun(@plus,Xo,mu);
 [model,energy] = pcaVb(X);
 [model, llh] = pcaEm(X,3);
 [model, llh] = fa(X,3);
-plot(llh)
+plot(energy)
