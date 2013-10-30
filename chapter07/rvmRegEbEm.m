@@ -39,7 +39,7 @@ for iter = 2 : maxiter
     
     logdetS = -2*sum(log(diag(V)));    
     llh(iter) = 0.5*(sum(log(alphaUsed))+n*log(beta)-beta*err-logdetS-dot(alphaUsed,w2)-n*log(2*pi)); 
-    if abs(llh(iter)-llh(iter-1)) < tol; break; end
+    if abs(llh(iter)-llh(iter-1)) < tol*llh(iter-1); break; end
 
     dgS = dot(V,V,2);
     alpha = 1./(w2+dgS);    % 9.67

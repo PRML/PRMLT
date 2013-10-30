@@ -9,13 +9,13 @@ if nargin < 3
 end
 X = [X; ones(1,size(X,2))];
 if method == 1
-    [W, llh] = NewtonSolver(X, t, lambda);
+    [W, llh] = newton(X, t, lambda);
 else
-    [W, llh] = blockNewtonSolver(X, t, lambda);
+    [W, llh] = newtonBlock(X, t, lambda);
 end
 model.W = W;
 
-function [W, llh] = NewtonSolver(X, t, lambda)
+function [W, llh] = newton(X, t, lambda)
 [d,n] = size(X);
 k = max(t);
 tol = 1e-4;
@@ -46,7 +46,7 @@ for iter = 2:maxiter
 end
 llh = llh(2:iter);
 
-function [W, llh] = blockNewtonSolver(X, t, lambda)
+function [W, llh] = newtonBlock(X, t, lambda)
 [d,n] = size(X);
 k = max(t);
 idx = (1:d)';
