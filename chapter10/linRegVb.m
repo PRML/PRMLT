@@ -27,7 +27,8 @@ Xt = X*t';
 
 maxiter = 100;
 energy = -inf(1,maxiter+1);
-dg = sub2ind([m,m],1:m,1:m);
+idx = (1:m)';
+dg = sub2ind([m,m],idx,idx);
 I = eye(m);
 tol = 1e-8;
 

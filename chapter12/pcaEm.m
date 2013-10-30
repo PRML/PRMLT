@@ -13,8 +13,8 @@ X = bsxfun(@minus,X,mu);
 tol = 1e-4;
 maxiter = 500;
 llh = -inf(1,maxiter);
-
-dg = sub2ind([q,q],1:q,1:q);  % diagonal index
+idx = (1:q)';
+dg = sub2ind([q,q],idx,idx);
 I = eye(q);
 r = dot(X(:),X(:)); % total norm of X
 

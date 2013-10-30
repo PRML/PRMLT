@@ -14,7 +14,8 @@ X = bsxfun(@minus,X,xbar);
 t = bsxfun(@minus,t,tbar);
 
 S = X*X';
-dg = sub2ind([d,d],1:d,1:d);
+idx = (1:d)';
+dg = sub2ind([d,d],idx,idx);
 S(dg) = S(dg)+lambda;
 % w = S\(X*t');
 R = chol(S);

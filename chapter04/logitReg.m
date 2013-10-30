@@ -5,15 +5,14 @@ if nargin < 3
     lambda = 1e-6;
 end
 [d,n] = size(X);
-d = d+1;
-idx = (1:d)';
-dg = sub2ind([d,d],idx,idx);
 X = [X; ones(1,n)];
-
 tol = 1e-4;
 maxiter = 100;
 llh = -inf(1,maxiter);
 
+d = d+1;
+idx = (1:d)';
+dg = sub2ind([d,d],idx,idx);
 h = ones(1,n);
 h(t==0) = -1;
 w = zeros(d,1);

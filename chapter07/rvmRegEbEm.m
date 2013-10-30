@@ -21,7 +21,8 @@ Xt = X*t';
 tol = 1e-4;
 maxiter = 100;
 llh = -inf(1,maxiter+1);
-dg = sub2ind([d,d],1:d,1:d)';
+idx = (1:d)';
+dg = sub2ind([d,d],idx,idx);
 
 infinity = 1e+10;
 for iter = 2 : maxiter

@@ -17,7 +17,8 @@ t = bsxfun(@minus,t,tbar);
 
 C = X*X';
 Xt = X*t';
-dg = sub2ind([d,d],1:d,1:d);
+idx = (1:d)';
+dg = sub2ind([d,d],idx,idx);
 I = eye(d);
 tol = 1e-4;
 maxiter = 100;
