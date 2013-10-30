@@ -10,7 +10,7 @@ t = w'*X+b+beta*randn(1,n);
 
 x = linspace(min(X)-1,max(X)+1,n);   % test data
 %%
-[model,llh] = regressRvmEbFp(X,t);
+[model,llh] = rvmRegEbFp(X,t);
 figure
 plot(llh);
 [y, sigma] = linInfer(x,model,t);
@@ -21,7 +21,7 @@ plot(X,t,'o');
 plot(x,y,'r-');
 hold off
 %%
-[model,llh] = regressRvmEbEm(X,t);
+[model,llh] = rvmRegEbEm(X,t);
 figure
 plot(llh);
 [y, sigma] = linInfer(x,model,t);
@@ -40,7 +40,7 @@ n = 1000;
 [x1,x2] = meshgrid(linspace(min(X(1,:)),max(X(1,:)),n), linspace(min(X(2,:)),max(X(2,:)),n));
 
 %%
-[model, llh] = classRvmEbFp(X,t-1);
+[model, llh] = rvmEbFp(X,t-1);
 figure
 plot(llh);
 figure;
@@ -52,7 +52,7 @@ hold on;
 contour(x1,x2,y,1);
 hold off;
 %%
-[model, llh] = classRvmEbEm(X,t-1);
+[model, llh] = rvmEbEm(X,t-1);
 figure
 plot(llh);
 figure;

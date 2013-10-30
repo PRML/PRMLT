@@ -2,12 +2,13 @@ function [model, llh] = logitReg(X, t, lambda)
 % logistic regression for binary classification (Bernoulli likelihood)
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
-    lambda = 1e-4;
+    lambda = 1e-6;
 end
 [d,n] = size(X);
-dg = sub2ind([d,d],1:d,1:d);
-X = [X; ones(1,n)];
 d = d+1;
+idx = (1:d)';
+dg = sub2ind([d,d],idx,idx);
+X = [X; ones(1,n)];
 
 tol = 1e-4;
 maxiter = 100;
@@ -22,13 +23,13 @@ for iter = 2:maxiter
     Xw = bsxfun(@times, X, sqrt(y.*(1-y)));
     H = Xw*Xw';
     H(dg) = H(dg)+lambda;
-    g = X*(y-t)'+lambda*w;
+    g = X*(y-t)'+lambda.*w;
     p = -H\g;
     wo = w;
     while true
         w = wo+p;
         z = w'*X;   
-        llh(iter) = -sum(log1pexp(-h.*z))-0.5*lambda*dot(w,w);
+        llh(iter) = -sum(log1pexp(-h.*z))-0.5*sum(lambda.*w.^2);
         progress = llh(iter)-llh(iter-1);
         if progress < 0
             p = p/2;
