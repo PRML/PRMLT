@@ -25,7 +25,8 @@ for iter = 2:maxiter
     if abs(llh(iter)-llh(iter-1)) < tol*llh(iter-1); break; end
     V = inv(U);
     dgS = dot(V,V,2);
-    alpha = 1./(w2+dgS);    % 9.67
+    alpha(used) = 1./(w2+dgS);    % 9.67
+    weight(used) = w;
 end
 llh = llh(2:iter);
 

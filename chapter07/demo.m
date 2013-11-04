@@ -40,27 +40,27 @@ n = 1000;
 [x1,x2] = meshgrid(linspace(min(X(1,:)),max(X(1,:)),n), linspace(min(X(2,:)),max(X(2,:)),n));
 
 %%
-% [model, llh] = rvmEbFp(X,t-1);
-% figure
-% plot(llh);
-% figure;
-% spread(X,t);
-% 
-% w = zeros(3,1);
-% w(model.used) = model.w;
-% y = w(1)*x1+w(2)*x2+w(3);
-% hold on;
-% contour(x1,x2,y,1);
-% hold off;
-%%
-[model, llh] = rvmEbEm(X,t-1);
+[model, llh] = rvmEbFp(X,t-1);
 figure
 plot(llh);
 figure;
 spread(X,t);
 
-w = model.w;
+w = zeros(3,1);
+w(model.used) = model.w;
 y = w(1)*x1+w(2)*x2+w(3);
 hold on;
 contour(x1,x2,y,1);
 hold off;
+%%
+% [model, llh] = rvmEbEm(X,t-1);
+% figure
+% plot(llh);
+% figure;
+% spread(X,t);
+% 
+% w = model.w;
+% y = w(1)*x1+w(2)*x2+w(3);
+% hold on;
+% contour(x1,x2,y,1);
+% hold off;

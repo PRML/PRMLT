@@ -6,4 +6,3 @@ TODO:
 
 % viterbi normalize update
 % rvm cd
-% rvm and chapter 07: logistic regression opt replace

@@ -26,6 +26,7 @@ for iter = 2:maxiter
     V = inv(U);
     dgS = dot(V,V,2);
     alpha(used) = (1-a.*dgS)./w2;       % 7.89 & 7.87
+    weight(used) = w;
 end
 llh = llh(2:iter);
 
