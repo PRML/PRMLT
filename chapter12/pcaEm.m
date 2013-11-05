@@ -23,14 +23,14 @@ s = rand;
 for iter = 2:maxiter
     M = W'*W;
     M(dg) = M(dg)+s;
-    R = chol(M);
-    invM = R\(R'\I);
+    U = chol(M);
+    invM = U\(U'\I);
     WX = W'*X;
     
     % likelihood
-    logdetC = 2*sum(log(diag(R)))+(m-q)*log(s);
-    U = R'\WX;
-    trInvCS = (r-dot(U(:),U(:)))/(s*n);
+    logdetC = 2*sum(log(diag(U)))+(m-q)*log(s);
+    T = U'\WX;
+    trInvCS = (r-dot(T(:),T(:)))/(s*n);
     llh(iter) = -n*(m*log(2*pi)+logdetC+trInvCS)/2;
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
     
@@ -39,14 +39,14 @@ for iter = 2:maxiter
     Ezz = n*s*invM+Ez*Ez'; % n*s because we are dealing with all n E[zi*zi']
     
     % M step
-    R = chol(Ezz);  
-    W = ((X*Ez')/R)/R';
-    WR = W*R';
+    U = chol(Ezz);  
+    W = ((X*Ez')/U)/U';
+    WR = W*U';
     s = (r-2*dot(Ez(:),WX(:))+dot(WR(:),WR(:)))/(n*m);
 end
 llh = llh(2:iter);
 % W = normalize(orth(W));
-% % [W,R] = qr(W,0); % qr() orthnormalize W which is faster than orth().
+% % [W,U] = qr(W,0); % qr() orthnormalize W which is faster than orth().
 % Z = W'*X;
 % Z = bsxfun(@minus,Z,mean(Z,2));  % for numerical purpose, not really necessary
 % [V,A] = eig(Z*Z');

@@ -19,15 +19,15 @@ W = rand(m,q);
 invpsi = 1./rand(m,1);
 for iter = 2:maxiter
     % compute quantities needed
-    U = bsxfun(@times,W,sqrt(invpsi));
-    M = U'*U+I;                     % M = W'*inv(Psi)*W+I
-    R = chol(M);
-    G = R\(R'\I);
+    T = bsxfun(@times,W,sqrt(invpsi));
+    M = T'*T+I;                     % M = W'*inv(Psi)*W+I
+    U = chol(M);
+    G = U\(U'\I);
     WinvPsiX = bsxfun(@times,W,invpsi)'*X;       % WinvPsiX = W'*inv(Psi)*X
     
     % likelihood
-    logdetC = 2*sum(log(diag(R)))-sum(log(invpsi));              % log(det(C))
-    Q = R'\WinvPsiX;
+    logdetC = 2*sum(log(diag(U)))-sum(log(invpsi));              % log(det(C))
+    Q = U'\WinvPsiX;
     trinvCS = (r'*invpsi-dot(Q(:),Q(:)))/n;  % trace(inv(C)*S)
     llh(iter) = -n*(m*log(2*pi)+logdetC+trinvCS)/2;
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
@@ -37,9 +37,9 @@ for iter = 2:maxiter
     Ezz = n*G+Ez*Ez';
     
     % M step    
-    R = chol(Ezz);  
+    U = chol(Ezz);  
     XEz = X*Ez';
-    W = (XEz/R)/R';
+    W = (XEz/U)/U';
     invpsi = n./(r-dot(W,XEz,2));
 end
 llh = llh(2:iter);

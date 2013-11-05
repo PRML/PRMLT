@@ -18,8 +18,8 @@ idx = (1:d)';
 dg = sub2ind([d,d],idx,idx);
 S(dg) = S(dg)+lambda;
 % w = S\(X*t');
-R = chol(S);
-w = R\(R'\(X*t'));  % 3.15 & 3.28
+U = chol(S);
+w = U\(U'\(X*t'));  % 3.15 & 3.28
 w0 = tbar-dot(w,xbar);  % 3.19
 
 model.w = w;
