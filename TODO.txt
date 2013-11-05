@@ -1,8 +1,9 @@
 TODO: 
-1) derive simpler bound for vb and improve vb functions chapter 10
-2) chapter 14
-% 1) plot boundary contour function
-% 2) classification inference function
+derive simpler bound for vb and improve vb functions chapter 10
+fix llh for rvm cd
+viterbi normalize update
 
-% viterbi normalize update
-% rvm cd
+Other:
+Add plot function
+Add inference function for classification, mixture models
+Add unit test
