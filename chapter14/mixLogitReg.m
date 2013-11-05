@@ -9,7 +9,7 @@ R = full(sparse(1:n,z,1,n,k,n)); %  n x k
 
 W = zeros(d,k);
 w0 = zeros(1,k);
-tol = 1e-6;
+tol = 1e-4;
 maxiter = 100;
 llh = -inf(1,maxiter);
 

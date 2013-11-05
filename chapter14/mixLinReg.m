@@ -37,7 +37,7 @@ for iter = 2 : maxiter
     logR = bsxfun(@minus,logRho,T);
     R = exp(logR);
     llh(iter) = sum(T)/n;
-    if abs(llh(iter)-llh(iter-1)) < tol; break; end
+    if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter)); break; end
 end
 [~,label] = max(R,[],1);
 llh = llh(2:iter);
