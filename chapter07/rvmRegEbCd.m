@@ -1,8 +1,8 @@
 function [model, llh] = rvmRegEbCd(X, t)
+% TODO: llh not increasing. verify with sparse high dimensional data
+% Sparse Bayesian Regression (RVM) using Coordinate Descent
 % reference:
-% Analysis of sparse Bayesian learning. NIPS(2002). By Faul and Tipping
-% Fast marginal likelihood maximisation for sparse Bayesian models.
-% AISTATS(2003). by Tipping and Faul 
+% Tipping and Faul. Fast marginal likelihood maximisation for sparse Bayesian models. AISTATS 2003.
 % Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
 xbar = mean(X,2);
@@ -16,14 +16,13 @@ S = beta*dot(X,X,2);
 Q = beta*(X*t');
 Sigma = zeros(0,0);  
 mu = zeros(0,1);  
-dim = zeros(0,1);
 Phi = zeros(0,n);
+dim = zeros(0,1);
 
-iter = 1;
-maxiter = 1000;
-tol = 1e-4;
+maxiter = 100;
+tol = 1e-2;
 llh = -inf(1,maxiter);
-indAction = zeros(d,3);   
+iAct = zeros(d,3);   
 iUse = false(d,1);
 s = S; q = Q; 
 for iter = 2:maxiter
@@ -31,8 +30,8 @@ for iter = 2:maxiter
     iNew = theta>0;
     
     iUpd = (iNew & iUse); % update
-    iAdd = (iNew~=iUpd); % add
-    iDel = (iUse~=iUpd); % del
+    iAdd = (iNew ~= iUpd); % add
+    iDel = (iUse ~= iUpd); % del
     
     % find the next alpha that maximizes the marginal likilihood
     tllh = -inf(d,1);  % trial (temptoray) likelihood
@@ -51,12 +50,12 @@ for iter = 2:maxiter
     [llh(iter),j] = max(tllh);
     if abs(llh(iter)-llh(iter-1)) < tol*llh(iter-1); break; end
 
-    indAction(:,1) = iAdd;
-    indAction(:,2) = iDel;
-    indAction(:,3) = iUpd;
+    iAct(:,1) = iAdd;
+    iAct(:,2) = iDel;
+    iAct(:,3) = iUpd;
     
     % update parameters
-    switch find(indAction(j,:))
+    switch find(iAct(j,:))
         case 1 % Add
             alpha(j) = s(j)^2/theta(j);
             Sigma_jj = 1/(alpha(j)+S(j));
