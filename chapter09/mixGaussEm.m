@@ -15,9 +15,10 @@ llh = -inf(1,maxiter);
 for iter = 2:maxiter
     model = maximization(X,R);
     [R, llh(iter)] = expectation(X,model);
-    [~,label(:)] = max(R,[],2);
+
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter)); break; end;
 end
+[~,label(:)] = max(R,[],2);
 llh = llh(2:iter);
 
 function R = initialization(X, init)

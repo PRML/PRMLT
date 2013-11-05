@@ -1,4 +1,4 @@
-function [model, llh] = mixLinReg(X, y, k, lambda)
+function [model, label, llh] = mixLinReg(X, y, k, lambda)
 % mixture of linear regression
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 4
@@ -39,6 +39,7 @@ for iter = 2 : maxiter
     llh(iter) = sum(T)/n;
     if abs(llh(iter)-llh(iter-1)) < tol; break; end
 end
+[~,label] = max(R,[],1);
 llh = llh(2:iter);
 
 model.alpha = alpha; % mixing coefficient

@@ -1,6 +1,5 @@
-clear all;
-%% Generate Data
-
+clear all; close all
+%% Test for mixLinReg
 d = 1;
 k = 3;
 n = 500;
@@ -15,19 +14,7 @@ for j = 1:k
 end
 
 plot(x,y,'.');
-
-[model,llh] = mixLinReg(X, y, 2);
+[model, label,llh] = mixLinReg(X, y, 3);
+spread([x;y],label);
+figure
 plot(llh);
-% 
-% figure();
-% subplot(1,3,1);
-% plot(x1,y1,'r*'); hold on;
-% plot(x2,y2,'bx');
-% hold off;
-% subplot(1,3,2);
-% plot(X,y,'r*');
-% % subplot(1,3,3);
-% hold on;
-% plot(x1,x1*model.W(1,1) + model.W(2,1),'r-');hold on;
-% plot(x2,x2*model.W(1,2) + model.W(2,2),'b-');
-% hold off;
