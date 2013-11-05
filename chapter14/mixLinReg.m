@@ -16,20 +16,20 @@ maxiter = 200;
 llh = -inf(1,maxiter);
 lambda = lambda*ones(d,1);
 W = zeros(d,k);
+Xy = bsxfun(@times,X,y);
 beta = 1;
-for iter = 2 : maxiter
+for iter = 2:maxiter
     % maximization
     nk = sum(R,2);
     alpha = nk/n;
-
     for j = 1:k
         Xw = bsxfun(@times,X,sqrt(R(j,:)));
         C = Xw*Xw';
         C(dg) = C(dg)+lambda;
         U = chol(C);
-        W(:,j) = U\(U'\(X*(R(j,:).*y)'));  % 3.15 & 3.28
+        W(:,j) = U\(U'\(Xy*R(j,:)'));  % 3.15 & 3.28
     end
-    D = (bsxfun(@minus,W'*X,y)).^2;
+    D = bsxfun(@minus,W'*X,y).^2;
     % expectation
     logRho = (-0.5)*beta*D;
     logRho = bsxfun(@plus,logRho,log(alpha));

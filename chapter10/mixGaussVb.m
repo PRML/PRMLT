@@ -16,11 +16,11 @@ end
 tol = 1e-20;
 maxiter = 2000;
 L = -inf(1,maxiter);
-model.R = initialization(X,init);
+model.R = initialize(X,init);
 for iter = 2:maxiter
-    model = vmax(X, model, prior);
-    model = vexp(X, model);
-    L(iter) = vbound(X,model,prior)/n;
+    model = maximize(X, model, prior);
+    model = expect(X, model);
+    L(iter) = bound(X,model,prior)/n;
     if abs(L(iter)-L(iter-1)) < tol*abs(L(iter)); break; end
 end
 L = L(2:iter);
@@ -29,9 +29,9 @@ label = zeros(1,n);
 [~,~,label] = unique(label);
 
 
-function R = initialization(X, init)
+function R = initialize(X, init)
 [d,n] = size(X);
-if length(init) == 1  % random initialization
+if length(init) == 1  % random initialize
     k = init;
     idx = randsample(n,k);
     m = X(:,idx);
@@ -57,7 +57,7 @@ else
     error('ERROR: init is not valid.');
 end
 % Done
-function model = vmax(X, model, prior)
+function model = maximize(X, model, prior)
 alpha0 = prior.alpha;
 kappa0 = prior.kappa;
 m0 = prior.m;
@@ -91,7 +91,7 @@ model.m = m;
 model.v = v;
 model.M = M; % Whishart: M = inv(W)
 % Done
-function model = vexp(X, model)
+function model = expect(X, model)
 alpha = model.alpha; % Dirichlet
 kappa = model.kappa;   % Gaussian
 m = model.m;         % Gasusian
@@ -120,7 +120,7 @@ R = exp(logR);
 model.logR = logR;
 model.R = R;
 % Done
-function L = vbound(X, model, prior)
+function L = bound(X, model, prior)
 alpha0 = prior.alpha;
 kappa0 = prior.kappa;
 m0 = prior.m;
