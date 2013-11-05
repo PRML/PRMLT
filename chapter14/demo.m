@@ -6,7 +6,7 @@ k = 3;
 n = 500;
 W = randn(d+1,k);
 
-[x, label] = kmeansrnd(d, k, n);
+[x, label] = rndKmeans(d, k, n);
 X = [x; ones(1,n)];
 y = zeros(1,n);
 for j = 1:k
