@@ -9,10 +9,8 @@ clear; close all;
 % t = w'*X+b+beta*randn(1,n);
 % 
 % x = linspace(min(X)-1,max(X)+1,n);   % test data
-
-
-X = rand(3,100);
-t = rand(1,100);
+% X = rand(3,100);
+% t = rand(1,100);
 %%
 % [model,energy] = regressVb(X,t);
 % % figure
@@ -24,15 +22,19 @@ t = rand(1,100);
 % plot(X,t,'o');
 % plot(x,y,'r-');
 % hold off
-
 %%
-[model,energy] = regressRvmVb(X,t);
-% figure
-plot(energy);
-y = linInfer(x,model);
-figure;
-hold on;
-% plotBand(x,y,2*sigma);
-plot(X,t,'o');
-plot(x,y,'r-');
-hold off
+% [model,energy] = regressRvmVb(X,t);
+% % figure
+% plot(energy);
+% y = linInfer(x,model);
+% figure;
+% hold on;
+% % plotBand(x,y,2*sigma);
+% plot(X,t,'o');
+% plot(x,y,'r-');
+% hold off
+%%
+[X,y] = rndKmeans(2,3,1000);
+spread(X,y)
+[label, model, energy] = mixGaussVb(X,10);
+spread(X,label)

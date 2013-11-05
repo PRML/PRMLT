@@ -16,26 +16,18 @@ end
 tol = 1e-20;
 maxiter = 2000;
 L = -inf(1,maxiter);
-converged = false;
-t = 1;
-
 model.R = initialization(X,init);
-while  ~converged && t < maxiter
-    t = t+1;
+for iter = 2:maxiter
     model = vmax(X, model, prior);
     model = vexp(X, model);
-    L(t) = vbound(X,model,prior)/n;
-    converged = abs(L(t)-L(t-1)) < tol*abs(L(t));
+    L(iter) = vbound(X,model,prior)/n;
+    if abs(L(iter)-L(iter-1)) < tol*abs(L(iter)); break; end
 end
-L = L(2:t);
+L = L(2:iter);
 label = zeros(1,n);
 [~,label(:)] = max(model.R,[],2);
 [~,~,label] = unique(label);
-if converged
-    fprintf('Converged in %d steps.\n',t-1);
-else
-    fprintf('Not converged in %d steps.\n',maxiter);
-end
+
 
 function R = initialization(X, init)
 [d,n] = size(X);
@@ -186,11 +178,11 @@ end
 
 ElogLambda = sum(psi(0,bsxfun(@minus,v+1,(1:d)')/2),1)+d*log(2)+logW; % 10.65
 Epmu = sum(d*log(kappa0/(2*pi))+ElogLambda-d*kappa0./kappa-kappa0*(v.*mm0Wmm0))/2;
-logB0 = v0*sum(log(diag(U0)))-0.5*v0*d*log(2)-logmvgamma(0.5*v0,d);
+logB0 = v0*sum(log(diag(U0)))-0.5*v0*d*log(2)-logMvGamma(0.5*v0,d);
 EpLambda = k*logB0+0.5*(v0-d-1)*sum(ElogLambda)-0.5*dot(v,trM0W);
 
 Eqmu = 0.5*sum(ElogLambda+d*log(kappa/(2*pi)))-0.5*d*k;
-logB =  -v.*(logW+d*log(2))/2-logmvgamma(0.5*v,d);
+logB =  -v.*(logW+d*log(2))/2-logMvGamma(0.5*v,d);
 EqLambda = 0.5*sum((v-d-1).*ElogLambda-v*d)+sum(logB);
 
 EpX = 0.5*dot(nk,ElogLambda-d./kappa-v.*trSW-v.*xbarmWxbarm-d*log(2*pi));
