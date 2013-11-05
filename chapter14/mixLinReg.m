@@ -21,7 +21,7 @@ for iter = 2 : maxiter
     % maximization
     nk = sum(R,2);
     alpha = nk/n;
-%     beta = n/dot(R(:),D(:));
+
     for j = 1:k
         Xw = bsxfun(@times,X,sqrt(R(j,:)));
         C = Xw*Xw';
