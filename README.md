@@ -1,9 +1,9 @@
 Pattern Recognition and Machine Learning
 ===========
 
-This package contains the matlab implementation of the algorithms described in the book Pattern Recognition and Machine Learning by C. Bishop.
+This package contains the matlab implementation of the algorithms described in the book:
+Pattern Recognition and Machine Learning by C. Bishop (http://research.microsoft.com/en-us/um/people/cmbishop/prml/)
 
-see http://research.microsoft.com/en-us/um/people/cmbishop/prml/
 
 License
 -------
