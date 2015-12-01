@@ -1,0 +1,9 @@
+TODO: 
+derive simpler bound for vb and improve vb functions chapter 10
+fix llh for rvm cd
+viterbi normalize update
+
+Other:
+Add plot function
+Add inference function for classification, mixture models
+Add unit test

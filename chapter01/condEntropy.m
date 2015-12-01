@@ -1,6 +1,6 @@
 function z = condEntropy (x, y)
 % Compute conditional entropy H(x|y) of two discrete variables x and y.
-% Written by Mo Chen (mochen80@gmail.com).
+% Written by Mo Chen (sth4nth@gmail.com).
 assert(numel(x) == numel(y));
 n = numel(x);
 x = reshape(x,1,n);
@@ -22,4 +22,4 @@ Hy = -dot(Py,log2(Py));
 
 % conditional entropy H(x|y)
 z = Hxy-Hy;
-
+z = max(0,z);

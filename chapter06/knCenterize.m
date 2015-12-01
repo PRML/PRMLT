@@ -1,5 +1,6 @@
 function Kc = knCenterize(kn, X, Xt)
 % Centerize the data in the kernel space
+% Written by Mo Chen (sth4nth@gmail.com).
 K = kn(X,X);
 mK = mean(K);
 mmK = mean(mK);

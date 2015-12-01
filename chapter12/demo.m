@@ -12,4 +12,7 @@ Xo = U*S*V';
 X = bsxfun(@plus,Xo,mu);
 
 %%
-[model,energy] = dimPcaVb(X);
+[model,energy] = pcaVb(X);
+[model, llh] = pcaEm(X,3);
+[model, llh] = fa(X,3);
+plot(energy)

@@ -1,5 +1,6 @@
 function K = knGauss(X, Y, s)
 % Gaussian (RBF) kernel
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     s = 1;
 end

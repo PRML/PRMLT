@@ -1,7 +1,7 @@
 function s = softmax(x, dim)
 % Compute softmax
 %   By default dim = 1 (columns).
-% Written by Michael Chen (sth4nth@gmail.com).
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin == 1, 
     % Determine which dimension sum will use
     dim = find(size(x)~=1,1);
