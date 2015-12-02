@@ -1,6 +1,6 @@
 function [X, z, center] = rndKCluster(d, k, n)
 % Sampling from a Gaussian mixture distribution with common variances (kmeans model).
-% Written by Michael Chen (sth4nth@gmail.com).
+% Written by Mo Chen (sth4nth@gmail.com).
 a = 1;
 b = 6*nthroot(k,d);
 

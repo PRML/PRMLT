@@ -1,5 +1,6 @@
 function z = entropy(x)
 % Compute entropy H(x) of a discrete variable x.
+% x: a vectors of integers
 % Written by Mo Chen (sth4nth@gmail.com).
 n = numel(x);
 x = reshape(x,1,n);

@@ -1,6 +1,6 @@
 function spread(X, label)
 % Plot samples of different labels with different colors.
-% Written by Michael Chen (sth4nth@gmail.com).
+% Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
 if nargin == 1
     label = ones(n,1);

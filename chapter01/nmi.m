@@ -1,6 +1,7 @@
 function z = nmi(x, y)
 % Compute nomalized mutual information I(x,y)/sqrt(H(x)*H(y)).
-% Written by Michael Chen (sth4nth@gmail.com).
+% x, y: two vectors of integers of the same length
+% Written by Mo Chen (sth4nth@gmail.com).
 assert(numel(x) == numel(y));
 n = numel(x);
 x = reshape(x,1,n);
