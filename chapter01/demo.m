@@ -1,4 +1,6 @@
-
+% Done
+% demo for information theory toolbox
+clear;
 k = 10;  % variable range
 n = 100;  % number of variables
 
@@ -12,27 +14,27 @@ y = ceil(k*rand(1,n));
 Hx = entropy(x);
 Hy = entropy(y);
 %% joint entropy H(x,y)
-Hxy = jointEntropy(x, y);
+Hxy = jointEntropy(x,y);
 %% conditional entropy H(x|y)
-Hx_y = condEntropy(x, y);
+Hx_y = condEntropy(x,y);
 %% mutual information I(x,y)
-Ixy = mutInfo(x, y);
+Ixy = mutInfo(x,y);
 %% relative entropy (KL divergence) KL(p(x)|p(y))
-Dxy = relatEntropy(x, y);
+Dxy = relatEntropy(x,y);
 %% normalized mutual information I_n(x,y)
-nIxy = nmi(x, y);
+nIxy = nmi(x,y);
 %% nomalized variation information I_v(x,y)
-vIxy = nvi(x, y);
+vIxy = nvi(x,y);
 %% H(x|y) = H(x,y)-H(y)
-isequalf(Hx_y, Hxy-Hy)
+isequalf(Hx_y,Hxy-Hy)
 %% I(x,y) = H(x)-H(x|y)
-isequalf(Ixy, Hx-Hx_y)
+isequalf(Ixy,Hx-Hx_y)
 %% I(x,y) = H(x)+H(y)-H(x,y)
-isequalf(Ixy, Hx+Hy-Hxy)
+isequalf(Ixy,Hx+Hy-Hxy)
 %% I_n(x,y) = I(x,y)/sqrt(H(x)*H(y))
-isequalf(nIxy, Ixy/sqrt(Hx*Hy))
+isequalf(nIxy,Ixy/sqrt(Hx*Hy))
 %% I_v(x,y) = (1-I(x,y)/H(x,y))
-isequalf(vIxy, 1-Ixy/Hxy)
+isequalf(vIxy,1-Ixy/Hxy)
 
 
 
