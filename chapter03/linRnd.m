@@ -1,5 +1,5 @@
 function [X, t, model] = linRnd(d, n)
-% Generate a data from a linear model p(t|w,x)=G(w'x+w0,sigma), sigma=sqrt(1/beta) 
+% Generate data from a linear model p(t|w,x)=G(w'x+w0,sigma), sigma=sqrt(1/beta) 
 % where w and w0 are generated from Gauss(0,1),
 %       beta is generated from Gamma(1,1),
 %       X is generated form [0,1]
