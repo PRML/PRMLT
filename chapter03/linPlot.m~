@@ -1,0 +1,19 @@
+function linPlot(model, x, t)
+color = [255,228,225]/255; %pink
+
+x = x(:);
+y = y(:);
+h = h(:); 
+
+n = length(x);
+xl = min(x);
+xu = max(x);
+
+[y,sigma,p] = linPred(model,x,t);
+h = 2*sigma;
+
+
+plot(x,y,'r-');
+fill([x;flipud(x)],[y+h;flipud(y-h)],color);
+end
+

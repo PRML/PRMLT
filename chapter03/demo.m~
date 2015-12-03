@@ -24,6 +24,7 @@ hold off
 pause
 %%
 [model,llh] = linRegEbEm(X,t);
+
 [y, sigma] = linPred(model,x,t);
 figure;
 hold on;
@@ -33,7 +34,6 @@ plot(x,y,'r-');
 hold off
 figure
 plot(llh);
-linPlot(model,x,t)
 pause
 %%
 [model,llh] = linRegEbFp(X,t);

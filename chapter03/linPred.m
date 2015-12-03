@@ -1,4 +1,4 @@
-function [y, sigma, p] = linPredict(model, X, t)
+function [y, sigma, p] = linPred(model, X, t)
 % Compute linear model reponse y = w'*X+w0 and likelihood
 % model: trained model structure
 % X: d x n testing data
@@ -7,7 +7,7 @@ function [y, sigma, p] = linPredict(model, X, t)
 w = model.w;
 w0 = model.w0;
 y = w'*X+w0;
-if nargout == 3
+if nargin == 3
     beta = model.beta;
     if isfield(model,'V')   % V*V'=inv(S) 3.54
         U = model.V'*bsxfun(@minus,X,model.xbar);
@@ -16,5 +16,5 @@ if nargout == 3
         sigma = sqrt(1/beta);
     end
     p = exp(logGauss(t,y,sigma));
-%     p2 = exp(-0.5*(((t-y)./sigma).^2+log(2*pi))-log(sigma));
+%     p = exp(-0.5*(((t-y)./sigma).^2+log(2*pi))-log(sigma));
 end
