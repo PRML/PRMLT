@@ -5,12 +5,12 @@ function [X, t, model] = linRnd(d, n)
 %       X is generated form [0,1]
 %   d: dimension of data
 %   n: number of data
-beta = gamrnd(1,1);   % need statistcs toolbox
+beta = gamrnd(10,10);   % need statistcs toolbox
 X = rand(d,n);
 w = randn(d,1);
 w0 = randn(1,1);
-epsilon = randn(1,n)/beta;
-t = w'*X+w0+epsilon;
+err = randn(1,n)/sqrt(beta);
+t = w'*X+w0+err;
 
 model.w = w;
 model.w0 = w0;

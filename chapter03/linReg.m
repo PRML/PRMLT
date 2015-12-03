@@ -21,6 +21,7 @@ S(dg) = S(dg)+lambda;
 U = chol(S);
 w = U\(U'\(X*t'));  % 3.15 & 3.28
 w0 = tbar-dot(w,xbar);  % 3.19
-
+beta = 1/mean((t-w'*X).^2); % 3.21
 model.w = w;
 model.w0 = w0;
+model.beta = beta;

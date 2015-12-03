@@ -1,5 +1,5 @@
 function z = nmi(x, y)
-% Compute nomalized mutual information I(x,y)/sqrt(H(x)*H(y)).
+% Compute normalized mutual information I(x,y)/sqrt(H(x)*H(y)).
 % x, y: two vectors of integers of the same length
 % Written by Mo Chen (sth4nth@gmail.com).
 assert(numel(x) == numel(y));
@@ -18,6 +18,8 @@ My = sparse(idx,y,1,n,k,n);
 Pxy = nonzeros(Mx'*My/n); %joint distribution of x and y
 Hxy = -dot(Pxy,log2(Pxy));
 
+
+% hacking, to elimative the 0log0 issue
 Px = nonzeros(mean(Mx,1));
 Py = nonzeros(mean(My,1));
 
@@ -31,3 +33,4 @@ MI = Hx + Hy - Hxy;
 % normalized mutual information
 z = sqrt((MI/Hx)*(MI/Hy));
 z = max(0,z);
+

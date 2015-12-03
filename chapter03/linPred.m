@@ -7,7 +7,7 @@ function [y, sigma, p] = linPred(model, X, t)
 w = model.w;
 w0 = model.w0;
 y = w'*X+w0;
-if nargin == 3
+if nargout > 1
     beta = model.beta;
     if isfield(model,'V')   % V*V'=inv(S) 3.54
         U = model.V'*bsxfun(@minus,X,model.xbar);
@@ -15,6 +15,8 @@ if nargin == 3
     else
         sigma = sqrt(1/beta);
     end
-    p = exp(logGauss(t,y,sigma));
-%     p = exp(-0.5*(((t-y)./sigma).^2+log(2*pi))-log(sigma));
+    if nargin == 3 && nargout == 3
+        p = exp(logGauss(t,y,sigma));
+%         p = exp(-0.5*(((t-y)./sigma).^2+log(2*pi))-log(sigma));
+    end
 end

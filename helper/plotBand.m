@@ -7,4 +7,4 @@ end
 x = x(:);
 y = y(:);
 h = h(:); 
-fill([x;flipud(x)],[y+h;flipud(y-h)],color);
+fill([x;flipud(x)]',[y+h;flipud(y-h)]',color);

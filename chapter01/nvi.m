@@ -1,5 +1,5 @@
 function z = nvi(x, y)
-% Compute nomalized variation information (1-I(x,y)/H(x,y)).
+% Compute normalized variation information (1-I(x,y)/H(x,y)).
 % x, y: two vectors of integers of the same length
 % Written by Mo Chen (sth4nth@gmail.com).
 assert(numel(x) == numel(y));
