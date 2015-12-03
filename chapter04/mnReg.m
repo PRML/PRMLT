@@ -1,5 +1,5 @@
 function [model, llh] = mnReg(X, t, lambda, method)
-% multinomial regression for multiclass problem (Multinomial likelihood)
+% Multinomial regression for multiclass problem (Multinomial likelihood)
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 4
     method = 1;

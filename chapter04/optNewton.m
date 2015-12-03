@@ -1,5 +1,5 @@
-function [w, llh, U] = optLogitNewton(X, t, lambda, w)
-% logistic regression for binary classification (Bernoulli likelihood)
+function [w, llh, U] = optNewton(X, t, lambda, w)
+% Newton-Raphson (second order) opitimzation method
 % Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
 tol = 1e-4;

@@ -1,5 +1,5 @@
 function [w, llh] = logitReg(X, t, lambda)
-% logistic regression for binary classification (Bernoulli likelihood)
+% Logistic regression for binary classification (Bernoulli likelihood)
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     lambda = 1e-2;

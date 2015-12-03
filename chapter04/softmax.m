@@ -1,5 +1,5 @@
 function s = softmax(x, dim)
-% Compute softmax
+% Softmax function
 %   By default dim = 1 (columns).
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin == 1, 
