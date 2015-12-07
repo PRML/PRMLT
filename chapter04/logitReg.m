@@ -1,4 +1,4 @@
-function [w, llh] = logitReg(X, t, lambda)
+function [model, llh] = logitReg(X, t, lambda)
 % Logistic regression for binary classification optimized by Newton-Raphson
 % method.
 %   X: dxn data matrix
@@ -23,28 +23,28 @@ h(t==0) = -1;
 w = rand(d,1);
 z = w'*X;
 for iter = 2:maxiter
-    y = sigmoid(z);
-    r = y.*(1-y);                       % 4.89
+    y = sigmoid(z);                     % 4.87
+    r = y.*(1-y);                       % 4.98
     Xw = bsxfun(@times, X, sqrt(r));
-    H = Xw*Xw';                         % 4.95
+    H = Xw*Xw';                         % 4.97
     H(dg) = H(dg)+lambda;
     U = chol(H);
-    g = X*(y-t)'+lambda.*w;
+    g = X*(y-t)'+lambda.*w;             % 4.96
     p = -U\(U'\g);
-    wo = w;
-    while true      % line search
+    wo = w;                             % 4.92
+    w = wo+p;
+    z = w'*X;   
+    llh(iter) = -sum(log1pexp(-h.*z))-0.5*sum(lambda.*w.^2);  % 4.89
+    incr = llh(iter)-llh(iter-1);
+    while incr < 0      % line search
+        p = p/2;
         w = wo+p;
         z = w'*X;   
         llh(iter) = -sum(log1pexp(-h.*z))-0.5*sum(lambda.*w.^2);
         incr = llh(iter)-llh(iter-1);
-        if incr < 0
-            p = p/2;
-        else
-           break;
-        end
     end
     if incr < tol; break; end
 end
 llh = llh(2:iter);
-% model.w = w(1:(end-1));
-% model.w0 = w(end);
+model.w = w(1:(end-1));
+model.w0 = w(end);
