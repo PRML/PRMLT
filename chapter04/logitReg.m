@@ -6,24 +6,21 @@ function [model, llh] = logitReg(X, t, lambda)
 %   lambda: regularization parameter
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
-    lambda = 0;
+    lambda = 1e-2;
 end
 X = [X; ones(1,size(X,2))];
 [d,n] = size(X);
-
-
 tol = 1e-4;
 maxiter = 100;
 llh = -inf(1,maxiter);
-
 idx = (1:d)';
 dg = sub2ind([d,d],idx,idx);
 h = ones(1,n);
 h(t==0) = -1;
-w = rand(d,1);
-z = w'*X;
+w = zeros(d,1);
+a = w'*X;
 for iter = 2:maxiter
-    y = sigmoid(z);                     % 4.87
+    y = sigmoid(a);                     % 4.87
     r = y.*(1-y);                       % 4.98
     Xw = bsxfun(@times, X, sqrt(r));
     H = Xw*Xw';                         % 4.97
@@ -32,17 +29,17 @@ for iter = 2:maxiter
     g = X*(y-t)'+lambda.*w;             % 4.96
     p = -U\(U'\g);
     wo = w;                             % 4.92
-    w = wo+p;
-    z = w'*X;   
-    llh(iter) = -sum(log1pexp(-h.*z))-0.5*sum(lambda.*w.^2);  % 4.89
+    w = wo+p;   
+    a = w'*X;   
+    llh(iter) = -sum(log1pexp(-h.*a))-0.5*sum(lambda.*w.^2);  % 4.89
     incr = llh(iter)-llh(iter-1);
-    while incr < 0      % line search
-        p = p/2;
-        w = wo+p;
-        z = w'*X;   
-        llh(iter) = -sum(log1pexp(-h.*z))-0.5*sum(lambda.*w.^2);
-        incr = llh(iter)-llh(iter-1);
-    end
+%     while incr < 0      % line search
+%         p = p/2;
+%         w = wo+p;
+%         a = w'*X;   
+%         llh(iter) = -sum(log1pexp(-h.*a))-0.5*sum(lambda.*w.^2);
+%         incr = llh(iter)-llh(iter-1);
+%     end
     if incr < tol; break; end
 end
 llh = llh(2:iter);
