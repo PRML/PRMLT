@@ -1,4 +1,4 @@
-function [X, z, center] = rndKmeans(d, k, n)
+function [X, z, center] = kmeansRnd(d, k, n)
 % Sampling from a Gaussian mixture distribution with common variances (kmeans model).
 % Written by Michael Chen (sth4nth@gmail.com).
 a = 1;

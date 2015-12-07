@@ -1,4 +1,4 @@
-function x = rndDiscrete(p, n)
+function x = discreteRnd(p, n)
 % Sampling from a discrete distribution (multinomial).
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin == 1
