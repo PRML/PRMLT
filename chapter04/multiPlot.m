@@ -1,12 +1,12 @@
-function binPlot(model, X, t)
+function multiPlot(model, X, t)
 % Plot binary classification result for 2d data
 %   X: 2xn data matrix
 %   t: 1xn label
-w = model.w;
-w0 = model.w0;
+W = model.W;
+X = [X; ones(1,size(X,2))];
 figure;
 spread(X,t);
-y = w'*X+w0;
+y = W'*X;
 hold on;
 contour(X(1,:),X(2,:),y,1);
 hold off;
