@@ -1,23 +1,26 @@
-function U = fda(X, y, d)
+function U = fda(X, t, d)
 % Fisher (linear) discriminant analysis
+%   X: dxn data matrix
+%   t: 1xn label
+%   d: target dimension
 % Written by Mo Chen (sth4nth@gmail.com).
 n = size(X,2);
-k = max(y);
+k = max(t);
 
-E = sparse(1:n,y,true,n,k,n);  % transform label into indicator matrix
+E = sparse(1:n,t,true,n,k,n);  % transform label into indicator matrix
 nk = full(sum(E));
 
 m = mean(X,2);
 Xo = bsxfun(@minus,X,m);
-St = (Xo*Xo')/n;
+St = (Xo*Xo')/n;                   % 4.43
 
 mk = bsxfun(@times,X*E,1./nk);
 mo = bsxfun(@minus,mk,m);
 mo = bsxfun(@times,mo,sqrt(nk/n));
-Sb = mo*mo';
-% Sw = St-Sb;
+Sb = mo*mo';                       % 4.46
+% Sw = St-Sb;                        % 4.45
 
-[U,A] = eig(Sb,St,'chol');
+[U,A] = eig(Sb,St,'chol');        
 [~,idx] = sort(diag(A),'descend');
 U = U(:,idx(1:d));
 
