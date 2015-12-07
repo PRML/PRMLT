@@ -8,8 +8,8 @@ t = w'*X+b+beta*randn(1,n);
 
 x = linspace(min(X)-1,max(X)+1,n);   % test data
 %%
-model = regressKn(X,t,1e-4,@knGauss);
-y = knInfer(x,model);
+model = knReg(X,t,1e-4,@knGauss);
+y = knPred(x,model);
 figure;
 hold on;
 % plotBand(x,y,2*sigma);

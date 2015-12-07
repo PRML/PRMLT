@@ -8,7 +8,7 @@ w = model.w;
 w0 = model.w0;
 a = w'*X+w0;
 y = a > 0;
-h = ones(1,n);
+h = ones(1,size(X,2));
 h(~y) = -1;
 p = exp(-sum(log1pexp(-h.*a))); 
 

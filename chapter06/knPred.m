@@ -1,5 +1,5 @@
-function [y, sigma2, p] = knInfer(x, model, t)
-% inference for kernel model
+function [y, sigma2, p] = knPred(x, model, t)
+% Prediction for kernel regression model
 % Written by Mo Chen (sth4nth@gmail.com).
 kn = model.kn;
 a = model.a;
