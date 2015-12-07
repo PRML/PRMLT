@@ -2,10 +2,12 @@
 clear; close all;
 k = 2;
 n = 1000;
-[X,t] = rndKCluster(2,k,n);
+[X,t] = kmeansRnd(2,k,n);
 
 [x1,x2] = meshgrid(linspace(min(X(1,:)),max(X(1,:)),n), linspace(min(X(2,:)),max(X(2,:)),n));
 [model, llh] = logitReg(X,t-1,0);
+[y,p] = logitPred(model,X);
+
 w = model.w;
 w0 = model.w0;
 plot(llh);
