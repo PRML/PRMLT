@@ -1,8 +1,8 @@
 function [y, sigma, p] = linPred(model, X, t)
 % Compute linear model reponse y = w'*X+w0 and likelihood
 % model: trained model structure
-% X: d x n testing data
-% t (optional): 1 x n testing response
+%   X: d x n testing data
+%   t (optional): 1 x n testing response
 % Written by Mo Chen (sth4nth@gmail.com).
 w = model.w;
 w0 = model.w0;

@@ -1,7 +1,7 @@
 function [model, llh] = linRegEbEm(X, t, alpha, beta)
 % Fit empirical Bayesian linear model with EM (p.448 chapter 9.3.4)
-% X: d x n data
-% t: 1 x n response
+%   X: d x n data
+%   t: 1 x n response
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     alpha = 0.02;
