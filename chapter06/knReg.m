@@ -4,6 +4,9 @@ function model = knReg(X, t, lambda, kn)
 if nargin < 4
     kn = @knGauss;
 end
+if nargin < 3
+    lambda = 1e-2;
+end
 K = knCenterize(kn,X);
 tbar = mean(t);
 U = chol(K+lambda*eye(size(X,2)));

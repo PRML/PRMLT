@@ -1,4 +1,4 @@
-function [y, sigma2, p] = knPred(x, model, t)
+function [y, sigma2, p] = knPred(model, x, t)
 % Prediction for kernel regression model
 % Written by Mo Chen (sth4nth@gmail.com).
 kn = model.kn;
