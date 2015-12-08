@@ -9,9 +9,11 @@ w0 = model.w0;
 y = w'*X+w0;
 if nargout > 1
     beta = model.beta;
-    if isfield(model,'V')   % V*V'=inv(S) 3.54
-        U = model.V'*bsxfun(@minus,X,model.xbar);
-        sigma = sqrt(1/beta+dot(U,U,1));   % 3.59
+    if isfield(model,'U')   % 3.54
+        U = model.U;
+        Xo = bsxfun(@minus,X,model.xbar);
+        XU = U'\Xo;
+        sigma = sqrt(1/beta+dot(XU,XU,1));
     else
         sigma = sqrt(1/beta);
     end
