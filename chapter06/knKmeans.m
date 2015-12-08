@@ -18,8 +18,8 @@ while any(label ~= last)
     [val, label] = min(Z,[],1);
 end
 energy = sum(val)+trace(K);
-if nargout == 3
-    model.X = X;
-    model.kn = kn;
-    model.label = label;
-end
+% if nargout == 3
+%     model.X = X;
+%     model.kn = kn;
+%     model.label = label;
+% end
