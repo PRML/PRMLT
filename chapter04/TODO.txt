@@ -1,3 +1,2 @@
-binPlot
-multiPlot
-demo
+multiPlot: plot multclass decison boundary
+
