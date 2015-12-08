@@ -26,9 +26,9 @@ maxiter = 100;
 llh = -inf(1,maxiter+1);
 for iter = 2:maxiter
     A = beta*C;
-    A(dg) = A(dg)+alpha;  % 3.81
+    A(dg) = A(dg)+alpha;  % 3.81 3.54
     U = chol(A);
-    V = U\I;
+    V = U\I;               % A=inv(S)
 
     w = beta*(V*(V'*Xt));  % 3.84
     w2 = dot(w,w);
@@ -38,7 +38,7 @@ for iter = 2:maxiter
     llh(iter) = 0.5*(d*log(alpha)+n*log(beta)-alpha*w2-beta*err-logdetA-n*log(2*pi)); % 3.86
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end
     
-    trS = dot(V(:),V(:));
+    trS = dot(V(:),V(:));  % A=inv(S)
     gamma = d-alpha*trS;  % 3.91
     alpha = gamma/w2;    % 3.92
     beta = (n-gamma)/err;   % 3.95
