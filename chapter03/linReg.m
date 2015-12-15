@@ -25,6 +25,7 @@ beta = 1/mean((t-w'*X).^2); % 3.21
 
 model.w = w;
 model.w0 = w0;
+model.xbar = xbar;
 %% optional for bayesian probabilistic inference purpose
 model.beta = beta;
 model.U = U;
