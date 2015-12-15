@@ -19,3 +19,4 @@ model.a = a;
 model.X = X;
 model.tbar = tbar;
 model.beta = beta;
+model.U = U;
