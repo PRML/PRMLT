@@ -7,7 +7,7 @@ end
 if nargin < 3
     lambda = 1e-2;
 end
-K = knCenterize(kn,X);
+K = knCenter(kn,X);
 tbar = mean(t);
 U = chol(K+lambda*eye(size(X,2)));    % 6.62
 a = U\(U'\(t(:)-tbar));               % 6.68
