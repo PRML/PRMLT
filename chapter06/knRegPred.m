@@ -16,7 +16,7 @@ if nargout > 1
     beta = model.beta;
     U = model.U;
     XU = U'\Kt;
-    sigma = sqrt(1/beta+(knCenter(kn,X,Xt)-dot(XU,XU,1))/alpha);   % not right
+    sigma = sqrt(1/beta+(knCenter(kn,X,Xt)-dot(XU,XU,1))/alpha); 
 end
 
 if nargin == 3 && nargout == 3
