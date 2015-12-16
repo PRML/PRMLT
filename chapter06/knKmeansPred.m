@@ -12,5 +12,6 @@ k = max(t);
 
 E = sparse(t,1:n,1,k,n,n);
 E = bsxfun(@times,E,1./sum(E,2));
-
-[val, label] = min(Z,[],1);
+T = E*kn(X,Xt);
+Z = repmat(diag(T*E'),1,n)-2*T;
+[~, label] = min(Z,[],1);

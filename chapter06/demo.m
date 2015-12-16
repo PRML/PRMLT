@@ -1,17 +1,25 @@
-clear; close all;
-
-n = 100;
-x = linspace(0,2*pi,n);   % test data
-t = sin(x)+rand(1,n)/2;
-
-model = knReg(x,t,1e-4,@knGauss);
-y = knRegPred(model, x);
-figure;
-hold on;
-plot(x,t,'o');
-plot(x,y,'r-');
-
-
+% clear; close all;
+% 
+% n = 100;
+% x = linspace(0,2*pi,n);   % test data
+% t = sin(x)+rand(1,n)/2;
+% 
+% model = knReg(x,t,1e-4,@knGauss);
+% y = knRegPred(model, x);
+% figure;
+% hold on;
+% plot(x,t,'o');
+% plot(x,y,'r-');
+d=2;
+k=3;
+n=1000;
+[X,y]=kmeansRnd(d,k,n);
+spread(X,y);
+[label, energy, model] = knKmeans(X, k, @knLin);
+idx = 1:2:n;
+Xt = X(:,idx);
+label = knKmeansPred(model, Xt);
+spread(Xt,label)
 %% kernel regression with linear kernel is linear regression
 % clear; close all;
 % n = 100;
