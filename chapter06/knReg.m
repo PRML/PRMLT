@@ -11,12 +11,15 @@ K = knCenter(kn,X);
 tbar = mean(t);
 U = chol(K+lambda*eye(size(X,2)));    % 6.62
 a = U\(U'\(t(:)-tbar));               % 6.68
-y = a'*K+tbar;
-beta = 1/mean((t-y).^2);              % 3.21
 
 model.kn = kn;
 model.a = a;
 model.X = X;
 model.tbar = tbar;
+%% for probability prediction
+y = a'*K+tbar;
+beta = 1/mean((t-y).^2);              % 3.21
+alpha = lambda*beta;           % lambda=a/b P.153 3.55
+model.alpha = alpha;
 model.beta = beta;
 model.U = U;

@@ -17,11 +17,16 @@ lambda = 1e-4;
 model_kn = knReg(x,t,lambda,@knLin);
 model_lin = linReg(x,t,lambda);
 
-[y_kn, s_kn] = knRegPred(model_kn, x);
-[y_lin, s_lin] = linPred(model_lin,x);
+idx = 1:2:n;
+xt = x(:,idx);
+tt = t(idx);
+[y_lin, s_lin,p_lin] = linPred(model_lin,xt,tt);
+[y_kn, s_kn,p_kn] = knRegPred(model_kn, xt,tt);
+
 
 maxabsdiff(y_kn,y_lin)
 maxabsdiff(s_kn,s_lin)
+maxabsdiff(p_kn,p_lin)
 %% test case for knCenter
 % kn = @knGauss;
 % X=rand(2,100);
