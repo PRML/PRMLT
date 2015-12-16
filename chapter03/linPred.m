@@ -7,13 +7,13 @@ function [y, sigma, p] = linPred(model, X, t)
 w = model.w;
 w0 = model.w0;
 y = w'*X+w0;
-
+%% probability prediction
 if nargout > 1
     beta = model.beta;
     U = model.U;        % 3.54
     Xo = bsxfun(@minus,X,model.xbar);
     XU = U'\Xo;
-    sigma = sqrt(1/beta+dot(XU,XU,1));
+    sigma = sqrt((1+dot(XU,XU,1))/beta);   %3.59
 end
 
 if nargin == 3 && nargout == 3

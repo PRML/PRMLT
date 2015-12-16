@@ -9,9 +9,9 @@ end
 d = size(X,1);
 idx = (1:d)';
 dg = sub2ind([d,d],idx,idx);
-
 xbar = mean(X,2);
 tbar = mean(t,2);
+
 X = bsxfun(@minus,X,xbar);
 t = bsxfun(@minus,t,tbar);
 
