@@ -10,16 +10,17 @@
 % hold on;
 % plot(x,t,'o');
 % plot(x,y,'r-');
-d=2;
-k=3;
-n=1000;
-[X,y]=kmeansRnd(d,k,n);
-spread(X,y);
-[label, energy, model] = knKmeans(X, k, @knLin);
-idx = 1:2:n;
-Xt = X(:,idx);
-label = knKmeansPred(model, Xt);
-spread(Xt,label)
+d = 2;
+k = 3;
+n = 500;
+[X,y] = kmeansRnd(d,k,n);
+label = ceil(k*rand(1,n));
+[y1,en1] = knKmeans(X, label, @knLin);
+[y2,en2] = kmeans(X,label);
+% idx = 1:2:n;
+% Xt = X(:,idx);
+% label = knKmeansPred(model, Xt);
+% spread(Xt,label)
 %% kernel regression with linear kernel is linear regression
 % clear; close all;
 % n = 100;

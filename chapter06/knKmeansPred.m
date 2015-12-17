@@ -9,9 +9,7 @@ kn = model.kn;
 
 n = size(X,2);
 k = max(t);
-
 E = sparse(t,1:n,1,k,n,n);
 E = bsxfun(@times,E,1./sum(E,2));
-T = E*kn(X,Xt);
-Z = repmat(diag(T*E'),1,n)-2*T;
+Z = bsxfun(@plus,-2*E*kn(X,Xt),diag(E*kn(X,X)*E'));
 [~, label] = min(Z,[],1);

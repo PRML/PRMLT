@@ -1,25 +1,34 @@
-function [label, energy, model] = knKmeans(X, k, kn)
+function [label, energy, model] = knKmeans(X, init, kn)
 % Perform kernel k-means clustering.
 %   K: nxn kernel matrix
 %   k: number of cluster
 % Reference: Kernel Methods for Pattern Analysis
 % by John Shawe-Taylor, Nello Cristianini
 % Written by Mo Chen (sth4nth@gmail.com).
-K = kn(X,X);
 n = size(X,2);
-label = ceil(k*rand(1,n));
+if numel(init)==1
+    k = init;
+    label = ceil(k*rand(1,n));
+elseif numel(init)==n
+    label = init;
+    k = max(label);
+end
+K = kn(X,X);
 last = 0;
 while any(label ~= last)
     E = sparse(label,1:n,1,k,n,n);
-    E = bsxfun(@times,E,1./sum(E,2));
+    E = spdiags(1./sum(E,2),0,k,k)*E;
     T = E*K;
-    Z = repmat(diag(T*E'),1,n)-2*T;
     last = label;
-    [val, label] = min(Z,[],1);
+    [val, label] = max(bsxfun(@minus,2*T,diag(T*E')),[],1);
+%     [val, label] = max(bsxfun(@minus,2*T,dot(T,E,2)),[],1);
 end
-energy = sum(val)+trace(K);
+energy = trace(K)-sum(val);               % not consist with kmeans
 if nargout == 3
     model.X = X;
     model.label = label;
     model.kn = kn;
 end
+% TODO: 
+% 2) test equivalency with kmeans
+% 3) test predict
