@@ -1,13 +1,14 @@
-function model = pca( X, p )
+function model = pca(X, p)
 % Principal component analysis
 % Written by Mo Chen (sth4nth@gmail.com).
-
-Xo = bsxfun(@minus,X,mean(X,2));
+xbar = mean(X,2);
+Xo = bsxfun(@minus,X,xbar);
 S = Xo*Xo'/size(X,2);                   % 12.3
-[U,A] = eig(S);                         % 12.5
-[A,idx] = sort(diag(A),'descend');      
+[U,L] = eig(S);                         % 12.5
+[L,idx] = sort(diag(L),'descend');      
 U = U(:,idx(1:p));
-A = A(1:p);
+L = L(1:p);
 
+model.xbar = xbar;
 model.U = U;
-model.A = A;
+model.L = L;
