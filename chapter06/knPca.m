@@ -1,4 +1,4 @@
-function [ R, Z, err, model] = knPca(X, p, kn)
+function model = knPca(X, p, kn)
 % Kernel PCA
 %   X: dxn data matrix 
 %   p: target dimension
@@ -7,17 +7,16 @@ function [ R, Z, err, model] = knPca(X, p, kn)
 if nargin < 3
     kn = @knGauss;
 end
-
 K = kn(X,X);
 K = knCenter(K);
-[V,A] = eig(K);
-[A,idx] = sort(diag(A),'descend');
-V = V(:,idx(1:p))';
-A = A(1:p);
-R = bsxfun(@times,V,1./sqrt(A));
+[V,L] = eig(K);
+[L,idx] = sort(diag(L),'descend');
+V = V(:,idx(1:p));
+L = L(1:p)';
+U = bsxfun(@times,V,1./sqrt(L));
 if nargout > 1    
-    Z = bsxfun(@times,V,sqrt(A));
+    Z = bsxfun(@times,V,sqrt(L));
 end
-if nargout > 2
-    err = diag(K)'-sum(Z.^2,1);
-end
+model.V = V;
+model.L = L;
+model.X = X;

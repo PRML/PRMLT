@@ -47,8 +47,15 @@ knRegPlot(model,x,t);
 % maxabsdiff(sigma_kn,sigma_lin)
 % maxabsdiff(p_kn,p_lin)
 %% kernel PCA with linear kernel is PCA
-% clear; close all;
-% n = 100;
+clear; close all;
+d = 10;
+p = 2;
+n = 500;
+X = randn(d,n);
+
+model = pca(X,p);
+Y = pcaPred(model,X);
+
 %% test case for knCenter
 % kn = @knGauss;
 % X=rand(2,100);
