@@ -1,7 +1,9 @@
-function [ output_args ] = knPcaPred( input_args )
-%KNPCAPRED Summary of this function goes here
-%   Detailed explanation goes here
+function X = knPcaPred(model, Xt)
+% Prediction for kernel PCA
+%   model: trained model structure
+%   X: d x n testing data
+%   t (optional): 1 x n testing response
+% Written by Mo Chen (sth4nth@gmail.com).
 
 
-end
 

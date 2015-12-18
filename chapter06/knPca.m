@@ -1,5 +1,9 @@
-function [ R, Z, err ] = knPca( X, d, kn )
+function [ R, Z, err, model] = knPca(X, d, kn)
 % Kernel PCA
+%   X: dxn data matrix 
+%   d: target dimension
+%   kn: kernel function
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     kn = @knGauss;
 end
