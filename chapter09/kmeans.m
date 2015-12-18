@@ -1,4 +1,4 @@
-function [label, energy] = kmeans(X, init)
+function [label, energy, model] = kmeans(X, init)
 %  Perform k-means clustering.
 %   X: d x n data matrix
 %   k: number of seeds
@@ -19,3 +19,4 @@ while any(label ~= last)
     [val,label] = max(bsxfun(@minus,m'*X,dot(m,m,1)'/2),[],1); % assign samples to the nearest centers
 end
 energy = dot(X(:),X(:))-2*sum(val);   % not consist with knKmeans
+model.means = m;
