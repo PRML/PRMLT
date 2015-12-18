@@ -1,4 +1,4 @@
-function x = rndGauss(mu,Sigma,n)
+function x = gaussRnd(mu,Sigma,n)
 % Sampling from a Gaussian distribution.
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin == 2
