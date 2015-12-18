@@ -1,47 +1,31 @@
-% clear; close all;
+clear; close all;
+
+n = 100;
+x = linspace(0,2*pi,n);   % test data
+t = sin(x)+rand(1,n)/2;
+
+model = knReg(x,t,1e-4,@knGauss);
+knRegPlot(model,x,t);
+%% kernel kmeans with linear kernel is kmeans
+% d = 2;
+% k = 3;
+% n = 500;
+% [X,y] = kmeansRnd(d,k,n);
+% init = ceil(k*rand(1,n));
+% [y_kn,en_kn,model_kn] = knKmeans(X,init,@knLin);
+% [y_lin,en_lin,model_lin] = kmeans(X,init);
 % 
-% n = 100;
-% x = linspace(0,2*pi,n);   % test data
-% t = sin(x)+rand(1,n)/2;
-% 
-% model = knReg(x,t,1e-4,@knGauss);
-% y = knRegPred(model, x);
-% figure;
-% hold on;
-% plot(x,t,'o');
-% plot(x,y,'r-');
-d = 2;
-k = 3;
-n = 500;
-[X,y] = kmeansRnd(d,k,n);
-label = ceil(k*rand(1,n));
-[y1,en1] = knKmeans(X, label, @knLin);
-[y2,en2] = kmeans(X,label);
 % idx = 1:2:n;
 % Xt = X(:,idx);
-% label = knKmeansPred(model, Xt);
-% spread(Xt,label)
-
-%% kernel kmeans with linear kernel is kmeans
-d = 2;
-k = 3;
-n = 500;
-[X,y] = kmeansRnd(d,k,n);
-init = ceil(k*rand(1,n));
-[y_kn,en_kn,model_kn] = knKmeans(X,init,@knLin);
-[y_lin,en_lin,model_lin] = kmeans(X,init);
-
-idx = 1:2:n;
-Xt = X(:,idx);
-
-[t_kn,ent_kn] = knKmeansPred(model_kn, Xt);
-[t_lin,ent_lin] = kmeansPred(model_lin, Xt);
-
-maxabsdiff(y_kn,y_lin)
-maxabsdiff(en_kn,en_lin)
-
-maxabsdiff(t_kn,t_lin)
-maxabsdiff(ent_kn,ent_lin)
+% 
+% [t_kn,ent_kn] = knKmeansPred(model_kn, Xt);
+% [t_lin,ent_lin] = kmeansPred(model_lin, Xt);
+% 
+% maxabsdiff(y_kn,y_lin)
+% maxabsdiff(en_kn,en_lin)
+% 
+% maxabsdiff(t_kn,t_lin)
+% maxabsdiff(ent_kn,ent_lin)
 
 %% kernel regression with linear kernel is linear regression
 % clear; close all;
