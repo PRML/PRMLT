@@ -20,10 +20,10 @@ while any(label ~= last)
     E = spdiags(1./sum(E,2),0,k,k)*E;
     T = E*K;
     last = label;
-    [val, label] = max(bsxfun(@minus,2*T,diag(T*E')),[],1);
+    [val, label] = max(bsxfun(@minus,T,diag(T*E')/2),[],1);
 %     [val, label] = max(bsxfun(@minus,2*T,dot(T,E,2)),[],1);
 end
-energy = trace(K)-sum(val);               % not consist with kmeans
+energy = trace(K)-2*sum(val);               % not consist with kmeans
 if nargout == 3
     model.X = X;
     model.label = label;
