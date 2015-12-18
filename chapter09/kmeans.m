@@ -18,5 +18,5 @@ while any(label ~= last)
     last = label;
     [val,label] = max(bsxfun(@minus,m'*X,dot(m,m,1)'/2),[],1); % assign samples to the nearest centers
 end
-energy = dot(X(:),X(:))-2*sum(val);   % not consist with knKmeans
+energy = dot(X(:),X(:))-2*sum(val); 
 model.means = m;

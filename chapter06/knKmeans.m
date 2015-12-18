@@ -23,12 +23,9 @@ while any(label ~= last)
     [val, label] = max(bsxfun(@minus,T,diag(T*E')/2),[],1);
 %     [val, label] = max(bsxfun(@minus,2*T,dot(T,E,2)),[],1);
 end
-energy = trace(K)-2*sum(val);               % not consist with kmeans
+energy = trace(K)-2*sum(val); 
 if nargout == 3
     model.X = X;
     model.label = label;
     model.kn = kn;
 end
-% TODO: 
-% 2) test equivalency with kmeans
-% 3) test predict
