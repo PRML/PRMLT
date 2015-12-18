@@ -1,7 +1,7 @@
-function [ R, Z, err, model] = knPca(X, d, kn)
+function [ R, Z, err, model] = knPca(X, p, kn)
 % Kernel PCA
 %   X: dxn data matrix 
-%   d: target dimension
+%   p: target dimension
 %   kn: kernel function
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
@@ -12,8 +12,8 @@ K = kn(X,X);
 K = knCenter(K);
 [V,A] = eig(K);
 [A,idx] = sort(diag(A),'descend');
-V = V(:,idx(1:d))';
-A = A(1:d);
+V = V(:,idx(1:p))';
+A = A(1:p);
 R = bsxfun(@times,V,1./sqrt(A));
 if nargout > 1    
     Z = bsxfun(@times,V,sqrt(A));

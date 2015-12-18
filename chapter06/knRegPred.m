@@ -1,7 +1,7 @@
 function [y, sigma, p] = knRegPred(model, Xt, t)
 % Prediction for Gaussian Process (kernel) regression model
 %   model: trained model structure
-%   X: d x n testing data
+%   Xt: d x n testing data
 %   t (optional): 1 x n testing response
 % Written by Mo Chen (sth4nth@gmail.com).
 kn = model.kn;
