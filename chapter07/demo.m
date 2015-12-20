@@ -1,3 +1,8 @@
+% TODO:
+% 1) sparse visualization
+% 2) sparse data/demos
+% 3) fix coordinate descent
+
 % clear; close all;
 % 
 %% regression
@@ -35,7 +40,7 @@ x = linspace(min(X)-1,max(X)+1,n);   % test data
 [model,llh] = rvmRegEbCd(X,t);
 figure
 plot(llh);
-[y, sigma] = linInfer(x,model,t);
+[y, sigma] = linPred(x,model,t);
 figure;
 hold on;
 plotBand(x,y,2*sigma);
