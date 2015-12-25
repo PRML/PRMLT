@@ -1,4 +1,4 @@
-function [y, p] = logitPred(model, X)
+function [y, p] = logitBinPred(model, X)
 % Prodict the label for binary logistic regression model
 %   model: trained model structure
 %   X: d x n testing data

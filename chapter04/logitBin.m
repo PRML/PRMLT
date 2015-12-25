@@ -1,4 +1,4 @@
-function [model, llh] = logitReg(X, t, lambda)
+function [model, llh] = logitBin(X, t, lambda)
 % Logistic regression for binary classification optimized by Newton-Raphson
 % method.
 %   X: dxn data matrix

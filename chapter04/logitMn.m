@@ -1,4 +1,4 @@
-function [model, llh] = mnReg(X, t, lambda)
+function [model, llh] = logitMn(X, t, lambda)
 % Multinomial regression for multiclass problem (Multinomial likelihood)
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3

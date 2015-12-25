@@ -1,4 +1,4 @@
-function [y, P] = mnPred(model, X)
+function [y, P] = logitMnPred(model, X)
 % Prodict the label for multiclass (multinomial) logistic regression model
 %   model: trained model structure
 %   X: d x n testing data
