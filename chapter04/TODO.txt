@@ -1,2 +1,2 @@
-multiPlot: plot multclass decison boundary
+multiPlot: plot multiclass decison boundary
 
