@@ -2,6 +2,7 @@
 % 1) sparse visualization
 % 2) sparse data/demos
 % 3) fix coordinate descent
+% 4) sparse prediction for regression and classification
 
 % clear; close all;
 % 
