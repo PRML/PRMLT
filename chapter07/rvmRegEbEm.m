@@ -19,18 +19,14 @@ XX = X*X';
 Xt = X*t';
 
 tol = 1e-4;
-maxiter = 100;
+maxiter = 500;
 llh = -inf(1,maxiter+1);
-idx = (1:d)';
-dg = sub2ind([d,d],idx,idx);
-
-infinity = 1e+10;
+infinity = 1e+8;
 for iter = 2 : maxiter
     used = alpha < infinity;
     d = sum(used);
     alphaUsed = alpha(used);
-    S = beta*XX(used,used);
-    S(dg) = S(dg)+alphaUsed;
+    S = beta*XX(used,used)+diag(alphaUsed);
     U = chol(S);   
     V = U\eye(d);    
     w = beta*(V*(V'*Xt(used)));               % 7.82    
