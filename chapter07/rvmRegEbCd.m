@@ -1,7 +1,8 @@
 function [model, llh] = rvmRegEbCd(X, t)
 % TODO: llh not increasing. verify with sparse high dimensional data
-% Sparse Bayesian Regression (RVM) using Coordinate Descent
-% reference:
+% Relevance Vector Machine (ARD sparse prior) for regression 
+% training by empirical bayesian (type II ML) using Coordinate Descent
+% reference: (Fast RVM)
 % Tipping and Faul. Fast marginal likelihood maximisation for sparse Bayesian models. AISTATS 2003.
 % Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);

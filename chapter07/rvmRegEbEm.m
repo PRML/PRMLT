@@ -1,6 +1,6 @@
 function [model, llh] = rvmRegEbEm(X, t, alpha, beta)
-% Relevance Vector Machine regression training by empirical bayesian (ARD)
-% using standard EM update 
+% Relevance Vector Machine (ARD sparse prior) for regression
+% training by empirical bayesian (type II ML) using standard EM update 
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     alpha = 0.02;
