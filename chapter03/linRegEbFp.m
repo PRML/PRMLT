@@ -19,6 +19,7 @@ t = bsxfun(@minus,t,tbar);
 XX = X*X';
 Xt = X*t';
 
+
 tol = 1e-4;
 maxiter = 200;
 llh = -inf(1,maxiter);
@@ -39,6 +40,7 @@ for iter = 2:maxiter
     gamma = d-alpha*trS;  % 3.91 9.64
     alpha = gamma/m2;    % 3.92
     beta = (n-gamma)/e;   % 3.95
+
 end
 w0 = tbar-dot(m,xbar);
 

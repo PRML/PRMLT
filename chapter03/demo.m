@@ -10,11 +10,9 @@ n = 200;
 %%
 % [model1,llh1] = linRegEbEm(x,t);
 % plot(llh);
-% figure;
 % linPlot(model,x,t);
 %%
 [model,llh] = linRegEbFp(x,t);
 [y, sigma] = linPred(model,x,t);
 plot(llh);
-figure;
 linPlot(model,x,t);
