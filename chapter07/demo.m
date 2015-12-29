@@ -1,6 +1,4 @@
 % TODO:
-% 1) sparse visualization
-% 2) sparse data/demos
 % 3) fix coordinate descent
 % 4) sparse prediction for regression and classification
 
@@ -32,25 +30,33 @@ e = sigma*randn(1,n);
 y = x'*A + e;
 
 
-[model,llh] = rvmRegEbEm(A,y);
+[model,llh] = rvmRegEbFp(A,y);
 plot(llh);
+m = zeros(d,1);
+m(model.index) = model.w;
 
-% solve by BCS
-tic;
-[weights,used,sigma2,errbars] = BCS_fast_rvm(A,y,initsigma2,1e-8);
-t_BCS = toc;
-fprintf(1,'BCS number of nonzero weights: %d\d',length(used));
-x_BCS = zeros(d,1); err = zeros(d,1);
-x_BCS(used) = weights; err(used) = errbars;
-
-
-E_BCS = norm(x-x_BCS)/norm(x);
-
-figure
-subplot(3,1,1); plot(x); axis([1 d -max(abs(x))-0.2 max(abs(x))+0.2]); title(['(a) Original Signal']);
-subplot(3,1,3); errorbar(x_BCS,err); axis([1 d -max(abs(x))-0.2 max(abs(x))+0.2]); title(['(c) Reconstruction with BCS, n=' num2str(n)]); box on;
-
-disp(['BCS: ||I_hat-I||/||I|| = ' num2str(E_BCS) ', time = ' num2str(t_BCS) ' secs']);
+h = max(abs(x))+0.2;
+x_range = [1,d];
+y_range = [-h,+h];
+figure;
+subplot(2,1,1);plot(x); axis([x_range,y_range]); title('Original Signal');
+subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
+% % solve by BCS
+% tic;
+% [weights,used,sigma2,errbars] = BCS_fast_rvm(A,y,initsigma2,1e-8);
+% t_BCS = toc;
+% fprintf(1,'BCS number of nonzero weights: %d\d',length(used));
+% x_BCS = zeros(d,1); err = zeros(d,1);
+% x_BCS(used) = weights; err(used) = errbars;
+% 
+% 
+% E_BCS = norm(x-x_BCS)/norm(x);
+% 
+% figure
+% subplot(3,1,1); plot(x); axis([1 d -max(abs(x))-0.2 max(abs(x))+0.2]); title(['(a) Original Signal']);
+% subplot(3,1,3); errorbar(x_BCS,err); axis([1 d -max(abs(x))-0.2 max(abs(x))+0.2]); title(['(c) Reconstruction with BCS, n=' num2str(n)]); box on;
+% 
+% disp(['BCS: ||I_hat-I||/||I|| = ' num2str(E_BCS) ', time = ' num2str(t_BCS) ' secs']);
 %% regression
 % d = 100;
 % beta = 1e-1;

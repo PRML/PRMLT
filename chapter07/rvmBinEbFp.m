@@ -11,7 +11,7 @@ d = size(X,1);
 alpha = alpha*ones(d,1);
 weight = zeros(d,1);
 
-tol = 1e-4;
+tol = 1e-3;
 maxiter = 100;
 llh = -inf(1,maxiter);
 infinity = 1e+10;
