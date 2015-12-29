@@ -1,3 +1,4 @@
+% TODO: multiPlot: plot multiclass decison boundary
 % 
 clear; close all;
 k = 2;
