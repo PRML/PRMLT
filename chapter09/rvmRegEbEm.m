@@ -18,13 +18,12 @@ d = size(X,1);
 % Xt = X*t';
 
 alpha = alpha*ones(d,1);
-tol = 1e-4;
+tol = 1e-8;
 maxiter = 500;
 llh = -inf(1,maxiter+1);
-infinity = 1e8;
 index = 1:d;
 for iter = 2 : maxiter
-    nz = alpha < infinity;   % nonzeros
+    nz = 1./alpha > tol ;   % nonzeros
     index = index(nz);
     alpha = alpha(nz);
     X = X(nz,:);

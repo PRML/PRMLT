@@ -21,7 +21,7 @@ Xt = X*t';
 idx = (1:d)';
 dg = sub2ind([d,d],idx,idx);
 I = eye(d);
-tol = 1e-4;
+tol = 1e-8;
 maxiter = 100;
 llh = -inf(1,maxiter+1);
 for iter = 2:maxiter
@@ -39,7 +39,7 @@ for iter = 2:maxiter
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end
     
     trS = dot(V(:),V(:));  % A=inv(S)
-    gamma = d-alpha*trS;  % 3.91
+    gamma = d-alpha*trS;  % 3.91 9.64
     alpha = gamma/w2;    % 3.92
     beta = (n-gamma)/err;   % 3.95
 end
