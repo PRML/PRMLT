@@ -3,8 +3,8 @@ function [y, p] = logitBinPred(model, X)
 %   model: trained model structure
 %   X: d x n testing data
 % Written by Mo Chen (sth4nth@gmail.com).
+X = [X;ones(1,size(X,2))];
 w = model.w;
-w0 = model.w0;
-p = exp(-log1pexp(w'*X+w0)); 
+p = exp(-log1pexp(w'*X)); 
 y = (p>0.5)+0;
 

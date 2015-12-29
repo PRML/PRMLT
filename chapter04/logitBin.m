@@ -1,4 +1,4 @@
-function [model, llh] = logitBin(X, t, lambda)
+function [model, llh] = logitBin(X, t, lambda, w)
 % Logistic regression for binary classification optimized by Newton-Raphson
 % method.
 %   X: dxn data matrix
@@ -43,5 +43,4 @@ for iter = 2:maxiter
     if incr < tol; break; end
 end
 llh = llh(2:iter);
-model.w = w(1:(end-1));
-model.w0 = w(end);
+model.w = w;
