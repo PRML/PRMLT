@@ -1,60 +1,43 @@
 % TODO:
-% 3) fix coordinate descent
-% 4) sparse predictionand classification
+% 3) fix coordinate descent rvm (llh not increase)
+% 4) need test rvm classification for high dim data
 
 % clear; close all;
 % 
 
 %% sparse signal recovery demo
-clear; close all; 
-
-d = 512; % signal length
-k = 20;  % number of spikes
-n = 100; % number of measurements
-%
-% random +/- 1 signal
-x = zeros(d,1);
-q = randperm(d);
-x(q(1:k)) = sign(randn(k,1)); 
-
-% projection matrix
-A = unitize(randn(d,n),1);
-% noisy observations
-sigma = 0.005;
-e = sigma*randn(1,n);
-y = x'*A + e;
-
-
-[model,llh] = rvmRegEbFp(A,y);
-plot(llh);
-m = zeros(d,1);
-m(model.index) = model.w;
-
-h = max(abs(x))+0.2;
-x_range = [1,d];
-y_range = [-h,+h];
-figure;
-subplot(2,1,1);plot(x); axis([x_range,y_range]); title('Original Signal');
-subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
-
-
-[y, sigma] = rvmRegPred(model,A);
-% % solve by BCS
-% tic;
-% [weights,used,sigma2,errbars] = BCS_fast_rvm(A,y,initsigma2,1e-8);
-% t_BCS = toc;
-% fprintf(1,'BCS number of nonzero weights: %d\d',length(used));
-% x_BCS = zeros(d,1); err = zeros(d,1);
-% x_BCS(used) = weights; err(used) = errbars;
+% clear; close all; 
+% 
+% d = 512; % signal length
+% k = 20;  % number of spikes
+% n = 100; % number of measurements
+% %
+% % random +/- 1 signal
+% x = zeros(d,1);
+% q = randperm(d);
+% x(q(1:k)) = sign(randn(k,1)); 
+% 
+% % projection matrix
+% A = unitize(randn(d,n),1);
+% % noisy observations
+% sigma = 0.005;
+% e = sigma*randn(1,n);
+% y = x'*A + e;
 % 
 % 
-% E_BCS = norm(x-x_BCS)/norm(x);
+% [model,llh] = rvmRegEbFp(A,y);
+% plot(llh);
+% m = zeros(d,1);
+% m(model.index) = model.w;
 % 
-% figure
-% subplot(3,1,1); plot(x); axis([1 d -max(abs(x))-0.2 max(abs(x))+0.2]); title(['(a) Original Signal']);
-% subplot(3,1,3); errorbar(x_BCS,err); axis([1 d -max(abs(x))-0.2 max(abs(x))+0.2]); title(['(c) Reconstruction with BCS, n=' num2str(n)]); box on;
+% h = max(abs(x))+0.2;
+% x_range = [1,d];
+% y_range = [-h,+h];
+% figure;
+% subplot(2,1,1);plot(x); axis([x_range,y_range]); title('Original Signal');
+% subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
 % 
-% disp(['BCS: ||I_hat-I||/||I|| = ' num2str(E_BCS) ', time = ' num2str(t_BCS) ' secs']);
+% [y, sigma] = rvmRegPred(model,A);
 %% regression
 % d = 100;
 % beta = 1e-1;
@@ -99,34 +82,16 @@ subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
 % hold off
 
 %% classification
-% n = 2;
-% d = 2;
-% d = 1000;
-% [X,t] = rndKCluster(d,n,d);
-% [x1,x2] = meshgrid(linspace(min(X(1,:)),max(X(1,:)),d), linspace(min(X(2,:)),max(X(2,:)),d));
+clear; close all
+k = 2;
+d = 2;
+n = 1000;
+[X,t] = kmeansRnd(d,k,n);
+[x1,x2] = meshgrid(linspace(min(X(1,:)),max(X(1,:)),n), linspace(min(X(2,:)),max(X(2,:)),n));
 
-%%
-% [model, llh] = rvmEbFp(X,t-1);
-% figure
-% plot(llh);
-% figure;
-% spread(X,t);
-% 
-% w = zeros(3,1);
-% w(model.used) = model.w;
-% y = w(1)*x1+w(2)*x2+w(3);
-% hold on;
-% contour(x1,x2,y,1);
-% hold off;
-%%
-% [model, llh] = rvmEbEm(X,t-1);
-% figure
-% plot(llh);
-% figure;
-% spread(X,t);
-% 
-% w = model.w;
-% y = w(1)*x1+w(2)*x2+w(3);
-% hold on;
-% contour(x1,x2,y,1);
-% hold off;
+[model, llh] = rvmBinEbFp(X,t-1);
+plot(llh);
+y = rvmBinPred(model,X)+1;
+figure;
+binPlot(model,X,y);
+
