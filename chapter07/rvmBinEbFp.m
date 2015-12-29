@@ -23,15 +23,15 @@ for iter = 2:maxiter
     X = X(nz,:);
     m = m(nz); 
     
-    [m,e,U] = logitBin(X,t,alpha,m);  
+    [m,e,U] = logitBin(X,t,alpha,m);            % 7.110 ~ 7.113
     
     m2 = m.^2;
-    llh(iter) = e(end)+0.5*(sum(log(alpha))-2*sum(log(diag(U)))-dot(alpha,m2)-n*log(2*pi)); % 7.114
+    llh(iter) = e(end)+0.5*(sum(log(alpha))-2*sum(log(diag(U)))-dot(alpha,m2)-n*log(2*pi)); % 7.114  & 7.118
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end
     
     V = inv(U);
     dgS = dot(V,V,2);
-    alpha = (1-alpha.*dgS)./m2;       % 7.89 & 7.87
+    alpha = (1-alpha.*dgS)./m2;       % 7.89 & 7.87 & 7.116
 end
 llh = llh(2:iter);
 
