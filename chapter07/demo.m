@@ -1,11 +1,6 @@
 % TODO:
 % 3) fix coordinate descent
-% 4) sparse prediction for regression and classification
-
-% 5) need to be extensively tested on high dimensional data (inlucding
-% chapter03 Bayesian linear regression)
-
-
+% 4) sparse predictionand classification
 
 % clear; close all;
 % 
