@@ -54,5 +54,5 @@ model.w = m;
 model.alpha = alpha;
 model.beta = beta;
 %% optional for bayesian probabilistic prediction purpose
-model.xbar = xbar;
+model.xbar = xbar(index);
 model.U = U;

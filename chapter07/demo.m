@@ -41,6 +41,9 @@ y_range = [-h,+h];
 figure;
 subplot(2,1,1);plot(x); axis([x_range,y_range]); title('Original Signal');
 subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
+
+
+[y, sigma] = rvmRegPred(model,A);
 % % solve by BCS
 % tic;
 % [weights,used,sigma2,errbars] = BCS_fast_rvm(A,y,initsigma2,1e-8);
