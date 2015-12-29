@@ -32,27 +32,25 @@ for iter = 2:maxiter
     X = X(nz,:);
     
     U = chol(beta*XX+diag(alpha));      % 7.83
-    w = beta*(U\(U'\Xt));               % 7.82    
-    w2 = w.^2;
-    e = sum((t-w'*X).^2);
+    m = beta*(U\(U'\Xt));               % 7.82    
+    m2 = m.^2;
+    e = sum((t-m'*X).^2);
     
     logdetS = 2*sum(log(diag(U)));    
-    llh(iter) = 0.5*(sum(log(alpha))+n*log(beta)-beta*e-logdetS-dot(alpha,w2)-n*log(2*pi)); % 3.86
+    llh(iter) = 0.5*(sum(log(alpha))+n*log(beta)-beta*e-logdetS-dot(alpha,m2)-n*log(2*pi)); % 3.86
     if abs(llh(iter)-llh(iter-1)) < tol*llh(iter-1); break; end
 
     V = inv(U);    
     dgSigma = dot(V,V,2);
     gamma = 1-alpha.*dgSigma;   % 7.89
-    alpha = gamma./w2;           % 7.87
+    alpha = gamma./m2;           % 7.87
     beta = (n-sum(gamma))/e;    % 7.88
 end
 llh = llh(2:iter);
 
-w0 = tbar-dot(w,xbar(nz));
-
 model.index = index;
-model.w0 = w0;
-model.w = w;
+model.w0 = tbar-dot(m,xbar(nz));
+model.w = m;
 model.alpha = alpha;
 model.beta = beta;
 %% optional for bayesian probabilistic prediction purpose
