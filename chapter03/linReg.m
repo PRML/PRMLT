@@ -15,10 +15,10 @@ tbar = mean(t,2);
 X = bsxfun(@minus,X,xbar);
 t = bsxfun(@minus,t,tbar);
 
-C = X*X';
-C(dg) = C(dg)+lambda;     % 3.54 C=inv(S)/beta
-% w = C\(X*t');
-U = chol(C);
+XX = X*X';
+XX(dg) = XX(dg)+lambda;     % 3.54 XX=inv(S)/beta
+% w = XX\(X*t');
+U = chol(XX);
 w = U\(U'\(X*t'));  % 3.15 & 3.28
 w0 = tbar-dot(w,xbar);  % 3.19
 
