@@ -8,11 +8,10 @@ if nargin == 1,
     if isempty(dim), dim = 1; end
 end
 
-% subtract the largest in each column
+% subtract the largest in each dim
 y = max(x,[],dim);
-x = bsxfun(@minus,x,y);
-s = y + log(sum(exp(x),dim));
-i = find(~isfinite(y));
-if ~isempty(i)
+s = y+log(sum(exp(bsxfun(@minus,x,y)),dim));   % TODO: use log1p
+i = isinf(y);
+if any(i(:))
     s(i) = y(i);
 end
