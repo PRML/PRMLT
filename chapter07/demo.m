@@ -6,23 +6,25 @@
 % 
 
 %% sparse signal recovery demo
-% clear; close all; 
-% 
-% d = 512; % signal length
-% k = 20;  % number of spikes
-% n = 100; % number of measurements
-% %
-% % random +/- 1 signal
-% x = zeros(d,1);
-% q = randperm(d);
-% x(q(1:k)) = sign(randn(k,1)); 
-% 
-% % projection matrix
-% A = unitize(randn(d,n),1);
-% % noisy observations
-% sigma = 0.005;
-% e = sigma*randn(1,n);
-% y = x'*A + e;
+clear; close all; 
+
+d = 512; % signal length
+k = 20;  % number of spikes
+n = 100; % number of measurements
+%
+% random +/- 1 signal
+x = zeros(d,1);
+q = randperm(d);
+x(q(1:k)) = sign(randn(k,1)); 
+
+% projection matrix
+A = unitize(randn(d,n),1);
+% noisy observations
+sigma = 0.005;
+e = sigma*randn(1,n);
+y = x'*A + e;
+[model,llh] = rvmRegEbCd(A,y);
+plot(llh);
 % 
 % 
 % [model,llh] = rvmRegEbFp(A,y);
@@ -45,7 +47,7 @@
 % w = randn;
 % b = randn;
 % t = w'*X+b+beta*randn(1,d);
-
+% 
 % x = linspace(min(X)-1,max(X)+1,d);   % test data
 %%
 % [model,llh] = rvmRegEbFp(X,t);
@@ -82,16 +84,16 @@
 % hold off
 
 %% classification
-clear; close all
-k = 2;
-d = 2;
-n = 1000;
-[X,t] = kmeansRnd(d,k,n);
-[x1,x2] = meshgrid(linspace(min(X(1,:)),max(X(1,:)),n), linspace(min(X(2,:)),max(X(2,:)),n));
-
-[model, llh] = rvmBinEbFp(X,t-1);
-plot(llh);
-y = rvmBinPred(model,X)+1;
-figure;
-binPlot(model,X,y);
+% clear; close all
+% k = 2;
+% d = 2;
+% n = 1000;
+% [X,t] = kmeansRnd(d,k,n);
+% [x1,x2] = meshgrid(linspace(min(X(1,:)),max(X(1,:)),n), linspace(min(X(2,:)),max(X(2,:)),n));
+% 
+% [model, llh] = rvmBinEbFp(X,t-1);
+% plot(llh);
+% y = rvmBinPred(model,X)+1;
+% figure;
+% binPlot(model,X,y);
 
