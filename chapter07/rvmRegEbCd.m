@@ -48,15 +48,15 @@ for iter = 2:maxiter
         tllh(iAdd) = (Q(iAdd).^2-S(iAdd))./S(iAdd)+log(S(iAdd)./(Q(iAdd).^2));
     end
     if any(iDel)
-        tllh(iDel) = Q(iDel).^2./(S(iDel)-alpha(iDel))-log1p1(-S(iDel)./alpha(iDel));
+        tllh(iDel) = Q(iDel).^2./(S(iDel)-alpha(iDel))-log1p(-S(iDel)./alpha(iDel));
     end
     if any(iUpd)  % bug
         newAlpha = s(iUpd).^2./theta(iUpd);
         oldAlpha = alpha(iUpd);
-        delta = 1./oldAlpha-1./newAlpha;
-        tllh(iUpd) = Q(iUpd).^2.*delta./(S(iUpd).*delta+1)-log1p(S(iUpd).*delta);
+        delta = 1./newAlpha-1./oldAlpha;
+        tllh(iUpd) = Q(iUpd).^2./(S(iUpd)+1./delta)-log1p(S(iUpd).*delta);
     end
-    if ~isreal(tllh)
+    if ~isreal(tllh)   % debug
         dd = [];
         for i=1:d
             if ~isreal(tllh(i))
