@@ -20,7 +20,7 @@ mu = zeros(0,1);
 Phi = zeros(0,n);
 dim = zeros(0,1);
 
-maxiter = 100*d;
+maxiter = d-1;
 tol = 1e-4;
 llh = -inf(1,maxiter);
 iAct = zeros(d,3);   
@@ -36,11 +36,16 @@ for iter = 2:maxiter
     iAdd = (iNew ~= iUpd); % add
     iDel = (iUse ~= iUpd); % del
 
+    
+    iUpd = false(d,1);
+    iDel = false(d,1);
+    
     iAct(:,1) = iAdd;
     iAct(:,2) = iDel;
     iAct(:,3) = iUpd;
+
     
-    assert(isempty(setdiff(find(any(iAct,2)),union(find(iNew),find(iUse)))));    % debug
+%     assert(isempty(setdiff(find(any(iAct,2)),union(find(iNew),find(iUse)))));    % debug
     
     % find the next dimension j that maximizes the marginal likilihood
     tllh = -inf(d,1);  % trial likelihood
@@ -65,7 +70,7 @@ for iter = 2:maxiter
         end
     end
     [llh(iter),j] = max(tllh);
-%     if abs(llh(iter)-llh(iter-1)) < tol*llh(iter-1); break; end
+    if abs(llh(iter)-llh(iter-1)) < tol*llh(iter-1); break; end
     
     % update parameters
     switch find(iAct(j,:))
@@ -75,7 +80,7 @@ for iter = 2:maxiter
             mu_j = Sigma_jj*Q(j);
             phi_j = X(j,:);             
 
-            v = beta*Sigma*(Phi*phi_j');   % temporary vector for common part
+            v = beta*Sigma*(Phi*phi_j');   
             off = -beta*Sigma_jj*v;
             Sigma = [Sigma+Sigma_jj*(v*v'), off; off', Sigma_jj];
             mu = [mu-mu_j*v; mu_j];

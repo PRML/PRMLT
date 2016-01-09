@@ -19,7 +19,32 @@ beta = 1/mean(t.^2);   % beta = 1/sigma^2
 
 X2 = dot(X,X,2);   
 Xt = beta*(X*t');
-max(Xt.^2./X2,
+[r,j] = max(Xt.^2./X2);
+alpha = X2(j)/(r-1/beta);
+
+phi_j = X(j,:);
+Sigma = 1/(alpha+beta*(phi_j*phi_j'));
+mu = Sigma;
+
+
+            alpha(j) = s(j)^2/theta(j);
+            Sigma_jj = 1/(alpha(j)+S(j));
+            mu_j = Sigma_jj*Q(j);
+            phi_j = X(j,:);             
+
+            v = beta*Sigma*(Phi*phi_j');   
+            off = -beta*Sigma_jj*v;
+            Sigma = [Sigma+Sigma_jj*(v*v'), off; off', Sigma_jj];
+            mu = [mu-mu_j*v; mu_j];
+            
+            e_j = phi_j-v'*Phi;
+            v = beta*X*e_j';
+            S = S-Sigma_jj*v.^2;
+            Q = Q-mu_j*v;
+            
+            dim = [dim;j]; %#ok<AGROW>
+
+
 
 
 
@@ -83,7 +108,7 @@ for iter = 2:maxiter
             mu_j = Sigma_jj*Q(j);
             phi_j = X(j,:);             
 
-            v = beta*Sigma*(Phi*phi_j');   % temporary vector for common part
+            v = beta*Sigma*(Phi*phi_j'); 
             off = -beta*Sigma_jj*v;
             Sigma = [Sigma+Sigma_jj*(v*v'), off; off', Sigma_jj];
             mu = [mu-mu_j*v; mu_j];

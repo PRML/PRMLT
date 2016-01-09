@@ -39,17 +39,27 @@ end
 
 function [globalParam, localParam] = initParam(X, t)
 
+X2 = dot(X,X,2);   
+Xt = X*t';
+[v,j] = max(Xt.^2./X2);
+
 beta = 1/mean(t.^2);   % Beta = 1/sigma^2
 phi = X(j,:);
 alpha = X2(j)/(v-1/beta);
-sigma = 1/(alpha + beta*(phi*phi'));
+sigma = 1/(alpha + beta*(phi'*phi));
 mu = beta*sigma*phi*t';
 
 V = beta*X*phi';
-S = beta*X2-sigma*V.^2;
-Q = beta*Xt-beta*sigma*Xt(j)*V;
+S = beta*X2-Sigma*V.^2;
+Q = beta*Xt-Sigma*Xt(
 
-globalParam = packGlobalParam(beta, Q, S);
+
+e = phi-v'*Phi;
+v = beta*X*e_j';
+S = S-Sigma_jj*v.^2;
+Q = Q-mu_j*v;
+
+globalParam = packGlobalParam(Beta, Q, S);
 localParam = packLocalParam(j, alpha, mu, sigma);
 
 

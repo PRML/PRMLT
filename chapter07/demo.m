@@ -23,7 +23,8 @@ A = unitize(randn(d,n),1);
 sigma = 0.005;
 e = sigma*randn(1,n);
 y = x'*A + e;
-[model,llh] = rvmRegEbCd(A,y);
+% [model,llh] = rvmRegEbCd(A,y);
+[model,llh] = rvmFast2(A,y);
 plot(llh);
 % 
 % 
