@@ -4,7 +4,7 @@ function [model, llh] = rvmRegEbSeq(X, t)
 % reference:
 % Tipping and Faul. Fast marginal likelihood maximisation for sparse Bayesian models. AISTATS 2003.
 % Written by Mo Chen (sth4nth@gmail.com).
-d = size(X,1);
+[d,n] = size(X);
 xbar = mean(X,2);
 tbar = mean(t,2);
 X = bsxfun(@minus,X,xbar);
@@ -17,6 +17,7 @@ Q = beta*(X*t');         % ?
 Sigma = zeros(0,0);  
 mu = zeros(0,1);  
 index = zeros(0,1);
+Phi = zeros(0,n);
 
 maxiter = 1000;
 tol = 1e-6;
@@ -58,8 +59,6 @@ for iter = 2:maxiter
     iAct(:,3) = iDel;
     
     % update parameters
-    Phi = X(index,:); 
-%?     beta = (n-numel(index)+dot(alpha(index),diag(Sigma)))/sum((t-mu'*Phi).^2);
     switch find(iAct(j,:))
         case 1 % update: 
             idx = (index==j);
@@ -115,6 +114,8 @@ for iter = 2:maxiter
             index(idx) = [];
             alpha(j) = inf;
     end
+    Phi = X(index,:); 
+%     beta = (n-d+dot(alpha(index),diag(Sigma)))/sum((t-mu'*Phi).^2);
 end
 llh = llh(2:iter);
 w0 = tbar-dot(mu,xbar(index));
