@@ -23,22 +23,22 @@ A = unitize(randn(d,n),1);
 sigma = 0.005;
 e = sigma*randn(1,n);
 y = x'*A + e;
-% [model,llh] = rvmRegEbCd(A,y);
-[model,llh] = rvmFast2(A,y);
+[model,llh] = rvmRegEbCd(A,y);
+% [model,llh] = rvmFast(A,y);
 plot(llh);
-% 
-% 
+
+
 % [model,llh] = rvmRegEbFp(A,y);
 % plot(llh);
-% m = zeros(d,1);
-% m(model.index) = model.w;
-% 
-% h = max(abs(x))+0.2;
-% x_range = [1,d];
-% y_range = [-h,+h];
-% figure;
-% subplot(2,1,1);plot(x); axis([x_range,y_range]); title('Original Signal');
-% subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
+m = zeros(d,1);
+m(model.index) = model.w;
+
+h = max(abs(x))+0.2;
+x_range = [1,d];
+y_range = [-h,+h];
+figure;
+subplot(2,1,1);plot(x); axis([x_range,y_range]); title('Original Signal');
+subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
 % 
 % [y, sigma] = rvmRegPred(model,A);
 %% regression
