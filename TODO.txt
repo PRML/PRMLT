@@ -1,5 +1,6 @@
 TODO: 
-derive simpler bound for vb and improve vb functions chapter 10
-fix llh for rvm cd
-viterbi normalize update
-Add predict for mixture models
+1) update beta for sequential rvm
+2) viterbi normalize update
+3) compute bound terms inside each factors
+
+
