@@ -3,49 +3,34 @@ function [label, model, llh] = mixGaussEm(X, init)
 %   X: d x n data matrix
 %   init: k (1 x 1) or label (1 x n, 1<=label(i)<=k) or center (d x k)
 % Written by Mo Chen (sth4nth@gmail.com).
-%% initialization
+%% init
 fprintf('EM for Gaussian mixture: running ... \n');
 R = initialization(X,init);
 [~,label(1,:)] = max(R,[],2);
 R = R(:,unique(label));
 
-tol = 1e-10;
+tol = 1e-4;
 maxiter = 500;
 llh = -inf(1,maxiter);
 for iter = 2:maxiter
     model = maximization(X,R);
     [R, llh(iter)] = expectation(X,model);
-
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter)); break; end;
 end
 [~,label(:)] = max(R,[],2);
 llh = llh(2:iter);
 
 function R = initialization(X, init)
-[d,n] = size(X);
-if isstruct(init)  % initialize with a model
+n = size(X,2);
+if isstruct(init)  % init with a model
     R  = expectation(X,init);
-elseif length(init) == 1  % random initialization
+elseif numel(init) == 1  % random init k
     k = init;
-    idx = randsample(n,k);
-    m = X(:,idx);
-    [~,label] = max(bsxfun(@minus,m'*X,dot(m,m,1)'/2),[],1);
-    [u,~,label] = unique(label);
-    while k ~= length(u)
-        idx = randsample(n,k);
-        m = X(:,idx);
-        [~,label] = max(bsxfun(@minus,m'*X,dot(m,m,1)'/2),[],1);
-        [u,~,label] = unique(label);
-    end
+    label = ceil(k*rand(1,n));
     R = full(sparse(1:n,label,1,n,k,n));
-elseif size(init,1) == 1 && size(init,2) == n  % initialize with labels
+elseif all(size(init)==[1,n])  % init with labels
     label = init;
     k = max(label);
-    R = full(sparse(1:n,label,1,n,k,n));
-elseif size(init,1) == d  %initialize with only centers
-    k = size(init,2);
-    m = init;
-    [~,label] = max(bsxfun(@minus,m'*X,dot(m,m,1)'/2),[],1);
     R = full(sparse(1:n,label,1,n,k,n));
 else
     error('ERROR: init is not valid.');
@@ -68,7 +53,6 @@ T = logsumexp(logRho,2);
 llh = sum(T)/n; % loglikelihood
 logR = bsxfun(@minus,logRho,T);
 R = exp(logR);
-
 
 function model = maximization(X, R)
 [d,n] = size(X);

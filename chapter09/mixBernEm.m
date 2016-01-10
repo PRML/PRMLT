@@ -8,7 +8,7 @@ fprintf('EM for mixture model: running ... \n');
 n = size(X,2);
 label = ceil(k*rand(1,n));  % random initialization
 R = sparse(1:n,label,1,n,k,n);
-tol = 1e-10;
+tol = 1e-4;
 maxiter = 500;
 llh = -inf(1,maxiter);
 for iter = 2:maxiter
@@ -29,7 +29,6 @@ T = logsumexp(logRho,2);
 llh = sum(T)/n; % loglikelihood
 logR = bsxfun(@minus,logRho,T);
 R = exp(logR);
-
 
 function model = maximization(X, R)
 n = size(X,2);
