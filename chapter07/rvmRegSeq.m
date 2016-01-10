@@ -1,4 +1,4 @@
-function [model, llh] = rvmRegEbSeq(X, t)
+function [model, llh] = rvmRegSeq(X, t)
 % TODO: beta is not updated.
 % Sparse Bayesian Regression (RVM) using sequential algorithm
 % reference:

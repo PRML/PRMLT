@@ -1,4 +1,4 @@
-function [model, llh] = rvmRegEbFp(X, t, alpha, beta)
+function [model, llh] = rvmRegFp(X, t, alpha, beta)
 % Relevance Vector Machine (ARD sparse prior) for regression
 % training by empirical bayesian (type II ML) using fix point update (Mackay update)
 % Written by Mo Chen (sth4nth@gmail.com).

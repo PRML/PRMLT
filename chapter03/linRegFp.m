@@ -1,4 +1,4 @@
-function [model, llh] = linRegEbFp(X, t, alpha, beta)
+function [model, llh] = linRegFp(X, t, alpha, beta)
 % Fit empirical Bayesian linear model with Mackay fixed point method
 % (p.168)
 %   X: d x n data

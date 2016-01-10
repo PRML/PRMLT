@@ -1,4 +1,4 @@
-function [model, llh] = rvmBinEbEm(X, t, alpha)
+function [model, llh] = rvmBinEm(X, t, alpha)
 % Relevance Vector Machine (ARD sparse prior) for binary classification
 % training by empirical bayesian (type II ML) using standard EM update 
 % Written by Mo Chen (sth4nth@gmail.com).

@@ -1,4 +1,4 @@
-function [model, llh] = linRegEbEm(X, t, alpha, beta)
+function [model, llh] = linRegEm(X, t, alpha, beta)
 % Fit empirical Bayesian linear model with EM (p.448 chapter 9.3.4)
 %   X: d x n data
 %   t: 1 x n response

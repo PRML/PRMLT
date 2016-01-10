@@ -1,4 +1,4 @@
-function [model, llh] = rvmRegEbEm(X, t, alpha, beta)
+function [model, llh] = rvmRegEm(X, t, alpha, beta)
 % Relevance Vector Machine (ARD sparse prior) for regression
 % training by empirical bayesian (type II ML) using standard EM update 
 % Written by Mo Chen (sth4nth@gmail.com).

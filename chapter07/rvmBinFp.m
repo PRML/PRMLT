@@ -1,4 +1,4 @@
-function [model, llh] = rvmBinEbFp(X, t, alpha)
+function [model, llh] = rvmBinFp(X, t, alpha)
 % Relevance Vector Machine (ARD sparse prior) for binary classification
 % training by empirical bayesian (type II ML) using fix point update (Mackay update)
 % Written by Mo Chen (sth4nth@gmail.com).
