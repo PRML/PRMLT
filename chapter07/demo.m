@@ -1,7 +1,3 @@
-% TODO:
-% 3) fix coordinate descent rvm (llh not increase)
-% 4) need test rvm classification for high dim data
-
 % clear; close all;
 % 
 

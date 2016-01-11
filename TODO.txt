@@ -1,6 +1,10 @@
 TODO: 
-1) update beta for sequential rvm
+1) update beta for sequential rvm, beta for EM regress
 2) viterbi normalize update
 3) compute bound terms inside each factors
-
+4) plot multiclass data boundary
+5) refine kmeansrnd and mixGaussRnd
+6) chapter05: MLP
+7) chapter08: BP, EP
+8) chapter11: collapse Gibss for gmm and dpgm
 

@@ -8,11 +8,11 @@ n = 200;
 % model = linReg(x,t);
 % linPlot(model,x,t);
 %%
-% [model1,llh1] = linRegEbEm(x,t);
+% [model1,llh1] = linRegEm(x,t);
 % plot(llh);
 % linPlot(model,x,t);
 %%
-[model,llh] = linRegEbFp(x,t);
+[model,llh] = linRegFp(x,t);
 [y, sigma] = linPred(model,x,t);
 plot(llh);
 linPlot(model,x,t);
