@@ -1,12 +1,6 @@
 % TODO: 
-%   1) demos for mixture models
-%   2) pred functions for mixture models
-%   3) beta for em regress
-%   4) refine kmeansRnd and mixGaussRnd
-d = 2;
-k = 3;
-n = 500;
-
+%   1) beta for em regress
+%   2) refine kmeansRnd and mixGaussRnd
 %% demo: kmeans 
 % close all; clear;
 % d = 2;
