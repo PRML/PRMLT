@@ -50,7 +50,7 @@ subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
 % 
 % x = linspace(min(X)-1,max(X)+1,d);   % test data
 %%
-% [model,llh] = rvmRegEbFp(X,t);
+% [model,llh] = rvmRegFp(X,t);
 % figure
 % plot(llh);
 % [y, sigma] = linInfer(x,model,t);
@@ -61,7 +61,7 @@ subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
 % plot(x,y,'r-');
 % hold off
 %%
-% [model,llh] = rvmRegEbEm(X,t);
+% [model,llh] = rvmRegEm(X,t);
 % figure
 % plot(llh);
 % [y, sigma] = linInfer(x,model,t);
@@ -72,7 +72,7 @@ subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
 % plot(x,y,'r-');
 % hold off
 %%
-% [model,llh] = rvmRegEbCd(X,t);
+% [model,llh] = rvmRegSeq(X,t);
 % figure
 % plot(llh);
 % [y, sigma] = linPred(x,model,t);
@@ -91,7 +91,7 @@ subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
 % [X,t] = kmeansRnd(d,k,n);
 % [x1,x2] = meshgrid(linspace(min(X(1,:)),max(X(1,:)),n), linspace(min(X(2,:)),max(X(2,:)),n));
 % 
-% [model, llh] = rvmBinEbFp(X,t-1);
+% [model, llh] = rvmBinFp(X,t-1);
 % plot(llh);
 % y = rvmBinPred(model,X)+1;
 % figure;
