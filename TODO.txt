@@ -9,6 +9,3 @@ chapter08: BP, EP
 update beta for sequential rvm, 
 compute bound terms inside each factors, 
 plot multiclass data boundary
-
-
-
