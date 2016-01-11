@@ -5,19 +5,16 @@ function [label, model, llh] = mixGaussEm(X, init)
 % Written by Mo Chen (sth4nth@gmail.com).
 %% init
 fprintf('EM for Gaussian mixture: running ... \n');
-R = initialization(X,init);
-[~,label(1,:)] = max(R,[],2);
-R = R(:,unique(label));
-
-tol = 1e-4;
+tol = 1e-6;
 maxiter = 500;
 llh = -inf(1,maxiter);
+R = initialization(X,init);
 for iter = 2:maxiter
     model = maximization(X,R);
     [R, llh(iter)] = expectation(X,model);
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter)); break; end;
 end
-[~,label(:)] = max(R,[],2);
+[~,label(1,:)] = max(R,[],2);
 llh = llh(2:iter);
 
 function R = initialization(X, init)

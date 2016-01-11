@@ -1,4 +1,8 @@
 function [label, R] = mixGaussPred(X, model)
+% Predict label and responsibility for Gaussian mixture model.
+%   X: d x n data matrix
+%   model: trained model structure outputed by the EM algirthm
+% Written by Mo Chen (sth4nth@gmail.com).
 mu = model.mu;
 Sigma = model.Sigma;
 w = model.weight;
@@ -11,9 +15,10 @@ for i = 1:k
     logRho(:,i) = loggausspdf(X,mu(:,i),Sigma(:,:,i));
 end
 logRho = bsxfun(@plus,logRho,log(w));
-R = exp(bsxfun(@minus,logRho,logsumexp(logRho,2)));
-[~,label(:)] = max(R,[],2);
-
+T = logsumexp(logRho,2);
+logR = bsxfun(@minus,logRho,T);
+R = exp(logR);
+[~,label(1,:)] = max(R,[],2);
 
 function y = loggausspdf(X, mu, Sigma)
 d = size(X,1);
