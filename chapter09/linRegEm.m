@@ -45,7 +45,7 @@ w0 = tbar-dot(m,xbar);
 
 llh = llh(2:iter);
 model.w0 = w0;
-model.m = m;
+model.w = m;
 %% optional for bayesian probabilistic inference purpose
 model.alpha = alpha;
 model.beta = beta;

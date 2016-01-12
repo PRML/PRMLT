@@ -7,21 +7,18 @@ if nargin < 3
     beta = 0.5;
 end
 [d,n] = size(X);
-alpha = alpha*ones(d,1);
-
 xbar = mean(X,2);
 tbar = mean(t,2);
-
 X = bsxfun(@minus,X,xbar);
 t = bsxfun(@minus,t,tbar);
-
 XX = X*X';
 Xt = X*t';
 
 tol = 1e-3;
-maxiter = 200;
+maxiter = 500;
 llh = -inf(1,maxiter);
 index = 1:d;
+alpha = alpha*ones(d,1);
 for iter = 2:maxiter
     % remove zeros
     nz = 1./alpha > tol;    % nonzeros
@@ -38,7 +35,7 @@ for iter = 2:maxiter
     
     logdetS = 2*sum(log(diag(U)));    
     llh(iter) = 0.5*(sum(log(alpha))+n*log(beta)-beta*e-logdetS-dot(alpha,m2)-n*log(2*pi)); % 3.86
-    if abs(llh(iter)-llh(iter-1)) < tol*llh(iter-1); break; end
+    if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end
 
     V = inv(U);    
     dgSigma = dot(V,V,2);
