@@ -1,8 +1,7 @@
 TODO: 
-create prediction functions for VB
-beta for EM regress
 refine kmeansrnd and mixGaussRnd
 viterbi normalize update
+create prediction functions for VB
 chapter11: collapse Gibss for gmm and dpgm
 chapter05: MLP
 chapter08: BP, EP
