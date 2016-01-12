@@ -1,6 +1,16 @@
 % TODO: 
 %   1) beta for em regress
 %   2) refine kmeansRnd and mixGaussRnd
+
+%% demo: EM linear regression
+close all; clear;
+d = 5;
+n = 200;
+[x,t] = linRnd(d,n);
+[model,llh] = linRegEm(x,t);
+plot(llh);
+
+
 %% demo: kmeans 
 % close all; clear;
 % d = 2;
@@ -13,26 +23,26 @@
 % plotClass(X,y);
 
 %% demo: Em for Gauss Mixture 
-close all; clear;
-d = 2;
-k = 3;
-n = 1000;
-[X,label] = mixGaussRnd(d,k,n);
-plotClass(X,label);
-
-m = floor(n/2);
-X1 = X(:,1:m);
-X2 = X(:,(m+1):end);
-% train
-[z1,model,llh] = mixGaussEm(X1,k);
-figure;
-plot(llh);
-figure;
-plotClass(X1,z1);
-% predict
-z2 = mixGaussPred(X2,model);
-figure;
-plotClass(X2,z2);
+% close all; clear;
+% d = 2;
+% k = 3;
+% n = 1000;
+% [X,label] = mixGaussRnd(d,k,n);
+% plotClass(X,label);
+% 
+% m = floor(n/2);
+% X1 = X(:,1:m);
+% X2 = X(:,(m+1):end);
+% % train
+% [z1,model,llh] = mixGaussEm(X1,k);
+% figure;
+% plot(llh);
+% figure;
+% plotClass(X1,z1);
+% % predict
+% z2 = mixGaussPred(X2,model);
+% figure;
+% plotClass(X2,z2);
 %% demo: Em for Gauss mixture initialized with kmeans;
 % close all; clear;
 % d = 2;
