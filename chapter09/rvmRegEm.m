@@ -6,16 +6,12 @@ if nargin < 3
     alpha = 0.02;
     beta = 0.5;
 end
-% xbar = mean(X,2);
-% tbar = mean(t,2);
-% X = bsxfun(@minus,X,xbar);
-% t = bsxfun(@minus,t,tbar);
-n = size(X,2);
-X = [X;ones(1,n)];
-d = size(X,1);
+xbar = mean(X,2);
+tbar = mean(t,2);
 
-% XX = X*X';
-% Xt = X*t';
+X = bsxfun(@minus,X,xbar);
+t = bsxfun(@minus,t,tbar);
+
 
 alpha = alpha*ones(d,1);
 tol = 1e-8;
@@ -28,25 +24,28 @@ for iter = 2 : maxiter
     alpha = alpha(nz);
     X = X(nz,:);
     
-    S = inv(beta*(X*X')+diag(alpha));
+    A = beta*(X*X')+diag(alpha);
     % E-step
-    w = beta*S*X*t';   % E[w]     % 7.82
-    w2 = m.^2+diag(S);       % E[w^2]
-    e = sum((t-m'*X).^2);
+    m = beta*(A\(X*t'));   % E[m]     % 7.82
+    m2 = m.^2;       % E[m^2]
+    e2 = sum((t-m'*X).^2);
 
-%     logdetS = -2*sum(log(diag(V)));    
-%     llh(iter) = 0.5*(sum(log(alpha))+n*log(beta)-beta*e-logdetS-dot(alpha,w2)-n*log(2*pi)); 
-%     if abs(llh(iter)-llh(iter-1)) < tol*llh(iter-1); break; end
+    logdetS = -2*sum(log(diag(V)));    
+    llh(iter) = 0.5*(sum(log(alpha))+n*log(beta)-beta*e2-logdetS-dot(alpha,m2)-n*log(2*pi)); 
+    if abs(llh(iter)-llh(iter-1)) < tol*llh(iter-1); break; end
 
     % M-step
-    alpha = 1./w2;    % 9.67
-    beta = n/(e+sum(w2));    % 9.68 is wrong
+    S = inv(A);
+    alpha = 1./(m2+diag(S));    % 9.67
+    
+    trXSX = trace(X'*S*X);
+    beta = n/(e2+trXSX);    % 9.68 is wrong
 end
 llh = llh(2:iter);
 
 
 model.index = index;
 model.w0 = w0;
-model.w = w;
+model.m = m;
 model.alpha = alpha;
 model.beta = beta;
