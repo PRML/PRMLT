@@ -1,5 +1,4 @@
 % TODO: 
-%   1) beta for em regress
 %   2) refine kmeansRnd and mixGaussRnd
 
 %% demo: EM linear regression
