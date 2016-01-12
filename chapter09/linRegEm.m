@@ -15,29 +15,27 @@ tbar = mean(t,2);
 X = bsxfun(@minus,X,xbar);
 t = bsxfun(@minus,t,tbar);
 
-C = X*X';
+XX = X*X';
 Xt = X*t';
-idx = (1:d)';
-dg = sub2ind([d,d],idx,idx);
+
 tol = 1e-4;
 maxiter = 100;
 llh = -inf(1,maxiter+1);
 for iter = 2:maxiter
-    A = beta*C;
-    A(dg) = A(dg)+alpha;  % 3.81 3.54
+    A = beta*XX+alpha*eye(d);
     U = chol(A);
     
     m = beta*(U\(U'\Xt));
-    w2 = dot(m,m);
+    m2 = dot(m,m);
     e2 = sum((t-m'*X).^2);
     
     logdetA = 2*sum(log(diag(U)));    
-    llh(iter) = 0.5*(d*log(alpha)+n*log(beta)-alpha*w2-beta*e2-logdetA-n*log(2*pi));  % 3.86
+    llh(iter) = 0.5*(d*log(alpha)+n*log(beta)-alpha*m2-beta*e2-logdetA-n*log(2*pi));  % 3.86
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end
     
     V = inv(U);
     trS = dot(V(:),V(:));    % A=inv(S)
-    alpha = d/(w2+trS);   % 9.63
+    alpha = d/(m2+trS);   % 9.63
     
     UX = U'\X;
     trXSX = dot(UX(:),UX(:));
