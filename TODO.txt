@@ -1,6 +1,8 @@
 TODO: 
 viterbi normalize update
-create prediction functions for VB
+demo for time series model
+prediction functions for VB
+prediction functions for ppca
 chapter11: collapse Gibss for gmm and dpgm
 chapter05: MLP
 chapter08: BP, EP

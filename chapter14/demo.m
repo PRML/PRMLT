@@ -10,7 +10,3 @@ plotClass([X;y],label);
 figure
 plot(llh);
 
-%%
-% [X, y] = rndKmeans(2,3,1000);
-% [label,L] = mixGaussVb(X, 10);
-% plot(L);
