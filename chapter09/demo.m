@@ -40,18 +40,18 @@
 % subplot(2,1,1);plot(x); axis([x_range,y_range]); title('Original Signal');
 % subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
 %% classification
-clear; close all
-k = 2;
-d = 2;
-n = 1000;
-[X,t] = kmeansRnd(d,k,n);
-[x1,x2] = meshgrid(linspace(min(X(1,:)),max(X(1,:)),n), linspace(min(X(2,:)),max(X(2,:)),n));
-
-[model, llh] = rvmBinEm(X,t-1);
-plot(llh);
-y = rvmBinPred(model,X)+1;
-figure;
-binPlot(model,X,y);
+% clear; close all
+% k = 2;
+% d = 2;
+% n = 1000;
+% [X,t] = kmeansRnd(d,k,n);
+% [x1,x2] = meshgrid(linspace(min(X(1,:)),max(X(1,:)),n), linspace(min(X(2,:)),max(X(2,:)),n));
+% 
+% [model, llh] = rvmBinEm(X,t-1);
+% plot(llh);
+% y = rvmBinPred(model,X)+1;
+% figure;
+% binPlot(model,X,y);
 %% demo: kmeans 
 % close all; clear;
 % d = 2;

@@ -5,7 +5,7 @@ alpha0 = 1;  % hyperparameter of Dirichlet prior
 W0 = eye(d);  % hyperparameter of inverse Wishart prior of covariances
 v0 = d+1;  % hyperparameter of inverse Wishart prior of covariances
 mu0 = zeros(d,1);  % hyperparameter of Guassian prior of means
-beta0 = 1/(nthroot(k,d))^2; % hyperparameter of Guassian prior of means
+beta0 = k; % hyperparameter of Guassian prior of means
 
 w = dirichletRnd(alpha0,ones(1,k)/k);
 z = discreteRnd(w,n);
@@ -16,7 +16,7 @@ X = zeros(d,n);
 for i = 1:k
     idx = z==i;
     Sigma(:,:,i) = iwishrnd(W0,v0); % invpd(wishrnd(W0,v0));
-    mu(:,i) = gaussRnd(mu0,Sigma(:,:,i)/beta0);
+    mu(:,i) = gaussRnd(mu0,beta0*Sigma(:,:,i));
     X(:,idx) = gaussRnd(mu(:,i),Sigma(:,:,i),sum(idx));
 end
 model.mu = mu;
