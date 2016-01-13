@@ -1,5 +1,4 @@
 TODO: 
-refine kmeansrnd and mixGaussRnd
 viterbi normalize update
 create prediction functions for VB
 chapter11: collapse Gibss for gmm and dpgm

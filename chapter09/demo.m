@@ -1,5 +1,3 @@
-% TODO: 
-%   2) refine kmeansRnd and mixGaussRnd
 
 %% demo: EM linear regression
 % close all; clear;
