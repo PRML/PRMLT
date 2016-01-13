@@ -1,4 +1,4 @@
-function [model, label, llh] = mixLinReg(X, y, k, lambda)
+function [label, model, llh] = mixLinReg(X, y, k, lambda)
 % Mixture of linear regression
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 4

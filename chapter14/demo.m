@@ -5,7 +5,7 @@ k = 2;
 n = 500;
 [X,y] = mixLinRnd(d,k,n);
 plot(X,y,'.');
-[model,label,llh] = mixLinReg(X, y, k);
+[label,model,llh] = mixLinReg(X, y, k);
 plotClass([X;y],label);
 figure
 plot(llh);
