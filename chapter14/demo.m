@@ -1,5 +1,5 @@
 close all; clear
-%% Test for mixLinReg
+%% Demo for mixture of linear regression
 d = 1;
 k = 2;
 n = 500;

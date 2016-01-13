@@ -1,5 +1,5 @@
 function [model, llh] = mixLogitReg(X, t, k)
-% mixture of logistic regression model
+% Mixture of logistic regression model
 % Written by Mo Chen (sth4nth@gmail.com).
 n = size(X,2);
 X = [X; ones(1,n)];

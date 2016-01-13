@@ -1,5 +1,5 @@
 function [model, label, llh] = mixLinReg(X, y, k, lambda)
-% mixture of linear regression
+% Mixture of linear regression
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 4
     lambda = 1;
