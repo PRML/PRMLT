@@ -1,5 +1,6 @@
-close all; clear
+% TODO: demo for mixLogitReg
 %% Demo for mixture of linear regression
+close all; clear
 d = 1;
 k = 2;
 n = 500;

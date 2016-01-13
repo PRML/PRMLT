@@ -49,7 +49,7 @@ subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
 % [model,llh] = rvmRegFp(X,t);
 % figure
 % plot(llh);
-% [y, sigma] = linInfer(x,model,t);
+% [y, sigma] = linPred(x,model,t);
 % figure;
 % hold on;
 % plotBand(x,y,2*sigma);
@@ -60,7 +60,7 @@ subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
 % [model,llh] = rvmRegEm(X,t);
 % figure
 % plot(llh);
-% [y, sigma] = linInfer(x,model,t);
+% [y, sigma] = linPred(x,model,t);
 % figure;
 % hold on;
 % plotBand(x,y,2*sigma);
