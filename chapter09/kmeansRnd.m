@@ -2,7 +2,7 @@ function [X, z, center] = kmeansRnd(d, k, n)
 % Sampling from a Gaussian mixture distribution with common variances (kmeans model).
 % Written by Michael Chen (sth4nth@gmail.com).
 alpha = 1;
-beta = k;
+beta = nthroot(k,d); % in volume x^d there is k points: x^d=k
 
 X = randn(d,n);
 w = dirichletRnd(alpha,ones(1,k)/k);

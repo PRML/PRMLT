@@ -5,7 +5,8 @@ alpha0 = 1;  % hyperparameter of Dirichlet prior
 W0 = eye(d);  % hyperparameter of inverse Wishart prior of covariances
 v0 = d+1;  % hyperparameter of inverse Wishart prior of covariances
 mu0 = zeros(d,1);  % hyperparameter of Guassian prior of means
-beta0 = k; % hyperparameter of Guassian prior of means
+beta0 = nthroot(k,d); % hyperparameter of Guassian prior of means % in volume x^d there is k points: x^d=k
+
 
 w = dirichletRnd(alpha0,ones(1,k)/k);
 z = discreteRnd(w,n);
