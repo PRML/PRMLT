@@ -1,59 +1,34 @@
-function [model, llh] = pcaEm(X, q)
-% Perform EM algorithm to maiximize likelihood of probabilistic PCA model.
-%   X: m x n data matrix
-%   q: dimension of target space
+function [V, A] = pcaEm(X, p)
+% Perform EM-like algorithm for PCA (by Sam Roweis).
+%   X: d x n data matrix
+%   p: dimension of target space
 % Reference: 
 %   Pattern Recognition and Machine Learning by Christopher M. Bishop 
-%   Probabilistic Principal Component Analysis by Michael E. Tipping & Christopher M. Bishop
+%   EM algorithms for PCA and SPCA by Sam Roweis 
 % Written by Mo Chen (sth4nth@gmail.com).
-[m,n] = size(X);
-mu = mean(X,2);
-X = bsxfun(@minus,X,mu);
+[d,n] = size(X);
+X = bsxfun(@minus,X,mean(X,2));
+W = rand(d,p); 
 
-tol = 1e-4;
-maxiter = 500;
-llh = -inf(1,maxiter);
-idx = (1:q)';
-dg = sub2ind([q,q],idx,idx);
-I = eye(q);
-r = dot(X(:),X(:)); % total norm of X
+tol = 1e-8;
+error = inf;
+last = inf;
+t = 0;
+while ~(abs(last-error)<error*tol)
+    t = t+1;
+    Z = (W'*W)\(W'*X);
+    W = (X*Z')/(Z*Z');
 
-W = rand(m,q); 
-s = rand;
-for iter = 2:maxiter
-    M = W'*W;
-    M(dg) = M(dg)+s;
-    U = chol(M);
-    invM = U\(U'\I);
-    WX = W'*X;
-    
-    % likelihood
-    logdetC = 2*sum(log(diag(U)))+(m-q)*log(s);
-    T = U'\WX;
-    trInvCS = (r-dot(T(:),T(:)))/(s*n);
-    llh(iter) = -n*(m*log(2*pi)+logdetC+trInvCS)/2;
-    if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
-    
-    % E step
-    Ez = invM*(WX);
-    Ezz = n*s*invM+Ez*Ez'; % n*s because we are dealing with all n E[zi*zi']
-    
-    % M step
-    U = chol(Ezz);  
-    W = ((X*Ez')/U)/U';
-    WR = W*U';
-    s = (r-2*dot(Ez(:),WX(:))+dot(WR(:),WR(:)))/(n*m);
+    last = error;
+    E = X-W*Z;
+    error = E(:)'*E(:)/n;
 end
-llh = llh(2:iter);
-% W = normalize(orth(W));
-% % [W,U] = qr(W,0); % qr() orthnormalize W which is faster than orth().
-% Z = W'*X;
-% Z = bsxfun(@minus,Z,mean(Z,2));  % for numerical purpose, not really necessary
-% [V,A] = eig(Z*Z');
-% [A,idx] = sort(diag(A),'descend');
-% V = V(:,idx);
-% V = W*V;
-% model.V = V;
-model.W = W;
-model.mu = mu;
-model.sigma = s;
+fprintf('Converged in %d steps.\n',t);
+W = normalize(orth(W));
+% [W,R] = qr(W,0); % qr() orthnormalize W which is faster than orth().
+Z = W'*X;
+Z = bsxfun(@minus,Z,mean(Z,2));  % for numerical purpose, not really necessary
+[V,A] = eig(Z*Z');
+[A,idx] = sort(diag(A),'descend');
+V = V(:,idx);
+V = W*V;

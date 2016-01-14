@@ -1,10 +1,9 @@
-function [model, energy] = pcaVb(X, q, prior)
-% Perform EM algorithm to maiximize likelihood of probabilistic PCA model.
+function [model, energy] = ppcaVb(X, q, prior)
+% Perform variatioanl Bayeisan inference for probabilistic PCA model.
 %   X: m x n data matrix
 %   q: dimension of target space
 % Reference: 
 %   Pattern Recognition and Machine Learning by Christopher M. Bishop 
-%   Probabilistic Principal Component Analysis by Michael E. Tipping & Christopher M. Bishop
 % Written by Mo Chen (sth4nth@gmail.com).
 [m,n] = size(X);
 if nargin < 3
