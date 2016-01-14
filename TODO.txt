@@ -1,11 +1,11 @@
 TODO: 
-viterbi normalize update
-demo for time series model
-prediction functions for VB
-prediction functions for ppca
-chapter11: collapse Gibss for gmm and dpgm
+chapter14: adaboost
+chapter11: collapsed Gibss sampling for gmm and dpgm
+chapter13: demo for time series models
+chapter10: prediction functions for VB
+chapter12: prediction functions for ppca
 chapter05: MLP
 chapter08: BP, EP
-update beta for sequential rvm, 
-compute bound terms inside each factors, 
-plot multiclass data boundary
+chapter07: update beta for sequential rvm, 
+chapter10: compute bound terms inside each factors, 
+chapter04: plot multiclass data boundary
