@@ -1,10 +1,11 @@
 TODO: 
 chapter14: adaboost
+all: modify all binary label to use 0/1
 chapter11: collapsed Gibss sampling for gmm and dpgm
 chapter13: demo for time series models
-chapter10: prediction functions for VB
-chapter12: prediction functions for ppca
 chapter05: MLP
+chapter12: prediction functions for ppca
+chapter10: prediction functions for VB
 chapter08: BP, EP
 chapter07: update beta for sequential rvm, 
 chapter10: compute bound terms inside each factors, 
