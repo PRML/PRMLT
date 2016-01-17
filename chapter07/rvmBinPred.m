@@ -8,4 +8,4 @@ X = [X;ones(1,size(X,2))];
 X = X(index,:);
 w = model.w;
 p = exp(-log1pexp(w'*X)); 
-y = (p>0.5)+0;
+y = round(p);

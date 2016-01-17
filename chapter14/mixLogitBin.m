@@ -1,4 +1,4 @@
-function [model, llh] = mixLogitReg(X, t, k)
+function [model, llh] = mixLogitBin(X, t, k)
 % Mixture of logistic regression model
 % Written by Mo Chen (sth4nth@gmail.com).
 n = size(X,2);

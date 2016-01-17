@@ -6,5 +6,5 @@ function [y, p] = logitBinPred(model, X)
 X = [X;ones(1,size(X,2))];
 w = model.w;
 p = exp(-log1pexp(w'*X)); 
-y = (p>0.5)+0;
+y = round(p);
 
