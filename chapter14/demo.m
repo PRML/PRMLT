@@ -1,4 +1,3 @@
-% TODO: demo for mixLogitReg
 %% Demo for mixture of linear regression
 % close all; clear
 % d = 1;
@@ -6,18 +5,26 @@
 % n = 500;
 % [X,y] = mixLinRnd(d,k,n);
 % plot(X,y,'.');
-% [label,model,llh] = mixLinReg(X, y, k);
+% [model,llh] = mixLinReg(X, y, k);
+y_ = mixLinReg(X,y,k);
 % plotClass([X;y],label);
 % figure
 % plot(llh);
-
-%% Demo for adaboost
-close all; clear
+%% Demo for mixture of logistic regression
 d = 2;
 k = 2;
 n = 500;
 [X,t] = kmeansRnd(d,k,n);
-plotClass(X,t);
-t = t-1;
 
-model = adaboost(X,t);
+model = mixnLogitBin(X,t-1);
+y = adaboostBinPred(model,X);
+plotClass(X,y+1)
+%% Demo for adaboost
+d = 2;
+k = 2;
+n = 500;
+[X,t] = kmeansRnd(d,k,n);
+model = adaboostBin(X,t-1);
+y = adaboostBinPred(model,X);
+plotClass(X,y+1)
+
