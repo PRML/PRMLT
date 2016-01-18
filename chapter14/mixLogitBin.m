@@ -8,7 +8,6 @@ z = ceil(k*rand(1,n));
 R = full(sparse(1:n,z,1,n,k,n)); %  n x k
 
 W = zeros(d,k);
-w0 = zeros(1,k);
 tol = 1e-4;
 maxiter = 100;
 llh = -inf(1,maxiter);
@@ -16,7 +15,7 @@ llh = -inf(1,maxiter);
 t = t(:);
 h = ones(n,1);
 h(t==0) = -1;
-A = bsxfun(@plus,X'*W,w0);
+A = X'*W;
 for iter = 2:maxiter
     % maximization
     nk = sum(R,1);
@@ -26,7 +25,7 @@ for iter = 2:maxiter
         W(:,j) = newtonStep(X, t, Y(:,j), W(:,j), R(:,j));
     end
     % expectation
-    A = bsxfun(@plus,X'*W,w0);
+    A = X'*W;
     logRho = -log1pexp(-bsxfun(@times,A,h));
     logRho = bsxfun(@plus,logRho,log(alpha));
     T = logsumexp(logRho,2);
@@ -42,9 +41,9 @@ model.W = W;  % logistic model coefficent
 
 
 function w = newtonStep(X, t, y, w, r)
-% lambda = 1e-6;
+lambda = 1e-6;
 v = y.*(1-y).*r;
-H = bsxfun(@times,X,v')*X';%+lambda*eye(size(X,1));
+H = bsxfun(@times,X,v')*X'+lambda*eye(size(X,1));
 s = (y-t).*r;
 g = X*s;
 w = w-H\g;
