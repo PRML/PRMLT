@@ -1,4 +1,4 @@
-function V = cempca(X, p)
+function V = pcaEmC(X, p)
 % Perform Constrained EM like algorithm for PCA.
 %   X: d x n data matrix
 %   p: dimension of target space
