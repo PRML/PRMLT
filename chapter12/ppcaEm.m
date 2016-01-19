@@ -1,24 +1,24 @@
-function [model, llh] = ppcaEm(X, q)
+function [model, llh] = ppcaEm(X, m)
 % Perform EM algorithm to maiximize likelihood of probabilistic PCA model.
-%   X: m x n data matrix
-%   q: dimension of target space
+%   X: d x n data matrix
+%   m: dimension of target space
 % Reference: 
 %   Pattern Recognition and Machine Learning by Christopher M. Bishop 
 %   Probabilistic Principal Component Analysis by Michael E. Tipping & Christopher M. Bishop
 % Written by Mo Chen (sth4nth@gmail.com).
-[m,n] = size(X);
+[d,n] = size(X);
 mu = mean(X,2);
 X = bsxfun(@minus,X,mu);
 
 tol = 1e-4;
 maxiter = 500;
 llh = -inf(1,maxiter);
-idx = (1:q)';
-dg = sub2ind([q,q],idx,idx);
-I = eye(q);
+idx = (1:m)';
+dg = sub2ind([m,m],idx,idx);
+I = eye(m);
 r = dot(X(:),X(:)); % total norm of X
 
-W = rand(m,q); 
+W = randn(d,m); 
 s = rand;
 for iter = 2:maxiter
     M = W'*W;
@@ -28,10 +28,10 @@ for iter = 2:maxiter
     WX = W'*X;
     
     % likelihood
-    logdetC = 2*sum(log(diag(U)))+(m-q)*log(s);
+    logdetC = 2*sum(log(diag(U)))+(d-m)*log(s);
     T = U'\WX;
     trInvCS = (r-dot(T(:),T(:)))/(s*n);
-    llh(iter) = -n*(m*log(2*pi)+logdetC+trInvCS)/2;
+    llh(iter) = -n*(d*log(2*pi)+logdetC+trInvCS)/2;
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
     
     % E step
@@ -42,7 +42,7 @@ for iter = 2:maxiter
     U = chol(Ezz);  
     W = ((X*Ez')/U)/U';
     WR = W*U';
-    s = (r-2*dot(Ez(:),WX(:))+dot(WR(:),WR(:)))/(n*m);
+    s = (r-2*dot(Ez(:),WX(:))+dot(WR(:),WR(:)))/(n*d);
 end
 llh = llh(2:iter);
 % W = normalize(orth(W));
@@ -56,4 +56,4 @@ llh = llh(2:iter);
 % model.V = V;
 model.W = W;
 model.mu = mu;
-model.sigma = s;
+model.beta = 1/s;
