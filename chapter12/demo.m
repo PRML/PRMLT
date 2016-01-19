@@ -1,3 +1,7 @@
+% TODO: 
+%   1) demo
+%   2) pred
+%   3) unify model parameter
 % demo
 d = 10;
 m = 2;
@@ -5,7 +9,7 @@ n = 1000;
 
 [X] = ppcaRnd(m,d,n);
 %%
-[model,energy] = pcaVb(X);
-[model, llh] = pcaEm(X,3);
-[model, llh] = fa(X,3);
+[model,llh] = pcaVb(X);
+[model, llh] = pcaEm(X,m);
+[model, llh] = fa(X,m);
 plot(energy)
