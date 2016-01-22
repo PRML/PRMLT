@@ -32,5 +32,5 @@ elseif size(sigma,1)==1 && (size(sigma,2)==k || size(sigma,2)==1) % k mu and (k 
     c = d*(log(2*pi)+2*log(sigma));          % normalization constant
     y = -0.5*bsxfun(@plus,q,c);
 else
-    error('Parameters mismatched.');
+    error('Parameters are mismatched.');
 end

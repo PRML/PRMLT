@@ -1,5 +1,5 @@
 
-% demo for sequential update Gaussian 
+%% demo for sequential update Gaussian 
 close all; clear;
 d = 2;
 n = 100;
@@ -11,6 +11,7 @@ Xo = bsxfun(@minus,X,mu);
 Sigma = Xo*Xo'/n;
 p1 = logGauss(x,mu,Sigma);
 
-gauss = Gaussian(X(:,3:end)).addSample(X(:,1)).addSample(X(:,2));
+gauss = Gaussian(X(:,3:end)).addSample(X(:,1)).addSample(X(:,2)).addSample(X(:,3)).delSample(X(:,3));
 p2 = gauss.logPdf(x);
 abs(p1-p2)
+%%
