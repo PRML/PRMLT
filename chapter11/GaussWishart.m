@@ -8,7 +8,25 @@ classdef GaussWishart
      
      methods
          function obj = GaussWishart(kappa,m,nu,S)
-             U = chol(S+kappa*m*m');
+             U = chol(S+kappa*(m*m'));
+             obj.kappa_ = kappa;
+             obj.m_ = m;
+             obj.nu_ = nu;
+             obj.U_ = U;
+         end
+         
+         function obj = addData(obj, X)
+             kappa0 = obj.kappa_;
+             m0 = obj.m_;
+             nu0 = obj.nu_;
+             U0 = obj.U_;
+             
+             n = size(X,2);
+             kappa = kappa0+n;
+             m = (kappa0*m0+sum(X,2))/kappa;
+             nu = nu0+n;
+             U = chol(U0'*U0+X*X');
+
              obj.kappa_ = kappa;
              obj.m_ = m;
              obj.nu_ = nu;
@@ -57,8 +75,7 @@ classdef GaussWishart
              
              d = size(X,1);
              v = (nu-d+1);
-             r = (1+1/kappa)/v;
-             U = cholupdate(U,sqrt(kappa)*m,'-')*sqrt(r);
+             U = sqrt((1+1/kappa)/v)*cholupdate(U,sqrt(kappa)*m,'-');
              
              X = bsxfun(@minus,X,m);
              Q = U'\X;

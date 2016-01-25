@@ -39,6 +39,10 @@ v = (nu-d+1);
 r = (1+1/kappa)/v;
 p1 = logSt(x,m,r*S,v);
 
+gw0 = GaussWishart(kappa0,m0,nu0,S0);
+gw0 = gw0.addData(X);
+p0 = gw0.logPredPdf(x);
+
 gw = GaussWishart(kappa0,m0,nu0,S0);
 for i=1:n
     gw = gw.addSample(X(:,i));
