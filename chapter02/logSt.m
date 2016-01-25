@@ -4,7 +4,7 @@ function y = logSt(X, mu, sigma, v)
 [d,k] = size(mu);
 
 if size(sigma,1)==d && size(sigma,2)==d && k==1
-    [R,p]= chol(sigma,0);
+    [R,p]= chol(sigma);
     if p ~= 0
         error('ERROR: sigma is not SPD.');
     end
