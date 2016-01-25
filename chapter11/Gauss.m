@@ -6,7 +6,7 @@ classdef Gauss
      end
      
      methods
-         function obj = Gaussian(X)
+         function obj = Gauss(X)
              n = size(X,2);
              mu = mean(X,2);
              U = chol(X*X');

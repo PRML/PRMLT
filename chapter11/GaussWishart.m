@@ -7,7 +7,7 @@ classdef GaussWishart
      end
      
      methods
-         function obj = GaussianWishart(kappa,mu,nu,W)
+         function obj = GaussWishart(kappa,mu,nu,W)
              U = chol(W);
              
              obj.kappa_ = kappa;
