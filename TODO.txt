@@ -1,5 +1,4 @@
 TODO: 
-chapter11: collapsed Gibss sampling for gmm and dpgm
 chapter13: demo for time series models
 chapter12: prediction functions for ppca
 chapter05: MLP
