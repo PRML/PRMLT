@@ -17,9 +17,10 @@ for iter = 1:maxIter
             which = label>k;
             label(which) = label(which)-1;
         end
-        Pk = nk.*exp(cellfun(@(theta) theta.logPredPdf(x),Theta));
-        P0 = alpha*exp(theta.logPredPdf(x));
-        k = discreteRnd(normalize([Pk,P0]));
+        Pk = log(nk)+cellfun(@(t) t.logPredPdf(x), Theta);
+        P0 = log(alpha)+theta.logPredPdf(x);
+        p = [Pk,P0];
+        k = discreteRnd(exp(p-logsumexp(p)));
         if k == numel(Theta)+1                 % add extra cluster
             Theta{k} = theta.clone.addSample(x);
             nk = [nk,1];
