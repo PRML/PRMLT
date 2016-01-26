@@ -60,14 +60,14 @@
 % [y,model] = mixGaussGb(X);
 % figure
 % plotClass(X,y);
-%% Demo for online DPGM
+%% Demo for DPGM
 close all; clear;
 d = 2;
 k = 3;
-n = 500;
+n = 200;
 [X,label] = mixGaussRnd(d,k,n);
 plotClass(X,label);
 
-[y,model] = mixGaussGb(X);
+[y,theta,w,llh] = mixGaussGb(X);
 figure
 plotClass(X,y);

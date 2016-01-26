@@ -5,11 +5,13 @@ n = size(X,2);
 Theta = {};
 nk = [];
 label = zeros(1,n);
+llh = 0;
 for i = randperm(n)
     x = X(:,i);
     Pk = log(nk)+cellfun(@(t) t.logPredPdf(x), Theta);
     P0 = log(alpha)+theta.logPredPdf(x);
     p = [Pk,P0];
+    llh = llh+sum(p-log(n));
     k = discreteRnd(exp(p-logsumexp(p)));
     if k == numel(Theta)+1
         Theta{k} = theta.clone().addSample(x);

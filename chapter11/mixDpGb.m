@@ -1,10 +1,11 @@
-function [label, Theta, w] = mixDpGb(X, alpha, theta)
+function [label, Theta, w, llh] = mixDpGb(X, alpha, theta)
 % Collapsed Gibbs sampling for Dirichlet process (infinite) mixture model (a.k.a.
 % DPGM). Any component model can be used, such as Gaussian
 n = size(X,2);
 [label,Theta,w] = mixDpGbOl(X,alpha,theta);
 nk = n*w;
-maxIter = 100;
+maxIter = 200;
+llh = zeros(1,maxIter);
 for iter = 1:maxIter
     for i = randperm(n)
         x = X(:,i);
@@ -20,6 +21,7 @@ for iter = 1:maxIter
         Pk = log(nk)+cellfun(@(t) t.logPredPdf(x), Theta);
         P0 = log(alpha)+theta.logPredPdf(x);
         p = [Pk,P0];
+        llh(iter) = llh(iter)+sum(p-log(n));
         k = discreteRnd(exp(p-logsumexp(p)));
         if k == numel(Theta)+1                 % add extra cluster
             Theta{k} = theta.clone.addSample(x);
