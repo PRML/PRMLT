@@ -4,7 +4,7 @@ function [Y, s] = standardize(X)
 % Written by Michael Chen (sth4nth@gmail.com).
 if nargin == 1, 
     % Determine which dimension sum will use
-    dim = find(size(x)~=1,1);
+    dim = find(size(X)~=1,1);
     if isempty(dim), dim = 1; end
 end
 X = bsxfun(@minux,X,mean(X,2));
