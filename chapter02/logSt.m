@@ -1,10 +1,10 @@
 function y = logSt(X, mu, sigma, v)
-% Compute log pdf of a student-t distribution.
+% Compute log pdf of a Student's t distribution.
 % Written by mo Chen (sth4nth@gmail.com).
 [d,k] = size(mu);
 
 if size(sigma,1)==d && size(sigma,2)==d && k==1
-    [R,p]= cholcov(sigma,0);
+    [R,p]= chol(sigma);
     if p ~= 0
         error('ERROR: sigma is not SPD.');
     end
@@ -29,5 +29,5 @@ elseif size(sigma,1)==1 && size(sigma,2)==k
     c = gammaln((v+d)/2)-gammaln(v/2)-d*log(pi*v.*sigma)/2;
     y = bsxfun(@plus,o,c);
 else
-    error('Parameters mismatched.');
+    error('Parameters are mismatched.');
 end

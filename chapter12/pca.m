@@ -1,36 +1,16 @@
-function [V, A] = pca(X, p)
-% Perform standard PCA (spectral method).
-%   X: d x n data matrix
-%   p: dimension of target space (p>=1) or ratio (0<p<1)
+function model = pca(X, p)
+% Principal component analysis
+%   X: dxn data matrix 
+%   p: target dimension
 % Written by Mo Chen (sth4nth@gmail.com).
-opts.disp = 0;
-opts.issym = 1;
-opts.isreal = 1;
-opts.maxit = 500;
+xbar = mean(X,2);
+Xo = bsxfun(@minus,X,xbar);
+S = Xo*Xo'/size(X,2);                   % 12.3
+[U,L] = eig(S);                         % 12.5
+[L,idx] = sort(diag(L),'descend');      
+U = U(:,idx(1:p));
+L = L(1:p);
 
-[d,n] = size(X);
-if nargin == 1
-    p = min(d,n);
-end
-
-X = bsxfun(@minus,X,mean(X,2));
-if 0<p && p<1       % given ratio
-    [V,A] = svd(X,'econ');
-    A = diag(A).^2;
-    
-    S = cumsum(A);
-    idc = (S/S(end))<=p;
-    V = V(:,idc);
-    A = A(idc);
-elseif p >= min(d,n) % full pca
-    [V,A] = svd(X,'econ');
-    A = diag(A).^2;
-elseif d <= n       % covariance based pca
-    [V,A] = eigs(X*X',p,'la',opts); 
-    A = diag(A);
-elseif d > n                % inner product based pca
-    [U,A] = eigs(X'*X,p,'la',opts); 
-    A = diag(A);
-    V = X*bsxfun(@times,U,1./sqrt(A)');
-end
-
+model.xbar = xbar;
+model.U = U;
+model.L = L;

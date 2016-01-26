@@ -1,5 +1,6 @@
 function z = mutInfo(x, y)
 % Compute mutual information I(x,y) of two discrete variables x and y.
+% x, y: two vectors of integers of the same length
 % Written by Mo Chen (sth4nth@gmail.com).
 assert(numel(x) == numel(y));
 n = numel(x);

@@ -1,42 +1,18 @@
 % Done
 % demo for chapter 03
 clear; close all;
-n = 100;
-beta = 1e-1;
-X = rand(1,n);
-w = randn;
-b = randn;
-t = w'*X+b+beta*randn(1,n);
-x = linspace(min(X)-1,max(X)+1,n);   % test data
+d = 1;
+n = 200;
+[x,t] = linRnd(d,n);
 %%
-model = regress(X, t);
-y = linInfer(x, model);
-figure;
-hold on;
-plot(X,t,'o');
-plot(x,y,'r-');
-hold off
-pause
+% model = linReg(x,t);
+% linPlot(model,x,t);
 %%
-[model,llh] = regressEbEm(X,t);
-[y, sigma] = linInfer(x,model,t);
-figure;
-hold on;
-plotBand(x,y,2*sigma);
-plot(X,t,'o');
-plot(x,y,'r-');
-hold off
-figure
+% [model1,llh1] = linRegEm(x,t);
+% plot(llh);
+% linPlot(model,x,t);
+%%
+[model,llh] = linRegFp(x,t);
+[y, sigma] = linPred(model,x,t);
 plot(llh);
-pause
-%%
-[model,llh] = regressEbFp(X,t);
-[y, sigma] = linInfer(x,model,t);
-figure;
-hold on;
-plotBand(x,y,2*sigma);
-plot(X,t,'o');
-plot(x,y,'r-');
-hold off
-figure
-plot(llh);
+linPlot(model,x,t);

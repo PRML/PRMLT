@@ -1,5 +1,5 @@
-function [model, label, llh] = mixLinReg(X, y, k, lambda)
-% mixture of linear regression
+function [label, model, llh] = mixLinReg(X, y, k, lambda)
+% Mixture of linear regression
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 4
     lambda = 1;
@@ -7,14 +7,12 @@ end
 n = size(X,2);
 X = [X;ones(1,n)]; % adding the bias term
 d = size(X,1);
-idx = (1:d)';
-dg = sub2ind([d,d],idx,idx);
 label = ceil(k*rand(1,n));  % random initialization
 R = full(sparse(label,1:n,1,k,n,n));
-tol = 1e-4;
-maxiter = 200;
+tol = 1e-6;
+maxiter = 500;
 llh = -inf(1,maxiter);
-lambda = lambda*ones(d,1);
+Lambda = lambda*eye(d);
 W = zeros(d,k);
 Xy = bsxfun(@times,X,y);
 beta = 1;
@@ -24,9 +22,7 @@ for iter = 2:maxiter
     alpha = nk/n;
     for j = 1:k
         Xw = bsxfun(@times,X,sqrt(R(j,:)));
-        C = Xw*Xw';
-        C(dg) = C(dg)+lambda;
-        U = chol(C);
+        U = chol(Xw*Xw'+Lambda);
         W(:,j) = U\(U'\(Xy*R(j,:)'));  % 3.15 & 3.28
     end
     D = bsxfun(@minus,W'*X,y).^2;
@@ -39,9 +35,10 @@ for iter = 2:maxiter
     llh(iter) = sum(T)/n;
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter)); break; end
 end
-[~,label] = max(R,[],1);
 llh = llh(2:iter);
-
+label = max(R,[],1);
 model.alpha = alpha; % mixing coefficient
 model.beta = beta; % mixture component precision
 model.W = W;  % linear model coefficent
+[~,label] = max(R,[],1);
+model.label = label;

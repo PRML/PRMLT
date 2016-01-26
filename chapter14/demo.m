@@ -1,25 +1,34 @@
-clear all; close all
-%% Test for mixLinReg
+%% Demo for mixture of linear regression
+% close all; clear
 % d = 1;
-% k = 3;
+% k = 2;
 % n = 500;
-% W = randn(d+1,k);
-% 
-% [x, label] = rndKmeans(d, k, n);
-% X = [x; ones(1,n)];
-% y = zeros(1,n);
-% for j = 1:k
-%     idx = (label == j);
-%     y(idx) = W(:,j)'*X(:,idx);
-% end
-% 
-% plot(x,y,'.');
-% [model, label,llh] = mixLinReg(X, y, 3);
-% spread([x;y],label);
+% [X,y] = mixLinRnd(d,k,n);
+% plot(X,y,'.');
+% [label,model,llh] = mixLinReg(X, y, k);
+% plotClass([X;y],label);
 % figure
 % plot(llh);
+% [y_,z,p] = mixLinPred(model,X,y);
+% figure;
+% plotClass([X;y],label);
 
-%%
-[X, y] = rndKmeans(2,3,1000);
-[label,L] = mixGaussVb(X, 10);
-plot(L);
+%% Demo for mixture of logistic regression
+d = 2;
+c = 2;
+k = 4;
+n = 500;
+[X,t] = kmeansRnd(d,c,n);
+
+model = mixLogitBin(X,t-1,k);
+y = mixLogitBinPred(model,X);
+plotClass(X,y+1)
+%% Demo for adaboost
+% d = 2;
+% k = 2;
+% n = 500;
+% [X,t] = kmeansRnd(d,k,n);
+% model = adaboostBin(X,t-1);
+% y = adaboostBinPred(model,X);
+% plotClass(X,y+1)
+

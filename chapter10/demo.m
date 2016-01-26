@@ -1,40 +1,39 @@
-clear; close all;
+% TODO:
+%   1) prediction functions for vb reg and mix
+%   2) modify mixGaussMix to compute bound inside each factor
 
-%% regression
-% n = 100;
+% %% regression
+% clear; close all;
+% 
+% d = 100;
 % beta = 1e-1;
-% X = rand(1,n);
+% X = rand(1,d);
 % w = randn;
 % b = randn;
-% t = w'*X+b+beta*randn(1,n);
+% t = w'*X+b+beta*randn(1,d);
+% x = linspace(min(X)-1,max(X)+1,d);   % test data
 % 
-% x = linspace(min(X)-1,max(X)+1,n);   % test data
-% X = rand(3,100);
-% t = rand(1,100);
-%%
-% [model,energy] = regressVb(X,t);
-% % figure
-% plot(energy);
-% y = linInfer(x,model);
+% [model,llh] = linRegVb(X,t);
+% % [model,llh] = rvmRegVb(X,t);
+% figure
+% plot(llh);
+% [y, sigma] = linPred(model,x);
 % figure;
 % hold on;
-% % plotBand(x,y,2*sigma);
+% plotBand(x,y,2*sigma);
 % plot(X,t,'o');
 % plot(x,y,'r-');
 % hold off
-%%
-% [model,energy] = regressRvmVb(X,t);
-% % figure
-% plot(energy);
-% y = linInfer(x,model);
-% figure;
-% hold on;
-% % plotBand(x,y,2*sigma);
-% plot(X,t,'o');
-% plot(x,y,'r-');
-% hold off
-%%
-[X,y] = rndKmeans(2,3,1000);
-spread(X,y)
-[label, model, energy] = mixGaussVb(X,10);
-spread(X,label)
+
+%% Variational Bayesian for Gaussian Mixture Model
+close all; clear;
+d = 2;
+k = 3;
+n = 500;
+[X,label] = mixGaussRnd(d,k,n);
+plotClass(X,label);
+[y, model, bound] = mixGaussVb(X,10);
+figure;
+plotClass(X,y);
+figure;
+plot(bound)
