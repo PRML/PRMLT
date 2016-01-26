@@ -15,6 +15,9 @@ classdef Gauss
              obj.mu_ = mu;
              obj.U_ = U;
          end
+         
+         function obj = clone(obj)
+         end
         
          function obj = addSample(obj, x)
              n = obj.n_;

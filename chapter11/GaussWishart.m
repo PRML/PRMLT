@@ -15,6 +15,9 @@ classdef GaussWishart
              obj.U_ = U;
          end
          
+         function obj = clone(obj)
+         end
+         
 %          function obj = addData(obj, X)
 %              kappa0 = obj.kappa_;
 %              m0 = obj.m_;
