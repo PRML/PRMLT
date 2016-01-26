@@ -1,4 +1,6 @@
 function [label, Theta, w, llh] = mixGaussGbOl(X, alpha, theta)
+% Online collapsed Gibbs sampling for Dirichlet process (infinite) mixture model (a.k.a.
+% DPGM). Any component model can be used, such as Gaussian
 n = size(X,2);
 Theta = {};
 nk = [];

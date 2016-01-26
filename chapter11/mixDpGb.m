@@ -1,6 +1,6 @@
 function [label, Theta, w] = mixDpGb(X, alpha, theta)
-% Collapsed Gibbs sampling for (infinite) Gaussian mixture model (a.k.a.
-% DPGM)
+% Collapsed Gibbs sampling for Dirichlet process (infinite) mixture model (a.k.a.
+% DPGM). Any component model can be used, such as Gaussian
 n = size(X,2);
 [label,Theta,w] = mixDpGbOl(X,alpha,theta);
 nk = n*w;

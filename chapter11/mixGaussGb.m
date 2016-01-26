@@ -1,4 +1,6 @@
 function [label, Theta, w] = mixGaussGb( X, opt )
+% Collapsed Gibbs sampling for Dirichlet process (infinite) Gaussian mixture model (a.k.a.
+% DPGM). 
 [d,n] = size(X);
 mu = mean(X,2);
 Xo = bsxfun(@minus,X,mu);
