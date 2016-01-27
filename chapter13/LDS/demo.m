@@ -1,11 +1,12 @@
 % demo
+clear; close all;
 d = 3;
-k = 3;
-n = 10000;
+k = 2;
+n = 100;
 
 [X,model] = ldsRnd(d,k,n);
-% [mu, V, llh] = kalmanFilter(X, model);
-% [nu, U, Ezz, Ezy, llh] = kalmanSmoother(X, model);
+[mu, V, llh] = kalmanFilter(X, model);
+% % [nu, U, Ezz, Ezy, llh] = kalmanSmoother(X, model);
 [model, llh] = ldsEm(X, model);
-plot(llh);
+% plot(llh);
 
