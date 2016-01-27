@@ -4,13 +4,12 @@ A = normalize(rand(k,k),2);
 E = normalize(rand(k,d),2);
 s = normalize(rand(k,1),1);
 
-z = zeros(1,n);
 x = zeros(1,n);
-z(1) = discreteRnd(s);
-x(1) = discreteRnd(E(z(1),:));
+z = discreteRnd(s);
+x(1) = discreteRnd(E(z,:));
 for i = 2:n
-    z(i) = discreteRnd(A(z(i-1),:));
-    x(i) = discreteRnd(E(z(i),:));
+    z = discreteRnd(A(z,:));
+    x(i) = discreteRnd(E(z,:));
 end
 
 model.A = A;
