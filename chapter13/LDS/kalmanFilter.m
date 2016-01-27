@@ -9,11 +9,11 @@ mu0 = model.mu0; % prior mean
 P = model.P0;  % prior covairance
 
 n = size(X,2);
-q = size(mu0,1);
-mu = zeros(q,n);
-V = zeros(q,q,n);
+k = size(mu0,1);
+mu = zeros(k,n);
+V = zeros(k,k,n);
 llh = zeros(1,n);
-I = eye(q);
+I = eye(k);
 
 PC = P*C';
 R = (C*PC+S);
