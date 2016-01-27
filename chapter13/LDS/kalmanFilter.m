@@ -17,9 +17,9 @@ I = eye(q);
 
 PC = P*C';
 R = (C*PC+S);
-K = PC/R;
-mu(:,1) = mu0+K*(X(:,1)-C*mu0);
-V(:,:,1) = (I-K*C)*P;
+K = PC/R;                                        % 13.97
+mu(:,1) = mu0+K*(X(:,1)-C*mu0);                     % 13.94
+V(:,:,1) = (I-K*C)*P;                               % 13.95
 llh(1) = logGauss(X(:,1),C*mu0,R);
 for i = 2:n
     [mu(:,i), V(:,:,i), llh(i)] = ...
@@ -28,12 +28,12 @@ end
 llh = sum(llh);
 
 function [mu, V, llh] = forwardStep(x, mu, V, A, G, C, S, I)
-P = A*V*A'+G;
-PC = P*C';
+P = A*V*A'+G;                                               % 13.88
+PC = P*C';                                                      
 R = C*PC+S;
-K = PC/R;
+K = PC/R;                                                   % 13.92
 Amu = A*mu;
-CAmu = C*Amu;
-mu = Amu+K*(x-CAmu);
-V = (I-K*C)*P;
-llh = logGauss(x,CAmu,R);
+CAmu = C*Amu;                                               
+mu = Amu+K*(x-CAmu);                                        % 13.89
+V = (I-K*C)*P;                                              % 13.90
+llh = logGauss(x,CAmu,R);                                   % 13.91

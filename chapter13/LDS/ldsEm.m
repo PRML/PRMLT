@@ -23,13 +23,13 @@ Ezz1 = Ezzn-Ezz(:,:,n);
 Ezz2 = Ezzn-Ezz(:,:,1);
 Ezy = sum(Ezy,3);
 
-A = Ezy/Ezz1;
+A = Ezy/Ezz1;                                           % 13.113
 EzyA = Ezy*A';
-G = (Ezz2-(EzyA+EzyA')+A*Ezz1*A')/(n-1);
+G = (Ezz2-(EzyA+EzyA')+A*Ezz1*A')/(n-1);                % 13.114
 Xnu = X*nu';
-C = Xnu/Ezzn;
+C = Xnu/Ezzn;                                           % 13.115
 XnuC = Xnu*C';
-S = (X*X'-(XnuC+XnuC')+C*Ezzn*C')/n;
+S = (X*X'-(XnuC+XnuC')+C*Ezzn*C')/n;                    % 13.116
 
 model.A = A;
 model.G = G;

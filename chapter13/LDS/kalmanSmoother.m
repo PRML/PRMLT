@@ -46,19 +46,20 @@ for i = n-1:-1:1
 end
 
 function [mu, V, Amu, P, llh] = forwardStep(x, mu0, V0, A, G, C, S, I)
-P = A*V0*A'+G;
+P = A*V0*A'+G;                                              % 13.88
 PC = P*C';
 R = C*PC+S;
-K = PC/R;
+K = PC/R;                                                   % 13.92
 Amu = A*mu0;
 CAmu = C*Amu;
-mu = Amu+K*(x-CAmu);
-V = (I-K*C)*P;
-llh = logGauss(x,CAmu,R);
+mu = Amu+K*(x-CAmu);                                        % 13.89
+V = (I-K*C)*P;                                              % 13.90
+llh = logGauss(x,CAmu,R);                                   % 13.91
+
 
 function [nu, U, Ezz, Ezy] = backwardStep(nu0, U0, mu, V, Amu, P, A)
-J = V*A'/P;   % smoother gain matrix
-nu = mu+J*(nu0-Amu);
-U = V+J*(U0-P)*J';
-Ezy = J*U0+nu0*nu';     % E[z_t,z_{t+1}] eq 13.106
-Ezz = U+nu*nu';
+J = V*A'/P;                                                 % 13.102
+nu = mu+J*(nu0-Amu);                                        % 13.100
+U = V+J*(U0-P)*J';                                          % 13.101
+Ezy = J*U0+nu0*nu';                                         % 13.106 
+Ezz = U+nu*nu';                                             % 13.107
