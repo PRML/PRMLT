@@ -1,6 +1,6 @@
 % demo
 d = 3;
-k = 2;
+k = 3;
 n = 10000;
 
 [X,model] = ldsRnd(d,k,n);

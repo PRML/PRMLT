@@ -2,7 +2,7 @@
 
 d = 3;
 k = 2;
-n = 1000;
+n = 10000;
 
 [x, model] = hmmRnd(d, k, n);
 [z, v] = hmmViterbi(x,model);
