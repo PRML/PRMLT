@@ -1,8 +1,9 @@
-function [argmax, prob] = hmmViterbi (M, A, s)
-% x: 1xn observation sequence vector
-% s: starting probability (prior)
+function [argmax, prob] = hmmViterbi_(M, A, s)
+% Implmentation function of Viterbi algorithm. (not supposed to be called
+% directly)
+% M: data matrix
 % A: transition probability matrix
-% E: Emmission probability matrix
+% s: starting probability (prior)
 % Written by Mo Chen (sth4nth@gmail.com).
 [k,n] = size(M);
 Z = zeros(k,n);

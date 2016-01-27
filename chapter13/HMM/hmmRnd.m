@@ -1,4 +1,4 @@
-function [ X, M, A, E, s ] = hmmRnd(d, k, n)
+function [x, model] = hmmRnd(d, k, n)
 % Generate a data sequence from a hidden Markov model
 A = normalize(rand(k,k),2);
 E = normalize(rand(k,d),2);
@@ -12,5 +12,7 @@ for i = 2:n
     z(i) = discreteRnd(A(z(i-1),:));
     x(i) = discreteRnd(E(z(i),:));
 end
-X = sparse(x,1:n,1,d,n);
-M = E*X;
+
+model.A = A;
+model.E = E;
+model.s = s;

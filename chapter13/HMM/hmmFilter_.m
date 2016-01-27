@@ -1,4 +1,4 @@
-function [alpha, energy] = hmmFilter(M, A, s)
+function [alpha, energy] = hmmFilter_(M, A, s)
 % HMM forward filtering algorithm
 % Unlike the method described in the book of PRML, the alpha returned is the normalized version: alpha(t)=p(z_t|x_{1:t})
 % The unnormalized version is numerical unstable. alpha(t)=p(z_t,x_{1:t}) grows exponential fast to infinity.

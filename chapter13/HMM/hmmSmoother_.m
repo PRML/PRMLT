@@ -1,4 +1,4 @@
-function [gamma, alpha, beta, c] = hmmSmoother(M, A, s)
+function [gamma, alpha, beta, c] = hmmSmoother_(M, A, s)
 % HMM smoothing alogrithm (normalized forward-backward or normalized alpha-beta algorithm)
 % Written by Mo Chen (sth4nth@gmail.com).
 [K,T] = size(M);
