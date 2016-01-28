@@ -1,7 +1,7 @@
-function [W, Z, err] = pcaEmC(X, p)
+function [W, Z, mu, err] = pcaEmC(X, m)
 % Perform Constrained EM like algorithm for PCA.
 %   X: d x n data matrix
-%   p: dimension of target space
+%   m: dimension of target space
 % Reference: 
 %   A Constrained EM Algorithm for Principal Component Analysis by Jong-Hoon Ahn & Jong-Hoon Oh
 % Written by Mo Chen (sth4nth@gmail.com).
@@ -9,7 +9,7 @@ function [W, Z, err] = pcaEmC(X, p)
 [d,n] = size(X);
 mu = mean(X,2);
 X = bsxfun(@minus,X,mu);
-W = rand(d,p); 
+W = rand(d,m); 
 
 tol = 1e-6;
 err = inf;

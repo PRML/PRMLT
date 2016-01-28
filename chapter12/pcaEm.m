@@ -1,7 +1,7 @@
-function [W, Z, err] = pcaEm(X, p)
+function [W, Z, mu, err] = pcaEm(X, m)
 % Perform EM-like algorithm for PCA (by Sam Roweis).
 %   X: d x n data matrix
-%   p: dimension of target space
+%   m: dimension of target space
 % Reference: 
 %   Pattern Recognition and Machine Learning by Christopher M. Bishop 
 %   EM algorithms for PCA and SPCA by Sam Roweis 
@@ -9,7 +9,7 @@ function [W, Z, err] = pcaEm(X, p)
 [d,n] = size(X);
 mu = mean(X,2);
 X = bsxfun(@minus,X,mu);
-W = rand(d,p); 
+W = rand(d,m); 
 
 tol = 1e-6;
 err = inf;
