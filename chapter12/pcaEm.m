@@ -15,8 +15,8 @@ tol = 1e-6;
 err = inf;
 maxIter = 200;
 for iter = 1:maxIter
-    Z = (W'*W)\(W'*X);
-    W = (X*Z')/(Z*Z');
+    Z = (W'*W)\(W'*X);             % 12.58
+    W = (X*Z')/(Z*Z');              % 12.59
 
     last = err;
     E = X-W*Z;
