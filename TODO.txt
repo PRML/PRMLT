@@ -1,9 +1,11 @@
 TODO: 
 chapter12: prediction functions for ppca
-chapter05: MLP
 chapter13: square root filter and smoother
-chapter08: BP, EP
 chapter10: prediction functions for VB
 chapter10: compute bound terms inside each factors, 
 chapter07: update beta for sequential rvm, 
+
+Li Wei:
+chapter05: MLP
+chapter08: BP, EP
 chapter04: plot multiclass data boundary
