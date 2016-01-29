@@ -1,11 +1,12 @@
 TODO: 
-chapter12: prediction functions for ppca
 chapter13: square root filter and smoother
-chapter10: prediction functions for VB
+chapter12: sqaure root update for EM and VB for PCA and FA
+chapter10/12: prediction functions for VB
 chapter10: compute bound terms inside each factors, 
 chapter07: update beta for sequential rvm, 
 
-Li Wei:
+Help:
+standardize help descrtiption: add input/output description
+chapter04: plot multiclass data boundary
 chapter05: MLP
 chapter08: BP, EP
-chapter04: plot multiclass data boundary

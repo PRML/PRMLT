@@ -1,4 +1,4 @@
-function [model, llh] = ppcaEm(X, m)
+function [W, mu, beta, llh] = ppcaEm(X, m)
 % Perform EM algorithm to maiximize likelihood of probabilistic PCA model.
 %   X: d x n data matrix
 %   m: dimension of target space
@@ -19,10 +19,10 @@ I = eye(m);
 r = dot(X(:),X(:)); % total norm of X
 
 W = randn(d,m); 
-s = rand;
+s = 1/randg;
 for iter = 2:maxiter
     M = W'*W;
-    M(dg) = M(dg)+s;
+    M(dg) = M(dg)+s;                            % 12.41
     U = chol(M);
     invM = U\(U'\I);
     WX = W'*X;
@@ -31,29 +31,18 @@ for iter = 2:maxiter
     logdetC = 2*sum(log(diag(U)))+(d-m)*log(s);
     T = U'\WX;
     trInvCS = (r-dot(T(:),T(:)))/(s*n);
-    llh(iter) = -n*(d*log(2*pi)+logdetC+trInvCS)/2;
+    llh(iter) = -n*(d*log(2*pi)+logdetC+trInvCS)/2;                     % 12.43 12.44
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
     
     % E step
-    Ez = invM*(WX);
-    Ezz = n*s*invM+Ez*Ez'; % n*s because we are dealing with all n E[zi*zi']
+    Ez = invM*(WX);                                     % 12.54
+    Ezz = n*s*invM+Ez*Ez'; % n*s because we are dealing with all n E[zi*zi']    % 12. 55
     
     % M step
-    U = chol(Ezz);  
-    W = ((X*Ez')/U)/U';
+    U = chol(Ezz);                                           
+    W = ((X*Ez')/U)/U';                                 % 12.56
     WR = W*U';
-    s = (r-2*dot(Ez(:),WX(:))+dot(WR(:),WR(:)))/(n*d);
+    s = (r-2*dot(Ez(:),WX(:))+dot(WR(:),WR(:)))/(n*d);         % 12.57
 end
 llh = llh(2:iter);
-% W = normalize(orth(W));
-% % [W,U] = qr(W,0); % qr() orthnormalize W which is faster than orth().
-% Z = W'*X;
-% Z = bsxfun(@minus,Z,mean(Z,2));  % for numerical purpose, not really necessary
-% [V,A] = eig(Z*Z');
-% [A,idx] = sort(diag(A),'descend');
-% V = V(:,idx);
-% V = W*V;
-% model.V = V;
-model.W = W;
-model.mu = mu;
-model.beta = 1/s;
+beta = 1/s;
