@@ -1,4 +1,4 @@
-function D = pdist2(X1, X2)
+function D = sqdist(X1, X2)
 % Pairwise square Euclidean distance between two sample sets
 %   X1, X2: dxn1 dxn2 sample matrices
 % Written by Mo Chen (sth4nth@gmail.com).

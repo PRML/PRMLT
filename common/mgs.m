@@ -1,6 +1,6 @@
-function [Q,R] = mgs(X)
-% Modified Gram-Schmidt orthogonalization (numerical stable version
-% Gram-Schmidt algorithm) which produces the same result as [Q,R]=qr(X,0)
+function [Q, R] = mgs(X)
+% Modified Gram-Schmidt (numerical stable version of Gram-Schmidt orthogonalization algorithm) 
+% which produces the same result as [Q,R]=qr(X,0)
 [d,n] = size(X);
 m = min(d,n);
 R = zeros(m,n);
