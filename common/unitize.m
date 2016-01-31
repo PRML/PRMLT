@@ -7,5 +7,5 @@ if nargin == 1,
     dim = find(size(X)~=1,1);
     if isempty(dim), dim = 1; end
 end
-s = sqrt(sum(X.^2,dim));
+s = sqrt(dot(X,X,dim));
 Y = bsxfun(@times,X,1./s);
