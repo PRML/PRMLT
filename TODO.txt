@@ -3,7 +3,9 @@ chapter13: square root filter and smoother
 chapter12: sqaure root update for EM and VB for PCA and FA
 chapter10/12: prediction functions for VB
 chapter10: compute bound terms inside each factors, 
-chapter07: update beta for sequential rvm, 
+chapter07: update beta for sequential rvm
+chapter13: constrained filter (like pcaEMc)
+chapter12: constrained VB pca
 
 Help:
 standardize help descrtiption: add input/output description
