@@ -13,7 +13,7 @@ for m = 1:M
     E = spdiags(w',0,n,n)*T;
     E = E*spdiags(1./sum(E,1)',0,k,k);
     c = X*E;
-    [~,y] = min(pdist2(c,X),[],1);
+    [~,y] = min(sqdist(c,X),[],1);
     Theta(:,:,m) = c;
     % adaboost
     I = y~=t;
