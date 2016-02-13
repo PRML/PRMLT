@@ -1,6 +1,4 @@
 TODO: 
-chapter13: square root filter and smoother
-chapter12: sqaure root update for EM and VB for PCA and FA
 chapter10/12: prediction functions for VB
 chapter10: compute bound terms inside each factors, 
 chapter07: update beta for sequential rvm
