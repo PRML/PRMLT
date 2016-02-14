@@ -40,13 +40,13 @@ EWW = EWo*EWo'/m+EW*EW';
 for iter = 2:maxIter  
 %     q(z)
     LZ = I+Ebeta*EWW;
-    V = inv(chol(LZ));
+    V = inv(chol(LZ));                   % inv(LZ) = V*V';
     EZ = LZ\EW*Xo*Ebeta;
     EZZ = n*(V*V')+EZ*EZ';
     KLZ = n*sum(log(diag(V)));           % KLZ = 0.5*n*log(det(inv(LZ)));
 %     q(w)
     LW = diag(Ealpha)+Ebeta*EZZ;
-    V = inv(chol(LW));
+    V = inv(chol(LW));                   % inv(LW) = V*V';  
     EW = LW\EZ*Xo'*Ebeta;
     EWW = m*(V*V')+EW*EW';
     KLW = m*sum(log(diag(V)));           % KLW = 0.5*n*log(det(inv(LW)));

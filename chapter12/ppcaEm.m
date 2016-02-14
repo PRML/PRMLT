@@ -31,8 +31,8 @@ for iter = 2:maxiter
     
     % E step
     Ez = M\WX;                                     % 12.54
-    V = U'\I;                                % inv(M) = V'*V
-    Ezz = n*s*(V'*V)+Ez*Ez'; % n*s because we are dealing with all n E[zi*zi']    % 12. 55
+    V = inv(U);                                % inv(M) = V*V'
+    Ezz = n*s*(V*V')+Ez*Ez'; % n*s because we are dealing with all n E[zi*zi']    % 12. 55
     
     % M step
     U = chol(Ezz);                                           
