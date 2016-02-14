@@ -1,5 +1,5 @@
 function [model, energy] = ppcaVb(X, q, prior)
-% Perform variatioanl Bayeisan inference for probabilistic PCA model.
+% Perform variatioanl Bayeisan inference for probabilistic PCA model. 
 %   X: m x n data matrix
 %   q: dimension of target space
 % Reference: 
@@ -39,36 +39,32 @@ EWo = bsxfun(@minus,EW,mean(EW,2));
 EWW = EWo*EWo'/m+EW*EW';
 for iter = 2:maxIter  
 %     q(z)
-    CZ = inv(I+Ebeta*EWW);
-    EZ = Ebeta*CZ*EW*Xo;
-    EZZ = n*CZ+EZ*EZ';
-
+    LZ = I+Ebeta*EWW;
+    V = inv(chol(LZ));
+    EZ = LZ\EW*Xo*Ebeta;
+    EZZ = n*(V*V')+EZ*EZ';
+    KLZ = n*sum(log(diag(V)));           % KLZ = 0.5*n*log(det(inv(LZ)));
 %     q(w)
-    A = diag(Ealpha);
-    CW = inv(A+Ebeta*EZZ);
-    EW = Ebeta*CW*EZ*Xo';
-    EWW = m*CW+EW*EW';
-    
+    LW = diag(Ealpha)+Ebeta*EZZ;
+    V = inv(chol(LW));
+    EW = LW\EZ*Xo'*Ebeta;
+    EWW = m*(V*V')+EW*EW';
+    KLW = m*sum(log(diag(V)));           % KLW = 0.5*n*log(det(inv(LW)));
 %     q(alpha)
     b = b0+diag(EWW)/2;
     Ealpha = a./b;
-    
+    KLalpha = -sum(a*log(b));
 %     q(beta)
     WZ = EW'*EZ;
     d = d0+(s-2*dot(Xo(:),WZ(:))+dot(EWW(:),EZZ(:)))/2;
     Ebeta = c/d;
-    
+    KLbeta = -c*log(d);
 %     q(mu)
 %     Emu = Ebeta/(lambda+n*Ebeta)*sum(X-WZ,2);
 
 %     lower bound
-    KLalpha = -sum(a*log(b));
-    KLbeta = -c*log(d);
-    KLW = 0.5*m*log(det(CW));
-    KLZ = 0.5*n*log(det(CZ));
-    
     energy(iter) = KLalpha+KLbeta+KLW+KLZ;
-    if energy(iter)-energy(iter-1) < tol*abs(energy(iter-1)); break; end   % check likelihood for convergence
+    if energy(iter)-energy(iter-1) < tol*abs(energy(iter-1)); break; end  
 end
 energy = energy(2:iter);
 

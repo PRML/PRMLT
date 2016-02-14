@@ -13,18 +13,13 @@ X = bsxfun(@minus,X,mu);
 tol = 1e-4;
 maxiter = 500;
 llh = -inf(1,maxiter);
-idx = (1:m)';
-dg = sub2ind([m,m],idx,idx);
 I = eye(m);
 r = dot(X(:),X(:)); % total norm of X
-
 W = randn(d,m); 
 s = 1/randg;
 for iter = 2:maxiter
-    M = W'*W;
-    M(dg) = M(dg)+s;                            % 12.41
+    M = W'*W+s*I;
     U = chol(M);
-    invM = U\(U'\I);
     WX = W'*X;
     
     % likelihood
@@ -35,8 +30,9 @@ for iter = 2:maxiter
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
     
     % E step
-    Ez = invM*(WX);                                     % 12.54
-    Ezz = n*s*invM+Ez*Ez'; % n*s because we are dealing with all n E[zi*zi']    % 12. 55
+    Ez = M\WX;                                     % 12.54
+    V = U'\I;                                % inv(M) = V'*V
+    Ezz = n*s*(V'*V)+Ez*Ez'; % n*s because we are dealing with all n E[zi*zi']    % 12. 55
     
     % M step
     U = chol(Ezz);                                           
