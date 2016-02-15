@@ -18,11 +18,9 @@ r = dot(X,X,2);
 W = randn(d,m); 
 lambda = 1./rand(d,1);
 for iter = 2:maxiter
-    % compute quantities needed
     T = bsxfun(@times,W,sqrt(lambda));
     M = T'*T+I;                     % M = W'*inv(Psi)*W+I
     U = chol(M);
-    G = U\(U'\I);                                   % 12.68
     WInvPsiX = bsxfun(@times,W,lambda)'*X;       % WInvPsiX = W'*inv(Psi)*X
     
     % likelihood
@@ -33,8 +31,9 @@ for iter = 2:maxiter
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
     
     % E step
-    Ez = G*WInvPsiX;                                         % 12.66
-    Ezz = n*G+Ez*Ez';                                        % 12.67
+    Ez = M\WInvPsiX;                                         % 12.66
+    V = inv(U);
+    Ezz = n*(V*V')+Ez*Ez';                                        % 12.67
     
     % M step    
     U = chol(Ezz);  

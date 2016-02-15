@@ -1,9 +1,7 @@
 TODO: 
-chapter12: refine FA to sync with ppca
 chapter10: compute bound terms (entropy) inside each factors
 chapter10/12: prediction functions for VB
 chapter07: update beta for sequential rvm
-
 
 Help:
 standardize help descrtiption: add input/output description
