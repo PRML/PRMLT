@@ -27,9 +27,6 @@ Xt = X*t';
 
 maxiter = 100;
 energy = -inf(1,maxiter+1);
-idx = (1:m)';
-dg = sub2ind([m,m],idx,idx);
-I = eye(m);
 tol = 1e-8;
 
 a = a0+1/2;
@@ -37,26 +34,28 @@ c = c0+n/2;
 Ealpha = 1e-4;
 Ebeta = 1e-4;
 for iter = 2:maxiter
-    invS = Ebeta*XX;
-    invS(dg) = invS(dg)+Ealpha;
+%     q(w)
+    invS = diag(Ealpha)+Ebeta*XX;
     U = chol(invS);
     Ew = Ebeta*(U\(U'\Xt));
-    
+    KLw = -sum(log(diag(U)));        
+%     q(alpha)
     w2 = Ew.*Ew;
-    e2 = sum((t-Ew'*X).^2);    
     invU = U\I;
     dgS = dot(invU,invU,2);
+    b = b0+0.5*(w2+dgS);
+    Ealpha = a./b;
+    KLalpha = -sum(a*log(b));
+%     q(beta)
+    e2 = sum((t-Ew'*X).^2);    
     invUX = U\X;
     trXSX = dot(invUX(:),invUX(:));
-    
-    b = b0+0.5*(w2+dgS);
     d = d0+0.5*(e2+trXSX);
-    
-    Ealpha = a./b;
     Ebeta = c/d; 
-        
-    logdetS = -2*sum(log(diag(U)));        
-    energy(iter) = 0.5*logdetS-a*sum(log(b))-c*log(d);
+    KLbeta = -c*log(d);
+  
+%     lower bound
+    energy(iter) = KLalpha+KLbeta+KLw;
     if energy(iter)-energy(iter-1) < tol*abs(energy(iter-1)); break; end
 end
 const = m*(gammaln(a)-gammaln(a0)+a0*log(b0))+gammaln(c)-gammaln(c0)+c0*log(d0)+0.5*(m-n*log(2*pi));
@@ -65,8 +64,8 @@ w0 = tbar-dot(Ew,xbar);
 
 model.w0 = w0;
 model.w = Ew;
-model.Ealpha = Ealpha;
-model.Ebeta = Ebeta;
+model.alpha = Ealpha;
+model.beta = Ebeta;
 model.a = a;
 model.b = b;
 model.c = c;
