@@ -81,7 +81,6 @@ m0 = prior.m;
 v0 = prior.v;
 M0 = prior.M;
 R = model.R;
-alpha = model.alpha;
 nk = model.nk;
 
 
@@ -123,11 +122,7 @@ Eqmu = 0.5*sum(ElogLambda+d*log(kappa/(2*pi)))-0.5*d*k;
 logB =  -v.*(logW+d*log(2))/2-logMvGamma(0.5*v,d);
 EqLambda = 0.5*sum((v-d-1).*ElogLambda-v*d)+sum(logB);
 
-% EpX = 0.5*dot(nk,ElogLambda-d./kappa-v.*trSW-v.*xbarmWxbarm-d*log(2*pi));
-
-
 KL = Epmu-Eqmu+EpLambda-EqLambda;
-model.alpha = alpha;
 model.kappa = kappa;
 model.m = m;
 model.v = v;
@@ -254,13 +249,8 @@ Eqz = dot(R(:),logR(:));
 logCalpha0 = gammaln(k*alpha0)-k*gammaln(alpha0);
 Eppi = logCalpha0+(alpha0-1)*sum(Elogpi);
 logCalpha = gammaln(sum(alpha))-sum(gammaln(alpha));
-Eqpi = dot(alpha-1,Elogpi)+logCalpha;
+Eqpi = logCalpha+dot(alpha-1,Elogpi);
 L = Epz-Eqz+Eppi-Eqpi;
-
-
-
-
-
 
 U0 = chol(M0);
 sqrtR = sqrt(R);
