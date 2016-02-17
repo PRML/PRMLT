@@ -26,6 +26,8 @@ for iter = 2:maxiter
     lb(iter) = KLDir+KLGW+KLMul;
     L(iter) = bound(X,model,prior);
     if abs(L(iter)-L(iter-1)) < tol*abs(L(iter)); break; end
+    
+%     [EpX,lb]=checkPx(X,model,prior);
 end
 L = L(2:iter);
 lb = lb(2:iter);
@@ -98,31 +100,16 @@ for i = 1:k
     M(:,:,i) = M0+Xm*Xm'+kappa0*(m0m*m0m');     % equivalent to 10.62
 end
 
-
-
-
+% bound
 U0 = chol(M0);
-sqrtR = sqrt(R);
-xbar = bsxfun(@times,X*R,1./nk); % 10.52
-
 logW = zeros(1,k);
-trSW = zeros(1,k);
 trM0W = zeros(1,k);
-xbarmWxbarm = zeros(1,k);
 mm0Wmm0 = zeros(1,k);
 for i = 1:k
     U = chol(M(:,:,i));
     logW(i) = -2*sum(log(diag(U)));      
-    
-    Xs = bsxfun(@times,bsxfun(@minus,X,xbar(:,i)),sqrtR(:,i)');
-    V = chol(Xs*Xs'/nk(i));
-    Q = V/U;
-    trSW(i) = dot(Q(:),Q(:));  % equivalent to tr(SW)=trace(S/M)
     Q = U0/U;
     trM0W(i) = dot(Q(:),Q(:));
-
-    q = U'\(xbar(:,i)-m(:,i));
-    xbarmWxbarm(i) = dot(q,q);
     q = U'\(m(:,i)-m0);
     mm0Wmm0(i) = dot(q,q);
 end
@@ -136,17 +123,17 @@ Eqmu = 0.5*sum(ElogLambda+d*log(kappa/(2*pi)))-0.5*d*k;
 logB =  -v.*(logW+d*log(2))/2-logMvGamma(0.5*v,d);
 EqLambda = 0.5*sum((v-d-1).*ElogLambda-v*d)+sum(logB);
 
-EpX = 0.5*dot(nk,ElogLambda-d./kappa-v.*trSW-v.*xbarmWxbarm-d*log(2*pi));
+% EpX = 0.5*dot(nk,ElogLambda-d./kappa-v.*trSW-v.*xbarmWxbarm-d*log(2*pi));
 
 
-KL = Epmu-Eqmu+EpLambda-EqLambda+EpX;
+KL = Epmu-Eqmu+EpLambda-EqLambda;
 model.alpha = alpha;
 model.kappa = kappa;
 model.m = m;
 model.v = v;
 model.M = M; % Whishart: M = inv(W)
 
-% Done
+% not Done
 function [model, KL] = q_z(X, model)
 ElogPi = model.ElogPi;
 kappa = model.kappa;   % Gaussian
@@ -166,19 +153,82 @@ for i = 1:k
     EQ(:,i) = d/kappa(i)+v(i)*dot(Q,Q,1);    % 10.64
 end
 ElogLambda = sum(psi(0,bsxfun(@minus,v+1,(1:d)')/2),1)+d*log(2)+logW; % 10.65
-logRho = -0.5*bsxfun(@minus,EQ,2*ElogPi+ElogLambda-d*log(2*pi)); % 10.46
-logR = bsxfun(@minus,logRho,logsumexp(logRho,2)); % 10.49
+logPx = -0.5*bsxfun(@minus,EQ,ElogLambda)-0.5*d*log(2*pi); 
+logRho = bsxfun(@plus,logPx,ElogPi);   % 10.46
+T = logsumexp(logRho,2);
+logR = bsxfun(@minus,logRho,T); % 10.49
 R = exp(logR);
 nk = sum(R,1); % 10.51
 % lower bound
+EpX = dot(R(:),logPx(:));
 Epz = dot(nk,ElogPi);
 Eqz = dot(R(:),logR(:));
-KL = Epz-Eqz;
+KL = EpX+Epz-Eqz;
 
 model.logR = logR;
 model.R = R;
 model.nk = nk;
 % Done
+
+function [EpX,lb] = checkPx(X, model, prior)
+kappa = model.kappa;
+v = model.v;
+M = model.M;
+m = model.m;
+m0 = prior.m;
+ElogPi = model.ElogPi;
+
+n = size(X,2);
+[d,k] = size(m);
+
+
+
+logW = zeros(1,k);
+EQ = zeros(n,k);
+for i = 1:k
+    U = chol(M(:,:,i));
+    logW(i) = -2*sum(log(diag(U)));      
+    Q = U'\bsxfun(@minus,X,m(:,i));
+    EQ(:,i) = d/kappa(i)+v(i)*dot(Q,Q,1);    % 10.64
+end
+ElogLambda = sum(psi(0,bsxfun(@minus,v+1,(1:d)')/2),1)+d*log(2)+logW; % 10.65
+logPx = -0.5*bsxfun(@minus,EQ,ElogLambda)-0.5*d*log(2*pi); 
+logRho = bsxfun(@plus,logPx,ElogPi);   % 10.46
+T = logsumexp(logRho,2);
+logR = bsxfun(@minus,logRho,T); % 10.49
+R = exp(logR);
+lb = dot(R(:),logPx(:));
+
+
+nk = sum(R,1);
+sqrtR = sqrt(R);
+xbar = bsxfun(@times,X*R,1./nk); % 10.52
+% 
+% logW = zeros(1,k);
+trSW = zeros(1,k);
+xbarmWxbarm = zeros(1,k);
+mm0Wmm0 = zeros(1,k);
+for i = 1:k
+    U = chol(M(:,:,i));
+%     logW(i) = -2*sum(log(diag(U)));      
+%     
+    Xs = bsxfun(@times,bsxfun(@minus,X,xbar(:,i)),sqrtR(:,i)');
+    V = chol(Xs*Xs'/nk(i));
+    Q = V/U;
+    trSW(i) = dot(Q(:),Q(:));  % equivalent to tr(SW)=trace(S/M)
+% 
+    q = U'\(xbar(:,i)-m(:,i));
+    xbarmWxbarm(i) = dot(q,q);
+    q = U'\(m(:,i)-m0);
+    mm0Wmm0(i) = dot(q,q);
+end
+% 
+% ElogLambda = sum(psi(0,bsxfun(@minus,v+1,(1:d)')/2),1)+d*log(2)+logW; % 10.65
+EpX = 0.5*dot(nk,ElogLambda-d./kappa-v.*trSW-v.*xbarmWxbarm-d*log(2*pi));
+
+
+
+
 function L = bound(X, model, prior)
 alpha0 = prior.alpha;
 kappa0 = prior.kappa;
@@ -206,6 +256,10 @@ Eppi = logCalpha0+(alpha0-1)*sum(Elogpi);
 logCalpha = gammaln(sum(alpha))-sum(gammaln(alpha));
 Eqpi = dot(alpha-1,Elogpi)+logCalpha;
 L = Epz-Eqz+Eppi-Eqpi;
+
+
+
+
 
 
 U0 = chol(M0);
