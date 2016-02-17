@@ -29,7 +29,7 @@
 close all; clear;
 d = 2;
 k = 3;
-n = 100;
+n = 200;
 [X,label] = mixGaussRnd(d,k,n);
 plotClass(X,label);
 [y, model, bound] = mixGaussVb(X,10);
