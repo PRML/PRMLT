@@ -68,6 +68,10 @@ for iter = 2:maxIter
 end
 energy = energy(2:iter);
 
+model.Z = EZ;
+model.W = EW;
+model.apha = Ealpha;
+model.beta = Ebeta;
 model.a = a;
 model.b = b;
 model.c = c;

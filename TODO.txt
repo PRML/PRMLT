@@ -1,10 +1,9 @@
 TODO: 
 chapter10: compute bound terms (entropy) inside each factors
 chapter10/12: prediction functions for VB
-chapter07: update beta for sequential rvm
+chapter05: MLP
+chapter08: BP, EP
 
 Help:
 standardize help descrtiption: add input/output description
 chapter04: plot multiclass data boundary
-chapter05: MLP
-chapter08: BP, EP
