@@ -13,6 +13,8 @@ if nargin < 3
     prior.v = d+1;
     prior.M = eye(d);   % M = inv(W)
 end
+prior.logW = -2*sum(log(diag(chol(prior.M))));
+
 tol = 1e-20;
 maxiter = 5000;
 L = -inf(1,maxiter);
@@ -20,11 +22,11 @@ lb = -inf(1,maxiter);
 model = init(X,m);
 model.nk = sum(model.R,1);
 for iter = 2:maxiter
-    [model, KLDir] = q_pi(model,prior);                    % q(pi)
-    [model, KLGW] = q_mu_Lambda(X, model, prior);          % q(mu,Lambda) 
-    [model, KLMul] = q_z(X, model,prior);                     % q(z)
-    lb(iter) = KLDir+KLGW+KLMul;
-    L(iter) = bound(X,model,prior);
+    [model, LDir] = qDir(model,prior);            % q(pi) Direchlet
+    [model, LGW] = qGW(X, model, prior);          % q(mu,Lambda) GaussianWishart
+    [model, LMul] = qMul(X, model,prior);         % q(z) multinomial
+    lb(iter) = bound(X,model,prior);
+    L(iter) = LDir+LGW+LMul;                      % lower bound
     if abs(L(iter)-L(iter-1)) < tol*abs(L(iter)); break; end
 end
 L = L(2:iter);
@@ -52,28 +54,26 @@ else
 end
 
 % Done
-function [model, KL] = q_pi(model, prior)
+function [model, L] = qDir(model, prior)
 alpha0 = prior.alpha;
-R = model.R;
 nk = model.nk;
 
-k = size(R,2);
-
+k = numel(nk);
 alpha = alpha0+nk; % 10.58
 ElogPi = psi(0,alpha)-psi(0,sum(alpha)); % 10.66
 
 % lower bound
 logCalpha0 = gammaln(k*alpha0)-k*gammaln(alpha0);
-Eppi = logCalpha0+(alpha0-1)*sum(ElogPi);
 logCalpha = gammaln(sum(alpha))-sum(gammaln(alpha));
-Eqpi = dot(alpha-1,ElogPi)+logCalpha;
-KL = Eppi-Eqpi;
+Eppi = logCalpha0+(alpha0-1)*sum(ElogPi);
+Eqpi = logCalpha+dot(alpha-1,ElogPi);
+L = Eppi-Eqpi;
 
 model.alpha = alpha;    
 model.ElogPi = ElogPi;
 
 % Done
-function [model, KL] = q_mu_Lambda(X, model, prior)
+function [model, L] = qGW(X, model, prior)
 kappa0 = prior.kappa;
 m0 = prior.m;
 v0 = prior.v;
@@ -81,13 +81,14 @@ M0 = prior.M;
 R = model.R;
 nk = model.nk;
 
+[d,n] = size(X);
+k = numel(nk);
 
 kappa = kappa0+nk; % 10.60
 m = bsxfun(@plus,X*R,kappa0*m0);
 m = bsxfun(@times,m,1./kappa); % 10.61
 v = v0+nk; % 10.63
 
-[d,k] = size(m);
 r = sqrt(R');
 M = zeros(d,d,k);
 for i = 1:k
@@ -97,16 +98,15 @@ for i = 1:k
     M(:,:,i) = M0+Xm*Xm'+kappa0*(m0m*m0m');     % equivalent to 10.62
 end
 
-% bound
-n = size(X,2);
-KL = 0.5*d*(sum(log(kappa0./kappa))-n*log(2*pi));
+% lower bound
+L = 0.5*d*(sum(log(kappa0./kappa))-n*log(2*pi));
 model.kappa = kappa;
 model.m = m;
 model.v = v;
 model.M = M; % Whishart: M = inv(W)
 
 % Done
-function [model, KL] = q_z(X, model,prior)
+function [model, L] = qMul(X, model,prior)
 ElogPi = model.ElogPi;
 kappa = model.kappa;   % Gaussian
 m = model.m;         % Gasusian
@@ -131,25 +131,23 @@ T = logsumexp(logRho,2);
 logR = bsxfun(@minus,logRho,T); % 10.49
 R = exp(logR);
 nk = sum(R,1); % 10.51
+
 % lower bound
-% EpX = dot(R(:),logPx(:));
 Epz = dot(nk,ElogPi);
 Eqz = dot(R(:),logR(:));
 
-M0 = prior.M;
 v0 = prior.v;
-U0 = chol(M0);
-logB0 = v0*sum(log(diag(U0)))-0.5*v0*d*log(2)-logMvGamma(0.5*v0,d);
-logB = -v.*(logW+d*log(2))/2-logMvGamma(0.5*v,d);
+logW0 = prior.logW;
+logB0 = -0.5*v0*(logW0+d*log(2))-logMvGamma(0.5*v0,d);
+logB = -0.5*v.*(logW+d*log(2))-logMvGamma(0.5*v,d);
 
-KL = Epz-Eqz+k*logB0-sum(logB);
+L = Epz-Eqz+k*logB0-sum(logB);
 
 model.logR = logR;
 model.R = R;
 model.nk = nk;
+
 % Done
-
-
 function L = bound(X, model, prior)
 alpha0 = prior.alpha;
 kappa0 = prior.kappa;
