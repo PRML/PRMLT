@@ -29,14 +29,13 @@
 close all; clear;
 d = 2;
 k = 3;
-n = 200;
+n = 2000;
 [X,label] = mixGaussRnd(d,k,n);
 plotClass(X,label);
-[y, model, L, L2] = mixGaussVb(X,10);
+[y, model, L] = mixGaussVb(X,10);
 figure;
 plotClass(X,y);
 figure;
 plot(L)
-L(end)
-L2(end)
-L(end)-L2(end)
+
+
