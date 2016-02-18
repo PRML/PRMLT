@@ -1,10 +1,10 @@
-function [label, model, L] = mixGaussVb(X, m, prior)
+function [label, model, L, L2] = mixGaussVb(X, init, prior)
 % Perform variational Bayesian inference for Gaussian mixture.
 %   X: d x n data matrix
 %   init: k (1 x 1) or label (1 x n, 1<=label(i)<=k) or center (d x k)
 % Reference: Pattern Recognition and Machine Learning by Christopher M. Bishop (P.474)
 % Written by Mo Chen (sth4nth@gmail.com).
-fprintf('Variational Bayesian Gaussian mixture: running ... ');
+fprintf('Variational Bayesian Gaussian mixture: running ... \n');
 [d,n] = size(X);
 if nargin < 3
     prior.alpha = 1;
@@ -16,135 +16,132 @@ end
 prior.logW = -2*sum(log(diag(chol(prior.M))));
 
 tol = 1e-20;
-maxiter = 5000;
+maxiter = 2000;
 L = -inf(1,maxiter);
-lb = -inf(1,maxiter);
-model = init(X,m);
-model.nk = sum(model.R,1);
+L2 = -inf(1,maxiter);
+
+model.R = initialize(X,init);
+model = maximize(X, model, prior);
 for iter = 2:maxiter
-    [model, LDir] = qDir(model,prior);            % q(pi) Direchlet
-    [model, LGW] = qGW(X, model, prior);          % q(mu,Lambda) GaussianWishart
-    [model, LMul] = qMul(X, model);         % q(z) multinomial
-    lb(iter) = bound(X,model,prior);
-    L(iter) = LDir+LGW+LMul;                      % lower bound
+    model = expect(X, model);
+    model = maximize(X, model, prior);
+
+    L(iter) = bound(X,model,prior);
+    L2(iter) = bound2(X,model,prior);
+
     if abs(L(iter)-L(iter-1)) < tol*abs(L(iter)); break; end
+    
+    if L(iter)-L(iter-1) < 0
+        fprintf('Bound L increase: %d\n', L(iter)-L(iter-1));
+    end
+    
+    if L2(iter)-L2(iter-1) < 0
+        fprintf('Bound L2 increase %d at iteration %d\n', L2(iter)-L2(iter-1), iter);
+    end
 end
 L = L(2:iter);
-lb = lb(2:iter);
+L2 = L2(2:iter);
 label = zeros(1,n);
 [~,label(:)] = max(model.R,[],2);
-[~,~,label(:)] = unique(label);
-fprintf('done in %d iterations.\n',iter);
+[~,~,label] = unique(label);
 
-% Done
-function model = init(X, m)
-n = size(X,2);
-if isstruct(m)  % init with a model
-    model = m;
-elseif numel(m) == 1  % random init k
-    k = m;
-    label = ceil(k*rand(1,n));
-    model.R = full(sparse(1:n,label,1,n,k,n));
-elseif all(size(m)==[1,n])  % init with labels
-    label = m;
+
+function R = initialize(X, init)
+[d,n] = size(X);
+if length(init) == 1  % random initialize
+    k = init;
+    idx = randsample(n,k);
+    m = X(:,idx);
+    [~,label] = max(bsxfun(@minus,m'*X,dot(m,m,1)'/2),[],1);
+    [u,~,label] = unique(label);
+    while k ~= length(u)
+        idx = randsample(n,k);
+        m = X(:,idx);
+        [~,label] = max(bsxfun(@minus,m'*X,dot(m,m,1)'/2),[],1);
+        [u,~,label] = unique(label);
+    end
+    R = full(sparse(1:n,label,1,n,k,n));
+elseif size(init,1) == 1 && size(init,2) == n  % initialize with labels
+    label = init;
     k = max(label);
-    model.R = full(sparse(1:n,label,1,n,k,n));
+    R = full(sparse(1:n,label,1,n,k,n));
+elseif size(init,1) == d  %initialize with only centers
+    k = size(init,2);
+    m = init;
+    [~,label] = max(bsxfun(@minus,m'*X,dot(m,m,1)'/2),[],1);
+    R = full(sparse(1:n,label,1,n,k,n));
 else
     error('ERROR: init is not valid.');
 end
-
 % Done
-function [model, L] = qDir(model, prior)
+function model = maximize(X, model, prior)
 alpha0 = prior.alpha;
-nk = model.nk;
-
-k = numel(nk);
-alpha = alpha0+nk; % 10.58
-ElogPi = psi(0,alpha)-psi(0,sum(alpha)); % 10.66
-
-% lower bound
-logCalpha0 = gammaln(k*alpha0)-k*gammaln(alpha0);
-logCalpha = gammaln(sum(alpha))-sum(gammaln(alpha));
-Eppi = logCalpha0+(alpha0-1)*sum(ElogPi);
-Eqpi = logCalpha+dot(alpha-1,ElogPi);
-L = Eppi-Eqpi;
-
-model.alpha = alpha;    
-model.ElogPi = ElogPi;
-
-% Done
-function [model, L] = qGW(X, model, prior)
 kappa0 = prior.kappa;
 m0 = prior.m;
 v0 = prior.v;
 M0 = prior.M;
-logW0 = prior.logW;
 R = model.R;
-nk = model.nk;
 
-[d,n] = size(X);
-k = numel(nk);
-
+nk = sum(R,1); % 10.51
+alpha = alpha0+nk; % 10.58
+nxbar = X*R;
 kappa = kappa0+nk; % 10.60
-m = bsxfun(@plus,X*R,kappa0*m0);
-m = bsxfun(@times,m,1./kappa); % 10.61
+m = bsxfun(@times,bsxfun(@plus,kappa0*m0,nxbar),1./kappa); % 10.61
 v = v0+nk; % 10.63
 
-r = sqrt(R');
-M = zeros(d,d,k);
-U = zeros(d,d,k);
+[d,k] = size(m);
+M = zeros(d,d,k); 
+U = zeros(d,d,k); 
 logW = zeros(1,k);
+
+sqrtR = sqrt(R);
+xbar = bsxfun(@times,nxbar,1./nk); % 10.52
+xbarm0 = bsxfun(@minus,xbar,m0);
+w = (kappa0*nk./(kappa0+nk));
+
+
 for i = 1:k
-    Xm = bsxfun(@minus,X,m(:,i));
-    Xm = bsxfun(@times,Xm,r(i,:));
-    m0m = m0-m(:,i);
-    M(:,:,i) = M0+Xm*Xm'+kappa0*(m0m*m0m');     % equivalent to 10.62
+    Xs = bsxfun(@times,bsxfun(@minus,X,xbar(:,i)),sqrtR(:,i)');
+    xbarm0i = xbarm0(:,i);
+    M(:,:,i) = M0+Xs*Xs'+w(i)*(xbarm0i*xbarm0i'); % 10.62
     U(:,:,i) = chol(M(:,:,i));
-    logW(i) = -2*sum(log(diag(U(:,:,i))));      
+    logW(i) = -2*sum(log(diag(U(:,:,i))));
 end
-% lower bound
-logB0 = -0.5*v0*(logW0+d*log(2))-logMvGamma(0.5*v0,d);
-logB = -0.5*v.*(logW+d*log(2))-logMvGamma(0.5*v,d);
-L = k*logB0-sum(logB)+0.5*d*(sum(log(kappa0./kappa))-n*log(2*pi));
+
+model.alpha = alpha;
 model.kappa = kappa;
 model.m = m;
 model.v = v;
 model.M = M; % Whishart: M = inv(W)
-model.U = U; % U = chol(M)
-
+model.U = U;
+model.logW = logW;
 % Done
-function [model, L] = qMul(X, model)
-ElogPi = model.ElogPi;
+function model = expect(X, model)
+alpha = model.alpha; % Dirichlet
 kappa = model.kappa;   % Gaussian
 m = model.m;         % Gasusian
 v = model.v;         % Whishart
 U = model.U;         % Whishart: inv(W) = V'*V
-
+logW = model.logW;
 n = size(X,2);
 [d,k] = size(m);
 
-logW = zeros(1,k);
+
 EQ = zeros(n,k);
 for i = 1:k
-    Q = U(:,:,i)'\bsxfun(@minus,X,m(:,i));
+    Q = (U(:,:,i)'\bsxfun(@minus,X,m(:,i)));
     EQ(:,i) = d/kappa(i)+v(i)*dot(Q,Q,1);    % 10.64
 end
-ElogLambda = sum(psi(0,0.5*bsxfun(@minus,v+1,(1:d)')),1)+d*log(2)+logW; % 10.65
-logPx = -0.5*bsxfun(@minus,EQ,ElogLambda)-0.5*d*log(2*pi); 
-logRho = bsxfun(@plus,logPx,ElogPi);   % 10.46
-T = logsumexp(logRho,2);
-logR = bsxfun(@minus,logRho,T); % 10.49
-R = exp(logR);
-nk = sum(R,1); % 10.51
 
-% lower bound
-Epz = dot(nk,ElogPi);
-Eqz = dot(R(:),logR(:));
-L = Epz-Eqz;
+ElogLambda = sum(psi(0,bsxfun(@minus,v+1,(1:d)')/2),1)+d*log(2)+logW; % 10.65
+Elogpi = psi(0,alpha)-psi(0,sum(alpha)); % 10.66
+
+logRho = (bsxfun(@minus,EQ,2*Elogpi+ElogLambda-d*log(2*pi)))/(-2); % 10.46
+logR = bsxfun(@minus,logRho,logsumexp(logRho,2)); % 10.49
+R = exp(logR);
 
 model.logR = logR;
 model.R = R;
-model.nk = nk;
 
 % Done
 function L = bound(X, model, prior)
@@ -161,9 +158,10 @@ v = model.v;         % Whishart
 M = model.M;         % Whishart: inv(W) = V'*V
 R = model.R;
 logR = model.logR;
-nk = model.nk;
+
 
 [d,k] = size(m);
+nk = sum(R,1); % 10.51
 
 Elogpi = psi(0,alpha)-psi(0,sum(alpha));
 
@@ -172,8 +170,9 @@ Eqz = dot(R(:),logR(:));
 logCalpha0 = gammaln(k*alpha0)-k*gammaln(alpha0);
 Eppi = logCalpha0+(alpha0-1)*sum(Elogpi);
 logCalpha = gammaln(sum(alpha))-sum(gammaln(alpha));
-Eqpi = logCalpha+dot(alpha-1,Elogpi);
+Eqpi = dot(alpha-1,Elogpi)+logCalpha;
 L = Epz-Eqz+Eppi-Eqpi;
+
 
 U0 = chol(M0);
 sqrtR = sqrt(R);
@@ -213,3 +212,37 @@ EqLambda = 0.5*sum((v-d-1).*ElogLambda-v*d)+sum(logB);
 EpX = 0.5*dot(nk,ElogLambda-d./kappa-v.*trSW-v.*xbarmWxbarm-d*log(2*pi));
 
 L = L+Epmu-Eqmu+EpLambda-EqLambda+EpX;
+
+
+
+function L = bound2(X, model, prior)
+alpha0 = prior.alpha;
+kappa0 = prior.kappa;
+v0 = prior.v;
+logW0 = prior.logW;
+
+alpha = model.alpha; % Dirichlet
+kappa = model.kappa;   % Gaussian
+v = model.v;         % Whishart
+logW = model.logW;
+
+R = model.R;
+logR = model.logR;
+
+[d,n] = size(X);
+k = size(R,2);
+
+Epz = 0;
+Eqz = dot(R(:),logR(:));
+logCalpha0 = gammaln(k*alpha0)-k*gammaln(alpha0);
+Eppi = logCalpha0;
+logCalpha = gammaln(sum(alpha))-sum(gammaln(alpha));
+Eqpi = logCalpha;
+Epmu = 0.5*d*k*log(kappa0);
+Eqmu = 0.5*d*sum(log(kappa));
+logB0 = -0.5*v0*(logW0)-logMvGamma(0.5*v0,d);
+EpLambda = k*logB0;
+logB =  -0.5*v.*(logW)-logMvGamma(0.5*v,d);
+EqLambda = sum(logB);
+EpX = -0.5*d*n*log(pi);
+L = Epz-Eqz+Eppi-Eqpi+Epmu-Eqmu+EpLambda-EqLambda+EpX;
