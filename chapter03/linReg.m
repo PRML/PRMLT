@@ -5,7 +5,7 @@ function model = linReg(X, t, lambda)
 %   t: 1 x n response
 %   lambda: regularization parameter
 % Output:
-%   model: trained struct used by linPred
+%   model: trained model structure
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     lambda = 0;

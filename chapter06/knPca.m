@@ -5,7 +5,7 @@ function model = knPca(X, q, kn)
 %   q: target dimension
 %   kn: kernel function
 % Ouput:
-%   model: struct trained, used by predit
+%   model: trained model structure
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     kn = @knGauss;

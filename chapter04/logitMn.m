@@ -5,7 +5,7 @@ function [model, llh] = logitMn(X, t, lambda)
 %   t: 1 x n label (1~k)
 %   lambda: regularization parameter
 % Output:
-%   model: trained model
+%   model: trained model structure
 %   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3

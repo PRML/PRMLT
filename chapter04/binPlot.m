@@ -1,7 +1,7 @@
 function binPlot(model, X, t)
 % Plot binary classification result for 2d data
 % Input:
-%   model: trained struct
+%   model: trained model structure
 %   X: 2 x n data matrix
 %   t: 1 x n label
 % Written by Mo Chen (sth4nth@gmail.com).

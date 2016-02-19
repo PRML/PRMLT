@@ -5,7 +5,7 @@ function [model, llh] = logitBin(X, t, lambda)
 %   t: 1 x n label (0/1)
 %   lambda: regularization parameter
 % Output:
-%   model: trained model
+%   model: trained model structure
 %   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3

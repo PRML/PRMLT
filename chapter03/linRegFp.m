@@ -4,7 +4,7 @@ function [model, llh] = linRegFp(X, t, alpha, beta)
 %   X: d x n data
 %   t: 1 x n response
 % Output:
-%   model: trained struct used by linPred
+%   model: trained model structure
 %   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3

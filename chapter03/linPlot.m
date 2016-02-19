@@ -1,7 +1,7 @@
 function linPlot(model, X, t)
 % Plot linear function for 1d data data
 % Input:
-%   model: trained struct
+%   model: trained model structure
 %   X: 1 x n data
 %   t: 1 x n response
 % Written by Mo Chen (sth4nth@gmail.com).

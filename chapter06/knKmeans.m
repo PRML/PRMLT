@@ -6,7 +6,7 @@ function [label, energy, model] = knKmeans(X, init, kn)
 % Output:
 %   label: 1 x n clustering result label
 %   energy: optimization target value
-%   model: trained struct, used by predict
+%   model: trained model structure
 % Reference: Kernel Methods for Pattern Analysis
 % by John Shawe-Taylor, Nello Cristianini
 % Written by Mo Chen (sth4nth@gmail.com).
