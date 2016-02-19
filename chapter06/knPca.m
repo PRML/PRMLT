@@ -1,8 +1,11 @@
-function model = knPca(X, p, kn)
+function model = knPca(X, q, kn)
 % Kernel PCA
-%   X: dxn data matrix 
-%   p: target dimension
+% Input:
+%   X: d x n data matrix 
+%   q: target dimension
 %   kn: kernel function
+% Ouput:
+%   model: struct trained, used by predit
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     kn = @knGauss;
@@ -10,8 +13,8 @@ end
 K = knCenter(kn,X);
 [V,L] = eig(K);
 [L,idx] = sort(diag(L),'descend');
-V = V(:,idx(1:p));
-L = L(1:p);
+V = V(:,idx(1:q));
+L = L(1:q);
 
 model.kn = kn;
 model.V = V;

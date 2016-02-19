@@ -1,8 +1,12 @@
 function K = knPoly(X, Y, o, c)
 % Polynomial kernel k(x,y)=(x'y+c)^o
-%   X,Y: data matrix
-%   o: order
+% Input:
+%   X: d x nx data matrix
+%   Y: d x ny data matrix
+%   o: order of polynomial
 %   c: constant
+% Ouput:
+%   K: nx x ny kernel matrix
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 4
     c = 0;

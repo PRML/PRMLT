@@ -3,6 +3,7 @@ function model = linReg(X, t, lambda)
 % Input:
 %   X: d x n data
 %   t: 1 x n response
+%   lambda: regularization parameter
 % Output:
 %   model: trained struct used by linPred
 % Written by Mo Chen (sth4nth@gmail.com).

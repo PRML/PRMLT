@@ -1,7 +1,12 @@
 function [label, energy, model] = knKmeans(X, init, kn)
 % Perform kernel k-means clustering.
-%   K: nxn kernel matrix
-%   init: either number of clusters or initial label
+% Input:
+%   K: n x n kernel matrix
+%   init: either number of clusters (k) or initial label (1xn)
+% Output:
+%   label: 1 x n clustering result label
+%   energy: optimization target value
+%   model: trained struct, used by predict
 % Reference: Kernel Methods for Pattern Analysis
 % by John Shawe-Taylor, Nello Cristianini
 % Written by Mo Chen (sth4nth@gmail.com).
