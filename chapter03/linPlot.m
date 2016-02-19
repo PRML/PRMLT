@@ -1,5 +1,5 @@
 function linPlot(model, X, t)
-% Plot linear function and data
+% Plot linear function for 1d data data
 % Input:
 %   model: trained struct
 %   X: 1 x n data

@@ -1,5 +1,12 @@
 function [model, llh] = logitMn(X, t, lambda)
 % Multinomial regression for multiclass problem (Multinomial likelihood)
+% Input:
+%   X: d x n data matrix
+%   t: 1 x n label (1~k)
+%   lambda: regularization parameter
+% Output:
+%   model: trained model
+%   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     lambda = 1e-4;
