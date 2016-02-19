@@ -1,6 +1,7 @@
-function plotBar(model, X, t)
+function linPlot(model, X, t)
 % Plot linear function and data
 % Input:
+%   model: trained struct
 %   X: 1 x n data
 %   t: 1 x n response
 % Written by Mo Chen (sth4nth@gmail.com).
