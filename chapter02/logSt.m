@@ -1,5 +1,12 @@
 function y = logSt(X, mu, sigma, v)
 % Compute log pdf of a Student's t distribution.
+% Input:
+%   X: d x n data matrix
+%   mu: mean
+%   sigma: variance
+%   v: degree of freedom
+% Output:
+%   y: probability density in logrithm scale y=log p(x)
 % Written by mo Chen (sth4nth@gmail.com).
 [d,k] = size(mu);
 

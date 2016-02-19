@@ -1,5 +1,11 @@
 function y = logGauss(X, mu, sigma)
 % Compute log pdf of a Gaussian distribution.
+% Input:
+%   X: d x n data matrix
+%   mu: mean of Gaussian
+%   sigma: variance of Gaussian
+% Output:
+%   y: probability density in logrithm scale y=log p(x)
 % Written by Mo Chen (sth4nth@gmail.com).
 
 [d,n] = size(X);
