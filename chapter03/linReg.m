@@ -1,7 +1,10 @@
 function model = linReg(X, t, lambda)
 % Fit linear regression model y=w'x+w0  
+% Input:
 %   X: d x n data
 %   t: 1 x n response
+% Output:
+%   model: trained struct used by linPred
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     lambda = 0;
