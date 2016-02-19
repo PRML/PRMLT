@@ -1,7 +1,7 @@
 function z = mutInfo(x, y)
 % Compute mutual information I(x,y) of two discrete variables x and y.
 % Input:
-%   x, y: two vectors of integers of the same length
+%   x, y: two integer vector of the same length 
 % Output:
 %   z: mutual information z=I(x,y)
 % Written by Mo Chen (sth4nth@gmail.com).

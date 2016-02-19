@@ -1,7 +1,7 @@
 function z = nmi(x, y)
 % Compute normalized mutual information I(x,y)/sqrt(H(x)*H(y)) of two discrete variables x and y.
 % Input:
-%   x, y: two vectors of integers of the same length
+%   x, y: two integer vector of the same length 
 % Ouput:
 %   z: normalized mutual information z=I(x,y)/sqrt(H(x)*H(y))
 % Written by Mo Chen (sth4nth@gmail.com).

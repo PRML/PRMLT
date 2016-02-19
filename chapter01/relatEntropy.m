@@ -1,7 +1,7 @@
 function z = relatEntropy (x, y)
 % Compute relative entropy (a.k.a KL divergence) z=KL(p(x)||p(y)) of two discrete variables x and y.
 % Input:
-%   x, y: two vectors of integers of the same length
+%   x, y: two integer vector of the same length 
 % Output:
 %   z: relative entropy (a.k.a KL divergence) z=KL(p(x)||p(y))
 % Written by Mo Chen (sth4nth@gmail.com).    
