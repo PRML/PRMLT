@@ -1,6 +1,9 @@
 function z = nvi(x, y)
-% Compute normalized variation information (1-I(x,y)/H(x,y)).
-% x, y: two vectors of integers of the same length
+% Compute normalized variation information z=(1-I(x,y)/H(x,y)) of two discrete variables x and y.
+% Input:
+%   x, y: two vectors of integers of the same length
+% Output:
+%   z: normalized variation information z=(1-I(x,y)/H(x,y))
 % Written by Mo Chen (sth4nth@gmail.com).
 assert(numel(x) == numel(y));
 n = numel(x);

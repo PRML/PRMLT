@@ -1,5 +1,4 @@
 TODO: 
-chapter10: compute bound terms (entropy) inside each factors
 chapter10/12: prediction functions for VB
 chapter05: MLP
 chapter08: BP, EP

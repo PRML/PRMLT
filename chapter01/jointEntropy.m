@@ -1,6 +1,9 @@
 function z = jointEntropy(x, y)
-% Compute joint entropy H(x,y) of two discrete variables x and y.
-% x, y: two vectors of integers of the same length
+% Compute joint entropy z=H(x,y) of two discrete variables x and y.
+% Input:
+%   x, y: two vectors of integers of the same length
+% Output:
+%   z: joint entroy z=H(x,y)
 % Written by Mo Chen (sth4nth@gmail.com).    
 assert(numel(x) == numel(y));
 n = numel(x);
