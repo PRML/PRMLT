@@ -1,7 +1,12 @@
 function [alpha, energy] = hmmFilter_(M, A, s)
-% HMM forward filtering algorithm
-% Unlike the method described in the book of PRML, the alpha returned is the normalized version: alpha(t)=p(z_t|x_{1:t})
-% The unnormalized version is numerical unstable. alpha(t)=p(z_t,x_{1:t}) grows exponential fast to infinity.
+% Implmentation function of HMM forward filtering algorithm.
+% Input:
+%   M: k x n emmision data matrix M=E*X
+%   A: k x k transition matrix
+%   s: k x 1 starting probability (prior)
+% Output:
+%   alpha: k x n matrix of posterior alpha(t)=p(z_t|x_{1:t})
+%   enery: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 [K,T] = size(M);
 At = A';
