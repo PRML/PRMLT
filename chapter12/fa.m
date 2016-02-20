@@ -1,7 +1,13 @@
 function [W, mu, psi, llh] = fa(X, m)
 % Perform EM algorithm for factor analysis model
+% Input:
 %   X: d x n data matrix
 %   m: dimension of target space
+% Output:
+%   W: d x m weight matrix
+%   mu: d x 1 mean vector
+%   psi: d x 1 variance vector
+%   llh: loglikelihood
 % Reference: Pattern Recognition and Machine Learning by Christopher M. Bishop 
 % Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
