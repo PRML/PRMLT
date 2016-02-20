@@ -2,8 +2,9 @@ TODO:
 extract demos
 modify linPred to use Sigma instead of U and modify related regression functions
 chapter10/12: prediction functions for VB
-chapter10/12: recheck inv(chol()) of linRegVb rvmRegVb ppcaVb
+chapter10/12: recheck inv(chol()) or U\I of linRegVb rvmRegVb ppcaVb
 chapter07: rvm seq bug
 chapter13/common/other: refine doc
+chapter13: refine ldsRnd
 chapter05: MLP
 chapter08: BP, EP
