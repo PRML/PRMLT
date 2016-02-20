@@ -1,6 +1,12 @@
 function [model, llh] = rvmRegSeq(X, t)
 % TODO: beta is not updated.
 % Sparse Bayesian Regression (RVM) using sequential algorithm
+% Input:
+%   X: d x n data
+%   t: 1 x n response
+% Output:
+%   model: trained model structure
+%   llh: loglikelihood
 % reference:
 % Tipping and Faul. Fast marginal likelihood maximisation for sparse Bayesian models. AISTATS 2003.
 % Written by Mo Chen (sth4nth@gmail.com).

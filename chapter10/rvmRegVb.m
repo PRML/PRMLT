@@ -58,7 +58,6 @@ for iter = 2:maxiter
     d = d0+0.5*(e2+trXSX);
     Ebeta = c/d; 
     KLbeta = -c*log(d);
-  
 %     lower bound
     energy(iter) = KLalpha+KLbeta+KLw;
     if energy(iter)-energy(iter-1) < tol*abs(energy(iter-1)); break; end
