@@ -1,6 +1,16 @@
 function [label, Theta, w, llh] = mixDpGb(X, alpha, theta)
-% Collapsed Gibbs sampling for Dirichlet process (infinite) mixture model (a.k.a.
-% DPGM). Any component model can be used, such as Gaussian
+% Collapsed Gibbs sampling for Dirichlet process (infinite) mixture model. 
+% Any component model can be used, such as Gaussian.
+% Input: 
+%   X: d x n data matrix
+%   alpha: parameter for Dirichlet process prior
+%   theta: class object for prior of component distribution (such as Gauss)
+% Output:
+%   label: 1 x n cluster label
+%   Theta: 1 x k structure of trained components
+%   w: 1 x k component weight vector
+%   llh: loglikelihood
+% Written by Mo Chen (sth4nth@gmail.com).
 n = size(X,2);
 [label,Theta,w] = mixDpGbOl(X,alpha,theta);
 nk = n*w;

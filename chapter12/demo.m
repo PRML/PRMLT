@@ -35,6 +35,6 @@ plot(llh)
 [model, energy] = ppcaVb(X);
 plot(energy);
 % 
-%% factor analysis
+%% Factor analysis
 [W, mu, psi, llh] = fa(X, m);
 plot(llh);
