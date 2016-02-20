@@ -1,6 +1,7 @@
 
 % demos for ch11
-%% DPGM
+% 
+%% Collapse Gibbs sampling for Dirichelt process gaussian mixture model
 close all; clear;
 d = 2;
 k = 3;
