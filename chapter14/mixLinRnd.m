@@ -9,7 +9,6 @@ function [X, y, W ] = mixLinRnd(d, k, n)
 %   y: 1 x n response variable
 %   W: d+1 x k weight matrix 
 % Written by Mo Chen (sth4nth@gmail.com).
-% Written by Mo Chen (sth4nth@gmail.com).
 W = randn(d+1,k);
 [X, z] = kmeansRnd(d, k, n);
 y = zeros(1,n);
