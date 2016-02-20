@@ -1,10 +1,9 @@
-% Done
-% demo for chapter 03
+% demos for ch03
 clear; close all;
 d = 1;
 n = 200;
 [x,t] = linRnd(d,n);
-%% linear regression
+%% Linear regression
 model = linReg(x,t);
 plotBar(model,x,t);
 %% Empirical Bayesian linear regression via EM

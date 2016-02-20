@@ -1,5 +1,5 @@
-% Done
-% demo for information theory toolbox
+
+% demos for ch01
 clear;
 k = 10;  % variable range
 n = 100;  % number of variables
@@ -10,20 +10,20 @@ y = ceil(k*rand(1,n));
 % x = randi(k,1,n);  % need statistics toolbox
 % y = randi(k,1,n);
 
-%% entropy H(x), H(y)
+%% Entropy H(x), H(y)
 Hx = entropy(x);
 Hy = entropy(y);
-%% joint entropy H(x,y)
+%% Joint entropy H(x,y)
 Hxy = jointEntropy(x,y);
-%% conditional entropy H(x|y)
+%% Conditional entropy H(x|y)
 Hx_y = condEntropy(x,y);
-%% mutual information I(x,y)
+%% Mutual information I(x,y)
 Ixy = mutInfo(x,y);
-%% relative entropy (KL divergence) KL(p(x)|p(y))
+%% Relative entropy (KL divergence) KL(p(x)|p(y))
 Dxy = relatEntropy(x,y);
-%% normalized mutual information I_n(x,y)
+%% Normalized mutual information I_n(x,y)
 nIxy = nmi(x,y);
-%% nomalized variation information I_v(x,y)
+%% Nomalized variation information I_v(x,y)
 vIxy = nvi(x,y);
 %% H(x|y) = H(x,y)-H(y)
 isequalf(Hx_y,Hxy-Hy)

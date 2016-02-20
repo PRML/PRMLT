@@ -1,5 +1,6 @@
-% TODO: multiPlot: plot multiclass decison boundary
-% 
+% demos for ch04
+
+%% Logistic logistic regression for binary classification
 clear; close all;
 k = 2;
 n = 1000;
@@ -8,7 +9,7 @@ n = 1000;
 plot(llh);
 y = logitBinPred(model,X)+1;
 binPlot(model,X,y)
-%%
+%% Logistic logistic regression for multiclass classification
 clear
 k = 3;
 n = 1000;
