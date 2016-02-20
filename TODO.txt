@@ -3,7 +3,7 @@ extract demos
 modify linPred to use Sigma instead of U and modify related regression functions
 chapter10/12: prediction functions for VB
 chapter07: rvm seq bug
-chapter13/common/other: refine doc
+common/other: refine doc
 chapter13: refine ldsRnd
 chapter05: MLP
 chapter08: BP, EP

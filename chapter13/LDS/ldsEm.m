@@ -1,5 +1,11 @@
 function [model, llh] = ldsEm(X, model)
-% EM algorithm for parameter estimation of LDS
+% EM algorithm for parameter estimation of linear dynamic system.
+% Input:
+%   X: d x n data matrix
+%   model: prior model structure
+% Output:
+%   model: trained model structure
+%   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 tol = 1e-4;
 maxIter = 100;
@@ -9,11 +15,11 @@ for iter = 2:maxIter
     [nu, U, Ezz, Ezy, llh(iter)] = kalmanSmoother(X, model);
     if llh(iter)-llh(iter-1) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
 %     M-step 
-    model = mStep(X, nu, U, Ezz, Ezy);
+    model = maximization(X, nu, U, Ezz, Ezy);
 end
 llh = llh(2:iter);
 
-function model = mStep(X ,nu, U, Ezz, Ezy)
+function model = maximization(X ,nu, U, Ezz, Ezy)
 n = size(X,2);
 mu0 = nu(:,1);
 P0 = U(:,:,1);

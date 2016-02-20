@@ -1,5 +1,13 @@
-function [X, model] = ldsRnd(d, k, n )
-
+function [X, model] = ldsRnd(d, k, n)
+% Generate  a data sequence from linear dynamic system.
+% Input:
+%   d: dimension of data
+%   k: dimension of latent variable
+%   n: number of data
+% Output:
+%   X: d x n data matrix
+%   model: model structure
+% Written by Mo Chen (sth4nth@gmail.com).
 A = randn(k,k);
 G = iwishrnd(eye(k),k);
 C = randn(d,k);

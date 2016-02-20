@@ -1,5 +1,12 @@
 function [mu, V, llh] = kalmanFilter(X, model)
 % Kalman filter 
+% Input:
+%   X: d x n data matrix
+%   model: model structure
+% Output:
+%   mu: q x n matrix of latent mean mu_t=E[z_t] w.r.t p(z_t|x_{1:t})
+%   V: q x q x n latent covariance U_t=cov[z_t] w.r.t p(z_t|x_{1:t})
+%   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 A = model.A; % transition matrix 
 G = model.G; % transition covariance

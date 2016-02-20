@@ -1,5 +1,5 @@
 function [X, z, model] = mixGaussRnd(d, k, n)
-% Sampling form a Gaussian mixture distribution.
+% Genarate samples form a Gaussian mixture model.
 % Input:
 %   d: dimension of data
 %   k: number of components
