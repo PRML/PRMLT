@@ -3,6 +3,8 @@ function [model, llh] = linRegFp(X, t, alpha, beta)
 % Input:
 %   X: d x n data
 %   t: 1 x n response
+%   alpha: prior parameter
+%   beta? prior parameter
 % Output:
 %   model: trained model structure
 %   llh: loglikelihood

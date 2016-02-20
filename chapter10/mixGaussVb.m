@@ -1,7 +1,12 @@
 function [label, model, L] = mixGaussVb(X, m, prior)
-% Perform variational Bayesian inference for Gaussian mixture.
+% Variational Bayesian inference for Gaussian mixture.
+% Input: 
 %   X: d x n data matrix
-%   init: k (1 x 1) or label (1 x n, 1<=label(i)<=k) or center (d x k)
+%   m: k (1 x 1) or label (1 x n, 1<=label(i)<=k) or model structure
+% Output:
+%   label: 1 x n cluster label
+%   model: trained model structure
+%   L: variational lower bound
 % Reference: Pattern Recognition and Machine Learning by Christopher M. Bishop (P.474)
 % Written by Mo Chen (sth4nth@gmail.com).
 fprintf('Variational Bayesian Gaussian mixture: running ... \n');

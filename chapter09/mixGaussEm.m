@@ -1,7 +1,12 @@
 function [label, model, llh] = mixGaussEm(X, init)
 % Perform EM algorithm for fitting the Gaussian mixture model.
+% Input: 
 %   X: d x n data matrix
-%   init: k (1 x 1) or label (1 x n, 1<=label(i)<=k) or center (d x k)
+%   init: k (1 x 1) or label (1 x n, 1<=label(i)<=k) or model structure
+% Output:
+%   label: 1 x n cluster label
+%   model: trained model structure
+%   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 %% init
 fprintf('EM for Gaussian mixture: running ... \n');

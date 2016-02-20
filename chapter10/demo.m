@@ -1,8 +1,6 @@
-% TODO:
-%   1) prediction functions for vb reg and mix
-%   2) modify mixGaussMix to compute bound inside each factor
-
-% %% regression
+% demos for ch10
+% chapter10/12: prediction functions for VB
+%% regression
 % clear; close all;
 % 
 % d = 100;

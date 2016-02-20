@@ -1,8 +1,14 @@
 function [model, energy] = linRegVb(X, t, prior)
-% Fit empirical Bayesian linear model with EM
-% X: m x n data
-% t: 1 x n response
+% Variational Bayesian inference for linear regression.
+% Input:
+%   X: d x n data
+%   t: 1 x n response
+%   prior: prior parameter
+% Output:
+%   model: trained model structure
+%   energy: variational lower bound
 % Written by Mo Chen (sth4nth@gmail.com).
+[m,n] = size(X);
 if nargin < 3
     a0 = 1e-4;
     b0 = 1e-4;
@@ -14,8 +20,7 @@ else
     c0 = prior.c;
     d0 = prior.d;
 end
-[m,n] = size(X);
-
+I = eye(m);
 xbar = mean(X,2);
 tbar = mean(t,2);
 
