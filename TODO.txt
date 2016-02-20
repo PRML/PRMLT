@@ -1,4 +1,7 @@
 TODO: 
+extract demos
 chapter10/12: prediction functions for VB
+chapter07: rvm seq bug
+chapter13/common/other: refine doc
 chapter05: MLP
 chapter08: BP, EP
