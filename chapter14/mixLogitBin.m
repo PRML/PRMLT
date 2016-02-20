@@ -1,5 +1,12 @@
 function [model, llh] = mixLogitBin(X, t, k)
-% Mixture of logistic regression model
+% Mixture of logistic regression model for binary classification optimized by Newton-Raphson method
+% Input:
+%   X: d x n data matrix
+%   t: 1 x n label (0/1)
+%   k: number of mixture component
+% Output:
+%   model: trained model structure
+%   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 n = size(X,2);
 X = [X; ones(1,n)];
