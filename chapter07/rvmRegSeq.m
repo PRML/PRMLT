@@ -1,4 +1,4 @@
-function [model, dllh] = rvmRegSeq(X, t)
+function [model, llh] = rvmRegSeq(X, t)
 % TODO: beta is not updated.
 % Sparse Bayesian Regression (RVM) using sequential algorithm
 % Input:
@@ -6,14 +6,13 @@ function [model, dllh] = rvmRegSeq(X, t)
 %   t: 1 x n response
 % Output:
 %   model: trained model structure
-%   dllh: delta loglikelihood (likelihood improvement of each step,
-%   eventually approches 0.). The final loglikelihood is llh=cumsum(dllh)+const
+%   llh: loglikelihood 
 % reference:
 % Tipping and Faul. Fast marginal likelihood maximisation for sparse Bayesian models. AISTATS 2003.
 % Written by Mo Chen (sth4nth@gmail.com).
 maxiter = 1000;
-dllh = -inf(1,maxiter);
-tol = 1e-6;
+llh = -inf(1,maxiter);
+tol = 1e-4;
 
 [d,n] = size(X);
 xbar = mean(X,2);
@@ -45,21 +44,21 @@ for iter = 2:maxiter
     iAdd = (iNew ~= iUpd); % add
     iDel = (iUse ~= iUpd); % del
     
-    dllh_all = -inf(d,1);  % delta likelihood
+    dllh = -inf(d,1);  % delta likelihood (likelihood improvement of each step, eventually approches 0.)
     if any(iUpd)
         alpha_ = s(iUpd).^2./theta(iUpd);      % eq.(20)
         delta = 1./alpha_-1./alpha(iUpd);
-        dllh_all(iUpd) = Q(iUpd).^2.*delta./(S(iUpd).*delta+1)-log1p(S(iUpd).*delta);  % eq.(32)
+        dllh(iUpd) = Q(iUpd).^2.*delta./(S(iUpd).*delta+1)-log1p(S(iUpd).*delta);  % eq.(32)
     end
     if any(iAdd)
-        dllh_all(iAdd) = (Q(iAdd).^2-S(iAdd))./S(iAdd)+log(S(iAdd)./(Q(iAdd).^2));    % eq.(27)
+        dllh(iAdd) = (Q(iAdd).^2-S(iAdd))./S(iAdd)+log(S(iAdd)./(Q(iAdd).^2));    % eq.(27)
     end
     if any(iDel)
-        dllh_all(iDel) = Q(iDel).^2./(S(iDel)-alpha(iDel))-log1p(-S(iDel)./alpha(iDel));  % eq.(37)
+        dllh(iDel) = Q(iDel).^2./(S(iDel)-alpha(iDel))-log1p(-S(iDel)./alpha(iDel));  % eq.(37)
     end
 
-    [dllh(iter),j] = max(dllh_all);
-    if dllh(iter) < tol; break; end
+    [llh(iter),j] = max(dllh);
+    if llh(iter) < tol; break; end
 
     iAct(:,1) = iUpd;
     iAct(:,2) = iAdd;
@@ -123,7 +122,7 @@ for iter = 2:maxiter
     Phi = X(index,:); 
 %     beta = ;
 end
-dllh = dllh(2:iter);
+llh = cumsum(llh(2:iter));
 w0 = tbar-dot(mu,xbar(index));
 
 model.index = index;

@@ -20,7 +20,7 @@ e = sigma*randn(1,n);
 y = x'*A + e;
 
 % RVM by sequential training
-[model,dllh] = rvmRegEbSeq(A,y);
+[model,llh] = rvmRegSeq(A,y);
 % RVM trained by Mackay fix piont update method
 % [model,llh] = rvmRegFp(A,y);
 % [model,llh] = rvmRegEm(A,y);
