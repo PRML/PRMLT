@@ -1,7 +1,12 @@
 function [label, energy, model] = kmeans(X, init)
-%  Perform k-means clustering.
+% Perform k-means clustering.
+% Input:
 %   X: d x n data matrix
-%   k: number of seeds
+%   init: k number of clusters or label (1 x n vector)
+% Output:
+%   label: 1 x n cluster label
+%   energy: optimization target value
+%   model: trained model structure
 % Written by Mo Chen (sth4nth@gmail.com).
 n = size(X,2);
 if numel(init)==1

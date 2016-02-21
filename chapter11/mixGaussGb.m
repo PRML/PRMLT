@@ -1,6 +1,15 @@
 function [label, Theta, w, llh] = mixGaussGb(X, opt)
-% Collapsed Gibbs sampling for Dirichlet process (infinite) Gaussian mixture model (a.k.a.
-% DPGM). 
+% Collapsed Gibbs sampling for Dirichlet process (infinite) Gaussian mixture model (a.k.a. DPGM). 
+% This is a wrapper function which calls underlying Dirichlet process mixture model.
+% Input: 
+%   X: d x n data matrix
+%   opt(optional): prior parameters
+% Output:
+%   label: 1 x n cluster label
+%   Theta: 1 x k structure of trained Gaussian components
+%   w: 1 x k component weight vector
+%   llh: loglikelihood
+% Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
 mu = mean(X,2);
 Xo = bsxfun(@minus,X,mu);

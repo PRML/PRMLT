@@ -1,7 +1,7 @@
 function s = logsumexp(X, dim)
 % Compute log(sum(exp(X),dim)) while avoiding numerical underflow.
 %   By default dim = 1 (columns).
-% Written by Michael Chen (sth4nth@gmail.com).
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin == 1, 
     % Determine which dimension sum will use
     dim = find(size(X)~=1,1);

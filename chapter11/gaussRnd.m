@@ -1,5 +1,11 @@
-function x = gaussRnd(mu,Sigma,n)
-% Sampling from a Gaussian distribution.
+function x = gaussRnd(mu, Sigma, n)
+% Generate samples from a Gaussian distribution.
+% Input:
+%   mu: d x 1 mean vector
+%   Sigma: d x d covariance matrix
+%   n: number of samples
+% Outpet:
+%   x: d x n generated sample x~Gauss(mu,Sigma)
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin == 2
     n = 1;

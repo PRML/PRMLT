@@ -1,5 +1,11 @@
 function model = knReg(X, t, lambda, kn)
 % Gaussian process (kernel) regression
+% Input:
+%   X: d x n data
+%   t: 1 x n response
+%   lambda: regularization parameter
+% Output:
+%   model: trained model structure
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 4
     kn = @knGauss;

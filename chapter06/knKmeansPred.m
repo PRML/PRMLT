@@ -1,7 +1,11 @@
 function [label, energy] = knKmeansPred(model, Xt)
 % Prediction for kernel kmeans clusterng
+% Input:
 %   model: trained model structure
 %   Xt: d x n testing data
+% Ouput:
+%   label: 1 x n predict label
+%   engery: optimization target value
 % Written by Mo Chen (sth4nth@gmail.com).
 X = model.X;
 t = model.label;

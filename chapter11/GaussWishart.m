@@ -1,3 +1,5 @@
+% Class for Gaussian-Wishart distribution used by Dirichlet process
+
 classdef GaussWishart
         properties
          kappa_
@@ -18,23 +20,23 @@ classdef GaussWishart
          function obj = clone(obj)
          end
          
-%          function obj = addData(obj, X)
-%              kappa0 = obj.kappa_;
-%              m0 = obj.m_;
-%              nu0 = obj.nu_;
-%              U0 = obj.U_;
-%              
-%              n = size(X,2);
-%              kappa = kappa0+n;
-%              m = (kappa0*m0+sum(X,2))/kappa;
-%              nu = nu0+n;
-%              U = chol(U0'*U0+X*X');
-% 
-%              obj.kappa_ = kappa;
-%              obj.m_ = m;
-%              obj.nu_ = nu;
-%              obj.U_ = U;
-%          end
+         function obj = addData(obj, X)
+             kappa0 = obj.kappa_;
+             m0 = obj.m_;
+             nu0 = obj.nu_;
+             U0 = obj.U_;
+             
+             n = size(X,2);
+             kappa = kappa0+n;
+             m = (kappa0*m0+sum(X,2))/kappa;
+             nu = nu0+n;
+             U = chol(U0'*U0+X*X');
+
+             obj.kappa_ = kappa;
+             obj.m_ = m;
+             obj.nu_ = nu;
+             obj.U_ = U;
+         end
         
          function obj = addSample(obj, x)
              kappa = obj.kappa_;

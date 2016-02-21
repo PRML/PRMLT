@@ -1,6 +1,6 @@
 function plotkde(X, sigma2)
-% Written by Michael Chen (sth4nth@gmail.com).
-
+% Plot 2d kernel density.
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 2
     sigma2 = 1e-1;
 end

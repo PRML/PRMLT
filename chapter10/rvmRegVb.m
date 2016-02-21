@@ -1,7 +1,12 @@
 function [model, energy] = rvmRegVb(X, t, prior)
-% Fit empirical Bayesian linear model with EM
-% X: m x n data
-% t: 1 x n response
+% Variational Bayesian inference for RVM regression.
+% Input:
+%   X: d x n data
+%   t: 1 x n response
+%   prior: prior parameter
+% Output:
+%   model: trained model structure
+%   energy: variational lower bound
 % Written by Mo Chen (sth4nth@gmail.com).
 [m,n] = size(X);
 if nargin < 3
@@ -15,7 +20,7 @@ else
     c0 = prior.c;
     d0 = prior.d;
 end
-
+I = eye(m);
 xbar = mean(X,2);
 tbar = mean(t,2);
 
@@ -53,7 +58,6 @@ for iter = 2:maxiter
     d = d0+0.5*(e2+trXSX);
     Ebeta = c/d; 
     KLbeta = -c*log(d);
-  
 %     lower bound
     energy(iter) = KLalpha+KLbeta+KLw;
     if energy(iter)-energy(iter-1) < tol*abs(energy(iter-1)); break; end

@@ -1,3 +1,4 @@
+% Class for Gaussian distribution used by Dirichlet process
 classdef Gauss
      properties
          n_

@@ -1,9 +1,13 @@
 function Kc = knCenter(kn, X, X1, X2)
 % Centerize the data in the kernel space
+% Input:
 %   kn: kernel function
-%   X: dxn data matrix of which the center in the kernel space is computed
-%   X1, X2: dxn1 and dxn2 data matrix. the kernel k(x1,x2) is computed
-%   where the origin in the kernel space is the center of X
+%   X: d x n data matrix of which the center in the kernel space is computed
+%   X1, X2: d x n1 and d x n2 data matrix. the kernel k(x1,x2) is computed
+%       where the origin of the kernel space is the center of phi(X)
+% Ouput:
+%   Kc: n1 x n2 kernel matrix between X1 and X2 in kernel space centered by
+%       center of phi(X)
 % Written by Mo Chen (sth4nth@gmail.com).
 K = kn(X,X);
 mK = mean(K);

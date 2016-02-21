@@ -1,5 +1,13 @@
 function [x, model] = hmmRnd(d, k, n)
-% Generate a data sequence from a hidden Markov model
+% Generate a data sequence from a hidden Markov model.
+% Input:
+%   d: dimension of data
+%   k: dimension of latent variable
+%   n: number of data
+% Output:
+%   X: d x n data matrix
+%   model: model structure
+% Written by Mo Chen (sth4nth@gmail.com).
 A = normalize(rand(k,k),2);
 E = normalize(rand(k,d),2);
 s = normalize(rand(k,1),1);

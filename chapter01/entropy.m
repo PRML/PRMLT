@@ -1,10 +1,15 @@
 function z = entropy(x)
-% Compute entropy H(x) of a discrete variable x.
-% x: a vectors of integers
+% Compute entropy z=H(x) of a discrete variable x.
+% Input:
+%   x: a integer vectors  
+% Output:
+%   z: entropy z=H(x)
 % Written by Mo Chen (sth4nth@gmail.com).
 n = numel(x);
-x = reshape(x,1,n);
-[u,~,label] = unique(x);
-p = full(mean(sparse(1:n,label,1,n,numel(u),n),1));
-z = -dot(p,log2(p+eps));
-z = max(0,z);
+[u,~,x] = unique(x);
+k = numel(u);
+idx = 1:n;
+Mx = sparse(idx,x,1,n,k,n);
+Px = nonzeros(mean(Mx,1));
+Hx = -dot(Px,log2(Px));
+z = max(0,Hx);

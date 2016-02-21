@@ -1,7 +1,9 @@
 function knRegPlot(model, X, t)
 % Plot linear function and data
-% X: 1xn data
-% t: 1xn response
+% Input:
+%   model: trained model structure
+%   X: 1 x n data
+%   t: 1 x n response
 % Written by Mo Chen (sth4nth@gmail.com).
 color = [255,228,225]/255; %pink
 % [x,idx] = sort(x);

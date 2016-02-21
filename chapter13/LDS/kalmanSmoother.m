@@ -1,5 +1,14 @@
 function [nu, U, Ezz, Ezy, llh] = kalmanSmoother(X, model)
-% Kalman smoother
+% Kalman smoother (forward-backward algorithm for linear dynamic system)
+% Input:
+%   X: d x n data matrix
+%   model: model structure
+% Output:
+%   nu: q x n matrix of latent mean mu_t=E[z_t] w.r.t p(z_t|x_{1:T})
+%   U: q x q x n latent covariance U_t=cov[z_t] w.r.t p(z_t|x_{1:T})
+%   Ezz: q x q matrix E[z_tz_t^T]
+%   Ezy: q x q matrix E[z_tz_{t-1}^T]
+%   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 A = model.A; % transition matrix 
 G = model.G; % transition covariance

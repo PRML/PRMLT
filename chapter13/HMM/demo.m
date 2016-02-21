@@ -5,11 +5,11 @@ k = 2;
 n = 10000;
 [x, model] = hmmRnd(d, k, n);
 %%
-[z, v] = hmmViterbi(x,model);
+z = hmmViterbi(x,model);
 %%
-% [alpha,llh] = hmmFilter(x,model);
+[alpha,llh] = hmmFilter(x,model);
 %%
-% [gamma, alpha, beta, c] = hmmSmoother(x,model);
+[gamma,alpha,beta,c] = hmmSmoother(x,model);
 %%
-% [model, llh] = hmmEm(x,k);
-% plot(llh)
+[model, llh] = hmmEm(x,k);
+plot(llh)

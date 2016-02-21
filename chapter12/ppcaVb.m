@@ -1,7 +1,11 @@
 function [model, energy] = ppcaVb(X, q, prior)
 % Perform variatioanl Bayeisan inference for probabilistic PCA model. 
-%   X: m x n data matrix
+% Input:
+%   X: d x n data matrix
 %   q: dimension of target space
+% Output:
+%   model: trained model structure
+%   ernergy: variantional lower bound
 % Reference: 
 %   Pattern Recognition and Machine Learning by Christopher M. Bishop 
 % Written by Mo Chen (sth4nth@gmail.com).

@@ -1,5 +1,14 @@
 function [label, model, llh] = mixLinReg(X, y, k, lambda)
 % Mixture of linear regression
+% input:
+%   X: d x n data matrix
+%   y: 1 x n responding vector
+%   k: number of mixture component
+%   lambda: regularization parameter
+% output:
+%   label: 1 x n cluster label
+%   model: trained model structure
+%   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 4
     lambda = 1;

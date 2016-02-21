@@ -1,6 +1,14 @@
 function [model, llh] = rvmRegEm(X, t, alpha, beta)
 % Relevance Vector Machine (ARD sparse prior) for regression
-% training by empirical bayesian (type II ML) using standard EM update 
+% trained by empirical bayesian (type II ML) using EM
+% Input:
+%   X: d x n data
+%   t: 1 x n response
+%   alpha: prior parameter
+%   beta: prior parameter
+% Output:
+%   model: trained model structure
+%   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     alpha = 0.02;

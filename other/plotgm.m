@@ -1,5 +1,6 @@
 function plotgm(X, model)
-% Written by Michael Chen (sth4nth@gmail.com).
+% Plot 2d Gaussian mixture model.
+% Written by Mo Chen (sth4nth@gmail.com).
 level = 64;
 n = 256;
 

@@ -1,7 +1,13 @@
 function [W, mu, beta, llh] = ppcaEm(X, m)
 % Perform EM algorithm to maiximize likelihood of probabilistic PCA model.
+% Input:
 %   X: d x n data matrix
 %   m: dimension of target space
+% Output:
+%   W: d x m weight matrix
+%   mu: d x 1 mean vector
+%   beta: precition vector (inverse of variance
+%   llh: loglikelihood
 % Reference: 
 %   Pattern Recognition and Machine Learning by Christopher M. Bishop 
 %   Probabilistic Principal Component Analysis by Michael E. Tipping & Christopher M. Bishop

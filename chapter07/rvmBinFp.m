@@ -1,6 +1,13 @@
 function [model, llh] = rvmBinFp(X, t, alpha)
-% Relevance Vector Machine (ARD sparse prior) for binary classification
-% training by empirical bayesian (type II ML) using fix point update (Mackay update)
+% Relevance Vector Machine (ARD sparse prior) for binary classification.
+% trained by empirical bayesian (type II ML) using Mackay fix point update.
+% Input:
+%   X: d x n data matrix
+%   t: 1 x n label (0/1)
+%   alpha: prior parameter
+% Output:
+%   model: trained model structure
+%   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     alpha = 1;

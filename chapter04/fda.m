@@ -1,8 +1,11 @@
-function U = fda(X, t, d)
+function U = fda(X, t, q)
 % Fisher (linear) discriminant analysis
-%   X: dxn data matrix
-%   t: 1xn label
+% Input:
+%   X: d x n data matrix
+%   t: 1 x n class label
 %   d: target dimension
+% Output:
+%   U: projection matrix y=U'*x
 % Written by Mo Chen (sth4nth@gmail.com).
 n = size(X,2);
 k = max(t);
@@ -22,6 +25,4 @@ Sb = mo*mo';                       % 4.46
 
 [U,A] = eig(Sb,St,'chol');        
 [~,idx] = sort(diag(A),'descend');
-U = U(:,idx(1:d));
-
-
+U = U(:,idx(1:q));

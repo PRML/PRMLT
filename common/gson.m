@@ -1,5 +1,6 @@
 function [Q, R] = gson(X)
 % Gram-Schmidt orthonormalization which produces the same result as [Q,R]=qr(X,0)
+% Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
 m = min(d,n);
 R = zeros(m,n);

@@ -1,8 +1,13 @@
 function [model, llh] = linRegFp(X, t, alpha, beta)
-% Fit empirical Bayesian linear model with Mackay fixed point method
-% (p.168)
+% Fit empirical Bayesian linear model with Mackay fixed point method (p.168)
+% Input:
 %   X: d x n data
 %   t: 1 x n response
+%   alpha: prior parameter
+%   beta: prior parameter
+% Output:
+%   model: trained model structure
+%   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
     alpha = 0.02;

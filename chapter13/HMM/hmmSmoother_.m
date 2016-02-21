@@ -1,5 +1,16 @@
 function [gamma, alpha, beta, c] = hmmSmoother_(M, A, s)
-% HMM smoothing alogrithm (normalized forward-backward or normalized alpha-beta algorithm)
+% Implmentation function HMM smoothing alogrithm.
+% Unlike the method described in the book of PRML, the alpha returned is the normalized version: gamma(t)=p(z_t|x_{1:T})
+% Computing unnormalized version gamma(t)=p(z_t,x_{1:T}) is numerical unstable, which grows exponential fast to infinity.
+% Input:
+%   M: k x n emmision data matrix M=E*X
+%   A: k x k transition matrix
+%   s: k x 1 start prior probability
+% Output:
+%   gamma: k x n matrix of posterior gamma(t)=p(z_t,x_{1:T})
+%   alpha: k x n matrix of posterior alpha(t)=p(z_t|x_{1:T})
+%   beta: k x n matrix of posterior beta(t)=gamma(t)/alpha(t)
+%   c: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 [K,T] = size(M);
 At = A';
@@ -13,5 +24,5 @@ beta = ones(K,T);
 for t = T-1:-1:1
     beta(:,t) = A*(beta(:,t+1).*M(:,t+1))/c(t+1);   % 13.62
 end
-gamma = alpha.*beta;
+gamma = alpha.*beta;                  % 13.64
 

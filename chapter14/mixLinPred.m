@@ -2,12 +2,13 @@ function [y, z, p] = mixLinPred(model, X, t)
 % Prediction function for mxiture of linear regression
 % input:
 %   model: trained model structure
-%   X: dxn data matrix
-%   t:(optional) 1xn responding vector
+%   X: d x n data matrix
+%   t:(optional) 1 x n responding vector
 % output:
-%   y: prediction 
-%   z: cluster label
-%   p: probability for t
+%   y: 1 x n prediction 
+%   z: 1 x n cluster label
+%   p: 1 x n predict probability for t
+% Written by Mo Chen (sth4nth@gmail.com).
 W = model.W;
 alpha = model.alpha;
 beta = model.beta;

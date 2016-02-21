@@ -1,7 +1,11 @@
 function [model, llh] = hmmEm(x, init)
 % EM algorithm to fit the parameters of HMM model (a.k.a Baum-Welch algorithm)
-%   x: 1 x n sequence of observations
+% Input:
+%   x: 1 x n integer vector which is the sequence of observations
 %   init: model or k
+% Output:s
+%   model: trained model structure
+%   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 n = size(x,2);
 d = max(x);

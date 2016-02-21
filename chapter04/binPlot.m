@@ -1,7 +1,10 @@
 function binPlot(model, X, t)
 % Plot binary classification result for 2d data
-%   X: 2xn data matrix
-%   t: 1xn label
+% Input:
+%   model: trained model structure
+%   X: 2 x n data matrix
+%   t: 1 x n label
+% Written by Mo Chen (sth4nth@gmail.com).
 assert(size(X,1) == 2);
 w = model.w;
 xi = min(X,[],2);

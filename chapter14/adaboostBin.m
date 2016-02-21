@@ -1,5 +1,11 @@
 function model = adaboostBin(X, t)
 % Adaboost for binary classification (weak learner: kmeans)
+% Input:
+%   X: d x n data matrix
+%   t: 1 x n label (0/1)
+% Output:
+%   model: trained model structure
+% Written by Mo Chen (sth4nth@gmail.com).
 t = t+1;
 k = 2;
 [d,n] = size(X);
