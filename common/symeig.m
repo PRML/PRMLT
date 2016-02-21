@@ -2,7 +2,7 @@ function [V,A,flag] = symeig(S,d,m)
 % Compute eigenvalues and eigenvectors of symmetric matrix
 %   m == 's' smallest (default)
 %   m == 'l' largest
-% Written by Michael Chen (sth4nth@gmail.com).
+% Written by Mo Chen (sth4nth@gmail.com).
 if nargin == 2
     m = 's';
 end

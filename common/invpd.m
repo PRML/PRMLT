@@ -1,6 +1,7 @@
 function W = invpd(M)
 % Compute A\B where A is a positive definite matrix
-%   A: a positive difinie matrix
+% Input:
+%   M: a positive difinie matrix
 % Written by Michael Chen (sth4nth@gmail.com).
 [U,p] = chol(M);
 if p > 0

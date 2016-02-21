@@ -1,6 +1,7 @@
 function [Q, R] = mgson(X)
 % Modified Gram-Schmidt orthonormalization (numerical stable version of Gram-Schmidt algorithm) 
 % which produces the same result as [Q,R]=qr(X,0)
+% Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
 m = min(d,n);
 R = zeros(m,n);

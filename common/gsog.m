@@ -1,5 +1,6 @@
 function [Q, R] = gsog(X)
 % Gram-Schmidt orthogonalization
+% Written by Mo Chen (sth4nth@gmail.com).
 [d,n] = size(X);
 m = min(d,n);
 R = eye(m,n);

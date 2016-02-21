@@ -1,5 +1,6 @@
 function r = loggmpdf(X, model)
-
+% Compute log pdf of a Gaussian mixture model.
+% Written by Mo Chen (sth4nth@gmail.com).
 mu = model.mu;
 Sigma = model.Sigma;
 w = model.weight;
