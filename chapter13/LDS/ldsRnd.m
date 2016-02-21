@@ -1,5 +1,5 @@
 function [X, model] = ldsRnd(d, k, n)
-% Generate  a data sequence from linear dynamic system.
+% Generate a data sequence from linear dynamic system.
 % Input:
 %   d: dimension of data
 %   k: dimension of latent variable
