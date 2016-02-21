@@ -1,4 +1,4 @@
-function [X, model] = ldsRnd(d, k, n)
+function [X, Z, model] = ldsRnd(d, k, n)
 % Generate a data sequence from linear dynamic system.
 % Input:
 %   d: dimension of data
@@ -16,11 +16,12 @@ mu0 = randn(k,1);
 P0 = iwishrnd(eye(k),k);
 
 X = zeros(d,n);
-z = gaussRnd(mu0,P0);              % 13.80
-X(:,1) = gaussRnd(C*z,S);
+Z = zeros(k,n);
+Z(:,1) = gaussRnd(mu0,P0);              % 13.80
+X(:,1) = gaussRnd(C*Z(:,1),S);
 for i = 2:n
-    z = gaussRnd(A*z,G);           % 13.75, 13.78
-    X(:,i) = gaussRnd(C*z,S);      % 13.76, 13.79
+    Z(:,i) = gaussRnd(A*Z(:,i-1),G);           % 13.75, 13.78
+    X(:,i) = gaussRnd(C*Z(:,i),S);      % 13.76, 13.79
 end
 
 model.A = A; % transition matrix 
