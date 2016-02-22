@@ -8,7 +8,7 @@ function linPlot(model, X, t)
 color = [255,228,225]/255; %pink
 % [x,idx] = sort(x);
 x = linspace(min(X),max(X));
-[y,s] = linPred(model,x);
+[y,s] = linRegPred(model,x);
 figure;
 hold on;
 fill([x,fliplr(x)],[y+s,fliplr(y-s)],color);

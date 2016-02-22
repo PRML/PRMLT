@@ -11,7 +11,7 @@
 % [model,llh] = rvmRegFp(X,t);
 % figure
 % plot(llh);
-% [y, sigma] = linPred(x,model,t);
+% [y, sigma] = linRegPred(x,model,t);
 % figure;
 % hold on;
 % plotBand(x,y,2*sigma);
@@ -22,7 +22,7 @@
 % [model,llh] = rvmRegEm(X,t);
 % figure
 % plot(llh);
-% [y, sigma] = linPred(x,model,t);
+% [y, sigma] = linRegPred(x,model,t);
 % figure;
 % hold on;
 % plotBand(x,y,2*sigma);
@@ -33,7 +33,7 @@
 % [model,llh] = rvmRegSeq(X,t);
 % figure
 % plot(llh);
-% [y, sigma] = linPred(x,model,t);
+% [y, sigma] = linRegPred(x,model,t);
 % figure;
 % hold on;
 % plotBand(x,y,2*sigma);

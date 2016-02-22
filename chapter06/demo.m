@@ -19,7 +19,7 @@ xt = x(:,idx);
 tt = t(idx);
 
 [y_kn, sigma_kn,p_kn] = knRegPred(model_kn,xt,tt);
-[y_lin, sigma_lin,p_lin] = linPred(model_lin,xt,tt);
+[y_lin, sigma_lin,p_lin] = linRegPred(model_lin,xt,tt);
 
 maxdiff(y_kn,y_lin)
 maxdiff(sigma_kn,sigma_lin)

@@ -15,7 +15,7 @@
 % % [model,llh] = rvmRegVb(X,t);
 % figure
 % plot(llh);
-% [y, sigma] = linPred(model,x);
+% [y, sigma] = linRegPred(model,x);
 % figure;
 % hold on;
 % plotBand(x,y,2*sigma);

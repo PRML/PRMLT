@@ -1,5 +1,5 @@
 function [y, sigma, p] = rvmRegVbPred(model, X, t)
-% Compute linear regression model reponse y = w'*X+w0 trained by VB.
+% Compute RVM regression model reponse y = w'*X+w0 trained by VB.
 % Input:
 %   model: trained model structure
 %   X: d x n testing data
