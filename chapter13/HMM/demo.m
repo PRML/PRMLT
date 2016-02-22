@@ -1,4 +1,4 @@
-% demo
+% demos for HMM in ch13
 
 d = 3;
 k = 2;

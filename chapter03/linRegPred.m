@@ -1,4 +1,4 @@
-function [y, sigma, p] = linPred(model, X, t)
+function [y, sigma, p] = linRegPred(model, X, t)
 % Compute linear regression model reponse y = w'*X+w0 and likelihood
 % Input:
 %   model: trained model structure
@@ -15,10 +15,14 @@ y = w'*X+w0;
 %% probability prediction
 if nargout > 1
     beta = model.beta;
-    U = model.U;        % 3.54
-    Xo = bsxfun(@minus,X,model.xbar);
-    XU = U'\Xo;
-    sigma = sqrt((1+dot(XU,XU,1))/beta);   %3.59
+    if isfield(model,'U')
+        U = model.U;        % 3.54
+        Xo = bsxfun(@minus,X,model.xbar);
+        XU = U'\Xo;
+        sigma = sqrt((1+dot(XU,XU,1))/beta);   % 3.59
+    else
+        sigma = sqrt(1/beta)*ones(1,size(X,2));
+    end
 end
 
 if nargin == 3 && nargout == 3

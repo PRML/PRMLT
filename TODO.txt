@@ -1,6 +1,4 @@
 TODO: 
-chapter10/12: prediction functions for VB
-chapter07: rvm seq bug
 extract demos
 
 chapter05: MLP
