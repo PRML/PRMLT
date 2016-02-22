@@ -1,5 +1,4 @@
 TODO: 
-chapter10/12: prediction functions for VB
 extract demos
 
 chapter05: MLP
