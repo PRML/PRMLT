@@ -1,7 +1,9 @@
-function [z, llh] = mrfMaxSum(W)
-% Max-sum loopy belief propagation on Markov random field with discrete rvs
+function [z, llh] = mrfMaxSum(x, h, E)
+% Max-sum loopy belief propagation on a factor graph over discrete random variables
 % Input:
-%   W: n x n sparse weight matrix of a graph
+%   x: 1 x n vector of n observations
+%   
+%   E: d x n edge matrix of a bipartite graph to represent the factor graph (d factors, n nodes)
 % Output:
 %   z: 1 x n vector of predicted label
 %   llh: loglikelihood
