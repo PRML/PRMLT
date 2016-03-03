@@ -22,8 +22,7 @@ D(sub2ind([d,d],1:d,1:d)) = 0;              % reduce chance of numerical problem
 last = 0;
 while any(label ~= last)
     [u,~,label(:)] = unique(label);   % remove empty clusters
-    k = numel(u);
-    [~, index] = min(D*sparse(1:n,label,1,n,k,n),[],1);  % find k medoids
+    [~, index] = min(D*sparse(1:n,label,1,n,numel(u),n),[],1);  % find k medoids
     last = label;
     [val, label] = min(D(index,:),[],1);                % assign labels
 end

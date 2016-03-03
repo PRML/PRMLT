@@ -15,11 +15,12 @@ maxiter = 500;
 llh = -inf(1,maxiter);
 R = initialization(X,init);
 for iter = 2:maxiter
+    [~,label(1,:)] = max(R,[],2);
+    R = R(:,unique(label));   % remove empty clusters
     model = maximization(X,R);
     [R, llh(iter)] = expectation(X,model);
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter)); break; end;
 end
-[~,label(1,:)] = max(R,[],2);
 llh = llh(2:iter);
 
 function R = initialization(X, init)
