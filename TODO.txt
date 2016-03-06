@@ -1,5 +1,5 @@
 TODO: 
 extract demos
-ch08: BP, EP, NB
+ch08: BP, EP, NBMn
 ch14: Cart
 

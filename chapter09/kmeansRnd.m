@@ -1,4 +1,4 @@
-function [X, z, center] = kmeansRnd(d, k, n)
+function [X, z, mu] = kmeansRnd(d, k, n)
 % Generate samples from a Gaussian mixture distribution with common variances (kmeans model).
 % Input:
 %   d: dimension of data
@@ -7,7 +7,7 @@ function [X, z, center] = kmeansRnd(d, k, n)
 % Output:
 %   X: d x n data matrix
 %   z: 1 x n response variable
-%   center: d x k centers of clusters
+%   mu: d x k centers of clusters
 % Written by Mo Chen (sth4nth@gmail.com).
 alpha = 1;
 beta = nthroot(k,d); % in volume x^d there is k points: x^d=k
@@ -16,5 +16,5 @@ X = randn(d,n);
 w = dirichletRnd(alpha,ones(1,k)/k);
 z = discreteRnd(w,n);
 E = full(sparse(z,1:n,1,k,n,n));
-center = randn(d,k)*beta;
-X = X+center*E;
+mu = randn(d,k)*beta;
+X = X+mu*E;
