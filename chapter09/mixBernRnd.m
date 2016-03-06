@@ -7,16 +7,15 @@ function [X, z, mu] = mixBernRnd(d, k, n)
 % Output:
 %   X: d x n data matrix
 %   z: 1 x n response variable
-%   center: d x k centers of clusters
+%   mu: d x k parameters of each Bernoulli component
 % Written by Mo Chen (sth4nth@gmail.com).
-alpha = 1;
 
-w = dirichletRnd(alpha,ones(1,k)/k);
+% w = dirichletRnd(1,ones(1,k)/k);
+w = ones(1,k)/k;
 z = discreteRnd(w,n);
-mu = rand(1,k);
-
+mu = rand(d,k);
 X = zeros(d,n);
 for i = 1:k
     idx = z==i;
-    X(:,idx) = rand(d,sum(idx)) < mu(k);
+    X(:,idx) = bsxfun(@le,rand(d,sum(idx)), mu(:,k));
 end
