@@ -4,7 +4,9 @@
 d = 2;
 k = 3;
 n = 1000;
-[X, t] = kmeansRnd(d,k,n);
+% [X, t] = kmeansRnd(d,k,n);
 plotClass(X,t);
 
 model = nbGauss(X,t);
+y = nbGaussPred(model,X);
+plotClass(X,y);
