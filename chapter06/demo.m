@@ -59,7 +59,7 @@ Xt = X(:,idx);
 
 Y_kn = knPcaPred(model_kn,Xt);
 
-[U,L,mu,err1] = pca(X,q);
+[U,L,mu,mse] = pca(X,q);
 Y_lin = U'*bsxfun(@minus,Xt,mu);   % projection
 
 

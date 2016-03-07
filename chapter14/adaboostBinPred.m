@@ -1,4 +1,5 @@
 function t = adaboostBinPred(model, X)
+% Prediction of binary Adaboost
 % input:
 %   model: trained model structure
 %   X: d x n data matrix

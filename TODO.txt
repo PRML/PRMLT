@@ -1,5 +1,4 @@
 TODO: 
-extract demos
+ch08: BP
+ch10: EP
 
-chapter05: MLP
-chapter08: BP, EP

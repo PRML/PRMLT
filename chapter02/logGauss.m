@@ -1,42 +1,21 @@
-function y = logGauss(X, mu, sigma)
+function y = logGauss(X, mu, Sigma)
 % Compute log pdf of a Gaussian distribution.
 % Input:
 %   X: d x n data matrix
-%   mu: mean of Gaussian
-%   sigma: variance of Gaussian
+%   mu: d x 1 mean vector of Gaussian
+%   Sigma: d x d covariance matrix of Gaussian
 % Output:
-%   y: probability density in logrithm scale y=log p(x)
+%   y: 1 x n probability density in logrithm scale y=log p(x)
 % Written by Mo Chen (sth4nth@gmail.com).
-
-[d,n] = size(X);
-k = size(mu,2);
-if n == k && size(sigma,1) == 1           
-    X = bsxfun(@times,X-mu,1./sigma);
-    q = dot(X,X,1);  % M distance
-    c = d*log(2*pi)+2*log(sigma);          % normalization constant
-    y = -0.5*(c+q);
-elseif size(sigma,1)==d && size(sigma,2)==d && k==1   % one mu and one dxd sigma
-    X = bsxfun(@minus,X,mu);
-    [R,p]= chol(sigma);
-    if p ~= 0
-        error('ERROR: sigma is not PD.');
-    end
-    Q = R'\X;
-    q = dot(Q,Q,1);  % quadratic term (M distance)
-    c = d*log(2*pi)+2*sum(log(diag(R)));   % normalization constant
-    y = -0.5*(c+q);
-elseif size(sigma,1)==d && size(sigma,2)==k % k mu and k diagonal sigma
-    lambda = 1./sigma;
-    ml = mu.*lambda;
-    q = bsxfun(@plus,X'.^2*lambda-2*X'*ml,dot(mu,ml,1)); % M distance
-    c = d*log(2*pi)+2*sum(log(sigma),1); % normalization constant
-    y = -0.5*bsxfun(@plus,q,c);
-elseif size(sigma,1)==1 && (size(sigma,2)==k || size(sigma,2)==1) % k mu and (k or one) scalar sigma
-    X2 = repmat(dot(X,X,1)',1,k);
-    D = bsxfun(@plus,X2-2*X'*mu,dot(mu,mu,1));
-    q = bsxfun(@times,D,1./sigma);  % M distance
-    c = d*(log(2*pi)+2*log(sigma));          % normalization constant
-    y = -0.5*bsxfun(@plus,q,c);
-else
-    error('Parameters are mismatched.');
+[d,k] = size(mu);
+assert(all(size(Sigma)==d) && k==1)   % one mu and one dxd Sigma
+X = bsxfun(@minus,X,mu);
+[R,p]= chol(Sigma);
+if p ~= 0
+    error('ERROR: Sigma is not PD.');
 end
+Q = R'\X;
+q = dot(Q,Q,1);  % quadratic term (M distance)
+c = d*log(2*pi)+2*sum(log(diag(R)));   % normalization constant
+y = -0.5*(c+q);
+

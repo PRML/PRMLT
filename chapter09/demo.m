@@ -21,13 +21,19 @@ plot(llh);
 y = rvmBinPred(model,X)+1;
 figure;
 binPlot(model,X,y);
-%% kmeans 
+% kmeans 
 close all; clear;
-d = 2;
-k = 3;
-n = 500;
+d = 20;
+k = 6;
+n = 5000;
 [X,label] = kmeansRnd(d,k,n);
-y = kmeans(X,k);
+tic;
+y = kmeans_(X,k);
+toc
+tic
+y = kmeans(X',k);
+toc
+y = kmedoids(X,k);
 plotClass(X,label);
 figure;
 plotClass(X,y);
@@ -67,4 +73,13 @@ plotClass(X,init);
 figure;
 plotClass(X,z);
 figure;
+plot(llh);
+
+%% Bernoulli Mixture via EM
+close all; clear;
+d = 2;
+k = 3;
+n = 5000;
+[X,z,mu] = mixBernRnd(d,k,n);
+[label,model,llh] = mixBernEm(X,k);
 plot(llh);
