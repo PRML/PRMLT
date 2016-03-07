@@ -21,18 +21,15 @@ plot(llh);
 y = rvmBinPred(model,X)+1;
 figure;
 binPlot(model,X,y);
-% kmeans 
+%% kmeans 
 close all; clear;
 d = 20;
 k = 6;
 n = 5000;
 [X,label] = kmeansRnd(d,k,n);
-tic;
-y = kmeans_(X,k);
-toc
-tic
-y = kmeans(X',k);
-toc
+
+% y = kmeans(X',k);
+
 y = kmedoids(X,k);
 plotClass(X,label);
 figure;
