@@ -9,7 +9,7 @@ function [label, R] = mixGaussPred(X, model)
 % Written by Mo Chen (sth4nth@gmail.com).
 mu = model.mu;
 Sigma = model.Sigma;
-w = model.weight;
+w = model.w;
 
 n = size(X,2);
 k = size(mu,2);

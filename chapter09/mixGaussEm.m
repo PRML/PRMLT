@@ -42,41 +42,37 @@ end
 function [R, llh] = expectation(X, model)
 mu = model.mu;
 Sigma = model.Sigma;
-w = model.weight;
+w = model.w;
 
 n = size(X,2);
 k = size(mu,2);
-logRho = zeros(n,k);
-
+R = zeros(n,k);
 for i = 1:k
-    logRho(:,i) = loggausspdf(X,mu(:,i),Sigma(:,:,i));
+    R(:,i) = loggausspdf(X,mu(:,i),Sigma(:,:,i));
 end
-logRho = bsxfun(@plus,logRho,log(w));
-T = logsumexp(logRho,2);
+R = bsxfun(@plus,R,log(w));
+T = logsumexp(R,2);
 llh = sum(T)/n; % loglikelihood
-logR = bsxfun(@minus,logRho,T);
-R = exp(logR);
+R = exp(bsxfun(@minus,R,T));
 
 function model = maximization(X, R)
 [d,n] = size(X);
 k = size(R,2);
-
 nk = sum(R,1);
 w = nk/n;
 mu = bsxfun(@times, X*R, 1./nk);
 
 Sigma = zeros(d,d,k);
-sqrtR = sqrt(R);
+r = sqrt(R);
 for i = 1:k
     Xo = bsxfun(@minus,X,mu(:,i));
-    Xo = bsxfun(@times,Xo,sqrtR(:,i)');
-    Sigma(:,:,i) = Xo*Xo'/nk(i);
-    Sigma(:,:,i) = Sigma(:,:,i)+eye(d)*(1e-6); % add a prior for numerical stability
+    Xo = bsxfun(@times,Xo,r(:,i)');
+    Sigma(:,:,i) = Xo*Xo'/nk(i)+eye(d)*(1e-6);
 end
 
 model.mu = mu;
 model.Sigma = Sigma;
-model.weight = w;
+model.w = w;
 
 function y = loggausspdf(X, mu, Sigma)
 d = size(X,1);
