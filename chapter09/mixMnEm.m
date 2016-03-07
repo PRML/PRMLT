@@ -13,7 +13,7 @@ fprintf('EM for mixture model: running ... \n');
 n = size(X,2);
 label = ceil(k*rand(1,n));  % random initialization
 R = sparse(1:n,label,1,n,k,n);
-tol = 1e-4;
+tol = 1e-8;
 maxiter = 500;
 llh = -inf(1,maxiter);
 for iter = 2:maxiter
