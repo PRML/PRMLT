@@ -1,7 +1,7 @@
 function [label, model, llh] = mixBernEm(X, k)
 % Perform EM algorithm for fitting the Bernoulli mixture model.
 % Input: 
-%   X: d x n data matrix
+%   X: d x n binary (0/1) data matrix 
 %   k: number of cluster
 % Output:
 %   label: 1 x n cluster label
