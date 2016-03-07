@@ -9,7 +9,7 @@ function y = nbBernPred(model, X)
 mu = model.mu;
 w = model.w;
 X = sparse(X);
-R = exp(log(mu)'*X+log(1-mu)'*(1-X));
+R = log(mu)'*X+log(1-mu)'*(1-X);
 R = bsxfun(@plus,R,log(w));
 [~,y] = max(R,[],1);
 

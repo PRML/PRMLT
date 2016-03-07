@@ -79,19 +79,7 @@ plot(llh);
 close all; clear;
 d = 2;
 k = 3;
-n = 1000;
-[X,z] = mixBernRnd(d,k,n);
-
-m = floor(n/2);
-X1 = X(:,1:m);
-X2 = X(:,(m+1):end);
-% train
-[z1,model,llh] = mixGaussEm(X1,k);
-figure;
+n = 5000;
+[X,z,mu] = mixBernRnd(d,k,n);
+[label,model,llh] = mixBernEm(X,k);
 plot(llh);
-figure;
-plotClass(X1,z1);
-% predict
-z2 = mixGaussPred(X2,model);
-figure;
-plotClass(X2,z2);
