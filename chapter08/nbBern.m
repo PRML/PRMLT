@@ -6,8 +6,8 @@ function model = nbBern(X, t)
 % Output:
 %   model: trained model structure
 % Written by Mo Chen (sth4nth@gmail.com).
-n = size(X,2);
 k = max(t);
+n = size(X,2);
 E = sparse(t,1:n,1,k,n,n);
 nk = full(sum(E,2));
 w = nk/n;

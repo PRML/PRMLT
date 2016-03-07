@@ -17,5 +17,5 @@ mu = rand(d,k);
 X = zeros(d,n);
 for i = 1:k
     idx = z==i;
-    X(:,idx) = bsxfun(@le,rand(d,sum(idx)), mu(:,k));
+    X(:,idx) = bsxfun(@le,rand(d,sum(idx)), mu(:,i));
 end
