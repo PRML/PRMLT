@@ -15,7 +15,7 @@ hold off;
 plot(llh);
 [y,sigma] = linRegPred(model,x,t);
 figure
-plotCurveBar( x, y, sigma );
+plotCurveBar(x,y,sigma);
 hold on;
 plot(x,t,'o');
 hold off;
@@ -24,7 +24,7 @@ hold off;
 plot(llh);
 [y,sigma] = linRegPred(model,x,t);
 figure
-plotCurveBar( x, y, sigma );
+plotCurveBar(x,y,sigma);
 hold on;
 plot(x,t,'o');
 hold off;

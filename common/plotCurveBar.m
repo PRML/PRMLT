@@ -14,4 +14,5 @@ fill([x,fliplr(x)],[y+sigma,fliplr(y-sigma)],color);
 hold on;
 plot(x,y,'r-');
 hold off
+axis([x(1),x(end),-inf,inf])
 
