@@ -1,4 +1,4 @@
-% demos for ch06
+demos for ch06
 
 
 %% Kernel regression with gaussian kernel
@@ -7,8 +7,11 @@ n = 100;
 x = linspace(0,2*pi,n);   % test data
 t = sin(x)+rand(1,n)/2;
 model = knReg(x,t,1e-4,@knGauss);
-knRegPlot(model,x,t);
-
+[y,s] = knRegPred(model,x);
+plotCurveBar(x,y,s);
+hold on;
+plot(x,t,'o');
+hold off;
 %% Kernel regression with linear kernel is EQUIVALENT to linear regression
 lambda = 1e-4;
 model_kn = knReg(x,t,lambda,@knLin);
@@ -73,5 +76,5 @@ X=rand(2,100);
 X1=rand(2,10);
 X2=rand(2,5);
 
-maxdiff(knCenter(kn,X,X1),diag(knCenter(kn,X,X1,X1)))
+maxdiff(knCenter(kn,X,X1),diag(knCenter(kn,X,X1,X1))')
 maxdiff(knCenter(kn,X),knCenter(kn,X,X,X))
