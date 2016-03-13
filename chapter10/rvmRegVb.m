@@ -20,6 +20,8 @@ else
     c0 = prior.c;
     d0 = prior.d;
 end
+idx = (1:m)';
+dg = sub2ind([m,m],idx,idx);
 I = eye(m);
 xbar = mean(X,2);
 tbar = mean(t,2);
@@ -36,11 +38,12 @@ tol = 1e-8;
 
 a = a0+1/2;
 c = c0+n/2;
-Ealpha = 1e-4;
-Ebeta = 1e-4;
+Ealpha = 1e-2;
+Ebeta = 1e-2;
 for iter = 2:maxiter
 %     q(w)
-    invS = diag(Ealpha)+Ebeta*XX;
+    invS = Ebeta*XX;
+    invS(dg) = invS(dg)+Ealpha;
     U = chol(invS);
     Ew = Ebeta*(U\(U'\Xt));
     KLw = -sum(log(diag(U)));        
