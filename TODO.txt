@@ -1,4 +1,5 @@
 TODO: 
 ch08: BP
 ch10: EP
-
+ch13: LDS stability
+ch05: MLP bias
