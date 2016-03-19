@@ -19,13 +19,8 @@ sigma = 0.005;
 e = sigma*randn(1,n);
 y = x'*A + e;
 
-% RVM by sequential training
-[model,llh] = rvmRegSeq(A,y);
-% RVM trained by Mackay fix piont update method
-% [model,llh] = rvmRegFp(A,y);
-% [model,llh] = rvmRegEm(A,y);
+[model,llh] = rvmRegFp(A,y);
 plot(llh);
-
 
 m = zeros(d,1);
 m(model.index) = model.w;
@@ -37,7 +32,6 @@ figure;
 subplot(2,1,1);plot(x); axis([x_range,y_range]); title('Original Signal');
 subplot(2,1,2);plot(m); axis([x_range,y_range]); title('Recovery Signal');
  
-% [y, sigma] = rvmRegPred(model,A);
 
 
 

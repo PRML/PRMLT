@@ -7,9 +7,6 @@ n = 100;  % number of variables
 x = ceil(k*rand(1,n));
 y = ceil(k*rand(1,n));
 
-% x = randi(k,1,n);  % need statistics toolbox
-% y = randi(k,1,n);
-
 %% Entropy H(x), H(y)
 Hx = entropy(x);
 Hy = entropy(y);
