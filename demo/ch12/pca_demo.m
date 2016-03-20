@@ -27,14 +27,3 @@ mse2
 figure;
 plotClass(Z1);
 mse3
-%% EM probabilistic PCA
-[W,mu,beta,llh] = ppcaEm(X,m);
-plot(llh)
-
-%% Variational Bayesian probabilistic PCA
-[model, energy] = ppcaVb(X);
-plot(energy);
-% 
-%% Factor analysis
-[W, mu, psi, llh] = fa(X, m);
-plot(llh);
