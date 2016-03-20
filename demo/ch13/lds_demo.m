@@ -6,8 +6,6 @@ k = 2;
 n = 100;
  
 [X,Z,model] = ldsRnd(d,k,n);
-plot(Z(1,:),Z(2,:),'-');
-plot(X(1,:),X(2,:),'-');
 [mu, V, llh] = kalmanFilter(X, model);
 
 [nu, U, Ezz, Ezy, llh] = kalmanSmoother(X, model);
