@@ -12,38 +12,23 @@ if nargin < 3
     lambda = 1e-2;
 end
 X = [X; ones(1,size(X,2))];
-[d,n] = size(X);
+d = size(X,1);
 tol = 1e-4;
 maxiter = 100;
 llh = -inf(1,maxiter);
-idx = (1:d)';
-dg = sub2ind([d,d],idx,idx);
-h = ones(1,n);
-h(t==0) = -1;
-w = zeros(d,1);
+h = 2*t-1;
+w = rand(d,1);
 a = w'*X;
 for iter = 2:maxiter
     y = sigmoid(a);                     % 4.87
     r = y.*(1-y);                       % 4.98
     Xw = bsxfun(@times, X, sqrt(r));
-    H = Xw*Xw';                         % 4.97
-    H(dg) = H(dg)+lambda;
-    U = chol(H);
-    g = X*(y-t)'+lambda.*w;             % 4.96
-    p = -U\(U'\g);
-    wo = w;                             % 4.92
-    w = wo+p;   
+    H = Xw*Xw'+lambda*eye(d);           % 4.97
+    g = X*(y-t)'+lambda*w;              % 4.96
+    w = w-H\g; 
     a = w'*X;   
-    llh(iter) = -sum(log1pexp(-h.*a))-0.5*sum(lambda.*w.^2);  % 4.89
-    incr = llh(iter)-llh(iter-1);
-%     while incr < 0      % line search
-%         p = p/2;
-%         w = wo+p;
-%         a = w'*X;   
-%         llh(iter) = -sum(log1pexp(-h.*a))-0.5*sum(lambda.*w.^2);
-%         incr = llh(iter)-llh(iter-1);
-%     end
-    if incr < tol; break; end
+    llh(iter) = -sum(log1pexp(-h.*a))-0.5*lambda*dot(w,w); % 4.89
+    if llh(iter)-llh(iter-1) < tol; break; end
 end
 llh = llh(2:iter);
 model.w = w;

@@ -8,4 +8,5 @@ n = 1000;
 [model, llh] = logitBin(X,t-1);
 plot(llh);
 y = logitBinPred(model,X)+1;
+figure
 binPlot(model,X,y)
