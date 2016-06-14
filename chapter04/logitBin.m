@@ -4,6 +4,7 @@ function [model, llh] = logitBin(X, y, lambda, eta)
 %   X: d x n data matrix
 %   z: 1 x n label (0/1)
 %   lambda: regularization parameter
+%   eta: step size
 % Output:
 %   model: trained model structure
 %   llh: loglikelihood
