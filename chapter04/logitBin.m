@@ -1,34 +1,36 @@
-function [model, llh] = logitBin(X, t, lambda)
+function [model, llh] = logitBin(X, y, lambda, eta)
 % Logistic regression for binary classification optimized by Newton-Raphson method.
 % Input:
 %   X: d x n data matrix
-%   t: 1 x n label (0/1)
+%   z: 1 x n label (0/1)
 %   lambda: regularization parameter
 % Output:
 %   model: trained model structure
 %   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
+if nargin < 4
+    eta = 1e-1;
+end
 if nargin < 3
-    lambda = 1e-2;
+    lambda = 1e-4;
 end
 X = [X; ones(1,size(X,2))];
-d = size(X,1);
+[d,n] = size(X);
 tol = 1e-4;
-maxiter = 100;
-llh = -inf(1,maxiter);
-h = 2*t-1;
+epoch = 200;
+llh = -inf(1,epoch);
+h = 2*y-1;
 w = rand(d,1);
-a = w'*X;
-for iter = 2:maxiter
-    y = sigmoid(a);                     % 4.87
-    r = y.*(1-y);                       % 4.98
+for t = 2:epoch
+    a = w'*X;
+    llh(t) = -(sum(log1pexp(-h.*a))+0.5*lambda*dot(w,w))/n; % 4.89
+    if llh(t)-llh(t-1) < tol; break; end
+    z = sigmoid(a);                     % 4.87
+    g = X*(z-y)'+lambda*w;              % 4.96
+    r = z.*(1-z);                       % 4.98
     Xw = bsxfun(@times, X, sqrt(r));
     H = Xw*Xw'+lambda*eye(d);           % 4.97
-    g = X*(y-t)'+lambda*w;              % 4.96
-    w = w-H\g; 
-    a = w'*X;   
-    llh(iter) = -sum(log1pexp(-h.*a))-0.5*lambda*dot(w,w); % 4.89
-    if llh(iter)-llh(iter-1) < tol; break; end
+    w = w-eta*(H\g); 
 end
-llh = llh(2:iter);
+llh = llh(2:t);
 model.w = w;
