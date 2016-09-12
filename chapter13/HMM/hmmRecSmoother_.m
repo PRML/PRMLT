@@ -13,11 +13,11 @@ function [ gamma, c ] = hmmRecSmoother_( M, A, s )
 At = A';
 c = zeros(1,T); % normalization constant
 gamma = zeros(K,T);
-[gamma(:,1),c(1)] = nml(s.*M(:,1),1);
+[gamma(:,1),c(1)] = normalize(s.*M(:,1),1);
 for t = 2:T
-    [gamma(:,t),c(t)] = nml((At*gamma(:,t-1)).*M(:,t),1);  % 13.59
+    [gamma(:,t),c(t)] = normalize((At*gamma(:,t-1)).*M(:,t),1);  % 13.59
 end
 for t = T-1:-1:1
-    gamma(:,t) = nml(bsxfun(@times,A,gamma(:,t)),1)*gamma(:,t+1);
+    gamma(:,t) = normalize(bsxfun(@times,A,gamma(:,t)),1)*gamma(:,t+1);
 end
 
