@@ -9,6 +9,5 @@ function [y, p] = logitBinPred(model, X)
 % Written by Mo Chen (sth4nth@gmail.com).
 X = [X;ones(1,size(X,2))];
 w = model.w;
-p = exp(-log1pexp(w'*X)); 
+p = 1 ./ (1 + exp(-w' * X));
 y = round(p);
-
