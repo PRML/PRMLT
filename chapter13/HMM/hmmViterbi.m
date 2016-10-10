@@ -1,4 +1,4 @@
-function z = hmmViterbi(x, model)
+function [z, llh] = hmmViterbi(x, model)
 % Viterbi algorithm calculated in log scale to improve numerical stability.
 % This is a wrapper function which transform input and call underlying algorithm
 % Input:
@@ -6,6 +6,7 @@ function z = hmmViterbi(x, model)
 %   model:  model structure
 % Output:
 %   z: 1 x n latent state
+%   llh:  loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
 A = model.A;
 E = model.E;
@@ -15,4 +16,4 @@ n = size(x,2);
 d = max(x);
 X = sparse(x,1:n,1,d,n);
 M = E*X;
-z = hmmViterbi_(M, A, s);
+[z,llh] = hmmViterbi_(M, A, s);

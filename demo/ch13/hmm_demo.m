@@ -5,7 +5,7 @@ k = 2;
 n = 10000;
 [x, model] = hmmRnd(d, k, n);
 %%
-z = hmmViterbi(x,model);
+[z,p] = hmmViterbi(x,model);
 %%
 [alpha,llh] = hmmFilter(x,model);
 %%
