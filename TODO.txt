@@ -1,4 +1,3 @@
 TODO: 
-ch10: EP
 ch13: LDS numerical stability (numerical stable (square root) version of Kalman filter and smoother)
 ch05: MLP bias and gradient unit
