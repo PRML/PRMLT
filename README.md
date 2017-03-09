@@ -3,6 +3,8 @@ Introduction
 This package is a Matlab implementation of the algorithms described in the classical machine learning textbook:
 Pattern Recognition and Machine Learning by C. Bishop ([PRML](http://research.microsoft.com/en-us/um/people/cmbishop/prml/)).
 
+Note: this package requires Matlab R2016b or later, since it utilizes a new syntax of Matlab.
+
 Description
 -------
 The design goal of the code are as follows:
