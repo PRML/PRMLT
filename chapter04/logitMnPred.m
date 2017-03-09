@@ -9,6 +9,5 @@ function [y, P] = logitMnPred(model, X)
 % Written by Mo Chen (sth4nth@gmail.com).
 W = model.W;
 X = [X; ones(1,size(X,2))];
-A = W'*X;                                   
-P = exp(bsxfun(@minus,A,logsumexp(A,1)));  
+P = softmax(W'*X);
 [~, y] = max(P,[],1);
