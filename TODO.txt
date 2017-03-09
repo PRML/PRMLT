@@ -1,3 +1,1 @@
-TODO: 
-ch13: LDS numerical stability (numerical stable (square root) version of Kalman filter and smoother)
-ch05: MLP bias and gradient unit
+ch05: MLP bias and gradient unit (2nd order)
