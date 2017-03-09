@@ -16,6 +16,6 @@ plot(llh);
 figure;
 plotClass(X1,z1);
 % predict
-z2 = mixGaussPred(X2,model);
+z2 = mixGaussPred(model,X2);
 figure;
 plotClass(X2,z2);
