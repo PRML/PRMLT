@@ -14,7 +14,7 @@ function [label, Theta, w, llh] = mixDpGb(X, alpha, theta)
 n = size(X,2);
 [label,Theta,w] = mixDpGbOl(X,alpha,theta);
 nk = n*w;
-maxIter = 200;
+maxIter = 50;
 llh = zeros(1,maxIter);
 for iter = 1:maxIter
     for i = randperm(n)
@@ -34,7 +34,7 @@ for iter = 1:maxIter
         llh(iter) = llh(iter)+sum(p-log(n));
         k = discreteRnd(exp(p-logsumexp(p)));
         if k == numel(Theta)+1                 % add extra cluster
-            Theta{k} = theta.clone.addSample(x);
+            Theta{k} = theta.clone().addSample(x);
             nk = [nk,1];
         else
             Theta{k} = Theta{k}.addSample(x);

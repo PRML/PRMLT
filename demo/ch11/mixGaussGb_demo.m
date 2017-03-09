@@ -3,9 +3,14 @@ close all; clear;
 d = 2;
 k = 3;
 n = 500;
-[X,label] = mixGaussRnd(d,k,n);
-plotClass(X,label);
+[X,z] = mixGaussRnd(d,k,n);
+plotClass(X,z);
 
-[y,model] = mixGaussGb(X);
+[z,Theta,w,llh] = mixGaussGb(X);
 figure
-plotClass(X,y);
+plotClass(X,z);
+
+[X,z] = mixGaussSample(Theta,w,n);
+figure
+plotClass(X,z);
+

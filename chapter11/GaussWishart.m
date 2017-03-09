@@ -20,6 +20,10 @@ classdef GaussWishart
          function obj = clone(obj)
          end
          
+         function d = dim(obj)
+             d = numel(obj.m_);
+         end
+         
          function obj = addData(obj, X)
              kappa0 = obj.kappa_;
              m0 = obj.m_;
@@ -88,6 +92,17 @@ classdef GaussWishart
              o = -log(1+q/v)*((v+d)/2);
              c = gammaln((v+d)/2)-gammaln(v/2)-(d*log(v*pi)+2*sum(log(diag(U))))/2;
              y = c+o;
+         end
+         
+         function [mu, Sigma] = sample(obj)
+%              Sample a Gaussian distribution from GaussianWishart prior
+             kappa = obj.kappa_;
+             m = obj.m_;
+             nu = obj.nu_;
+             U = obj.U_;
+             
+             Sigma = iwishrnd(U'*U,nu);
+             mu = gaussRnd(m,Sigma/kappa);
          end
      end
 end
