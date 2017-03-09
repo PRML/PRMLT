@@ -1,1 +1,0 @@
-ch05: MLP bias and gradient unit (2nd order)
