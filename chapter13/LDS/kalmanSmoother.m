@@ -1,5 +1,7 @@
-function [nu, U, Ezz, Ezy, llh] = kalmanSmoother(X, model)
+function [nu, U, Ezz, Ezy, llh] = kalmanSmoother(model, X)
 % Kalman smoother (forward-backward algorithm for linear dynamic system)
+% NOTE: This is the exact implementation of the Kalman smoother algorithm in PRML.
+% However, this algorithm is not practical. It is numerical unstable. 
 % Input:
 %   X: d x n data matrix
 %   model: model structure
@@ -28,7 +30,7 @@ I = eye(q);
 
 % forward
 PC = P0*C';
-R = (C*PC+S);
+R = C*PC+S;
 K = PC/R;
 mu(:,1) = mu0+K*(X(:,1)-C*mu0);
 V(:,:,1) = (I-K*C)*P0;

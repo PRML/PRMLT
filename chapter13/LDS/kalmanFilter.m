@@ -1,5 +1,7 @@
-function [mu, V, llh] = kalmanFilter(X, model)
-% Kalman filter 
+function [mu, V, llh] = kalmanFilter(model, X)
+% Kalman filter (forward algorithm for linear dynamic system)
+% NOTE: This is the exact implementation of the Kalman filter algorithm in PRML.
+% However, this algorithm is not practical. It is numerical unstable. 
 % Input:
 %   X: d x n data matrix
 %   model: model structure
@@ -23,7 +25,7 @@ llh = zeros(1,n);
 I = eye(k);
 
 PC = P*C';
-R = (C*PC+S);
+R = C*PC+S;
 K = PC/R;                                        % 13.97
 mu(:,1) = mu0+K*(X(:,1)-C*mu0);                     % 13.94
 V(:,:,1) = (I-K*C)*P;                               % 13.95

@@ -6,9 +6,9 @@ k = 2;
 n = 100;
  
 [X,Z,model] = ldsRnd(d,k,n);
-[mu, V, llh] = kalmanFilter(X, model);
+[mu, V, llh] = kalmanFilter(model, X);
 
-[nu, U, Ezz, Ezy, llh] = kalmanSmoother(X, model);
-[model, llh] = ldsEm(X, model);
-plot(llh);
-
+[nu, U, Ezz, Ezy, llh] = kalmanSmoother(model, X);
+% [model, llh] = ldsEm(X,k);
+% plot(llh);
+% 

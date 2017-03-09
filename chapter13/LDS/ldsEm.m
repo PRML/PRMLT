@@ -1,5 +1,8 @@
-function [model, llh] = ldsEm(X, model)
+function [model, llh] = ldsEm(X, init)
 % EM algorithm for parameter estimation of linear dynamic system.
+% NOTE: This is the exact implementation of the EM algorithm in PRML.
+% However, this algorithm is not practical. It is numerical unstable and 
+% there is too much redundant degree of freedom. 
 % Input:
 %   X: d x n data matrix
 %   model: prior model structure
@@ -7,12 +10,24 @@ function [model, llh] = ldsEm(X, model)
 %   model: trained model structure
 %   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
-tol = 1e-4;
+d = size(X,1);
+if isstruct(init)   % init with a model
+    model = init;
+elseif numel(init) == 1  % random init with latent k
+    k = init;
+    model.A = randn(k,k);
+    model.G = iwishrnd(eye(k),k);
+    model.C = randn(d,k);
+    model.S = iwishrnd(eye(d),d);
+    model.mu0 = randn(k,1);
+    model.P0 = iwishrnd(eye(k),k);
+end
+tol = 1e-2;
 maxIter = 100;
 llh = -inf(1,maxIter);
 for iter = 2:maxIter
 %     E-step
-    [nu, U, Ezz, Ezy, llh(iter)] = kalmanSmoother(X, model);
+    [nu, U, Ezz, Ezy, llh(iter)] = kalmanSmoother(model,X);
     if llh(iter)-llh(iter-1) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
 %     M-step 
     model = maximization(X, nu, U, Ezz, Ezy);
