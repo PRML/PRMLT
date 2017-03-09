@@ -1,4 +1,4 @@
-function [gamma, alpha, beta, c] = hmmSmoother0(model, x)
+function [gamma, alpha, beta, c] = hmmSmoother(model, x)
 % HMM smoothing alogrithm (normalized forward-backward or normalized alpha-beta algorithm).
 % The alpha and beta returned by this function are the normalized version.
 % Input:

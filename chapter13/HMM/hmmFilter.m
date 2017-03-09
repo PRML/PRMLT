@@ -1,4 +1,4 @@
-function [alpha, llh] = hmmFilter0(model, x)
+function [alpha, llh] = hmmFilter(model, x)
 % HMM forward filtering algorithm. 
 % The alpha returned by this function is the normalized version (posterior): alpha(t)=p(z_t|x_{1:t})
 % Unnormalized version (joint distribution): alpha(t)=p(z_t,x_{1:t}) is numerical unstable.
