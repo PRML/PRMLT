@@ -1,20 +1,31 @@
-function [alpha, energy] = hmmFilter(x, model)
-% HMM forward filtering algorithm. This is a wrapper function which transform input and call underlying algorithm
-% Unlike the method described in the book of PRML, the alpha returned is the normalized version: alpha(t)=p(z_t|x_{1:t})
-% Computing unnormalized version alpha(t)=p(z_t,x_{1:t}) is numerical unstable, which grows exponential fast to infinity.
+function [alpha, llh] = hmmFilter0(model, x)
+% HMM forward filtering algorithm. 
+% The alpha returned by this function is the normalized version (posterior): alpha(t)=p(z_t|x_{1:t})
+% Unnormalized version (joint distribution): alpha(t)=p(z_t,x_{1:t}) is numerical unstable.
 % Input:
 %   x: 1 x n integer vector which is the sequence of observations
-%   model:  model structure
+%   model: model structure which contains
+%       model.s: k x 1 start probability vector
+%       model.A: k x k transition matrix
+%       model.E: k x d emission matrix
 % Output:
 %   alpha: k x n matrix of posterior alpha(t)=p(z_t|x_{1:t})
-%   enery: loglikelihood
+%   llh: loglikelihood
 % Written by Mo Chen (sth4nth@gmail.com).
+s = model.s;
 A = model.A;
 E = model.E;
-s = model.s;
 
 n = size(x,2);
-d = max(x);
-X = sparse(x,1:n,1,d,n);
+X = sparse(x,1:n,1);
 M = E*X;
-[alpha, energy] = hmmFilter_(M, A, s);
+
+[K,T] = size(M);
+At = A';
+llh = zeros(1,T);
+alpha = zeros(K,T);
+[alpha(:,1),llh(1)] = normalize(s.*M(:,1),1);
+for t = 2:T
+    [alpha(:,t),llh(t)] = normalize((At*alpha(:,t-1)).*M(:,t),1);    % 13.59
+end
+llh = sum(log(llh(llh>0)));
