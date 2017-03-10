@@ -1,8 +1,5 @@
 % demos for HMM in ch13
-
-d = 3;
-k = 2;
-n = 10000;
+d = 3; k = 2; n = 10000;
 [x,model] = hmmRnd(d,k,n);
 %% Viterbi algorithm
 [z, llh] = hmmViterbi(model, x);
@@ -11,5 +8,5 @@ n = 10000;
 %% HMM smoother (forward backward)
 [gamma,alpha,beta,c] = hmmSmoother(model, x);
 %% Baum-Welch algorithm
-[model, llh] = hmmEm(x,2);
+[model, llh] = hmmEm(x,k);
 plot(llh)
