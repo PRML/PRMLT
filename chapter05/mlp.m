@@ -28,7 +28,7 @@ for iter = 1:maxiter
     end
 %     backward
     E = Y-Z{L};
-    mse(iter) = mean(E.*E);
+    mse(iter) =  mean(dot(E,E),1);
     for l = L-1:-1:1
         df = Z{l+1}.*(1-Z{l+1});
         dG = df.*E;
