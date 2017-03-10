@@ -32,7 +32,7 @@ for iter = 2:maxIter
 %     M-step 
     s = gamma(:,1);                                                                             % 13.18
     A = normalize(A.*(alpha(:,1:n-1)*(beta(:,2:n).*M(:,2:n)./c(2:n))'),2);      % 13.19 13.43 13.65
-    E = bsxfun(@times,gamma*X',1./sum(gamma,2));                                                 % 13.23
+    E = (gamma*X')./sum(gamma,2);                            % 13.23
 end
 model.s = s;
 model.A = A;
