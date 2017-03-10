@@ -1,5 +1,5 @@
-function [model, mse] = mlp(X, Y, h)
-% Multilayer perceptron
+function [model, mse] = mlp(X, Y, h, eta)
+% Train a multilayer perceptron neural network
 % Input:
 %   X: d x n data matrix
 %   Y: p x n response matrix
@@ -8,6 +8,9 @@ function [model, mse] = mlp(X, Y, h)
 %   model: model structure
 %   mse: mean square error
 % Written by Mo Chen (sth4nth@gmail.com).
+if nargin < 4
+    eta = 1/size(X,2);
+end
 h = [size(X,1);h(:);size(Y,1)];
 L = numel(h);
 W = cell(L-1);
@@ -16,8 +19,7 @@ for l = 1:L-1
 end
 Z = cell(L);
 Z{1} = X;
-eta = 1/size(X,2);
-maxiter = 2000;
+maxiter = 200;
 mse = zeros(1,maxiter);
 for iter = 1:maxiter
 %     forward
@@ -26,7 +28,7 @@ for iter = 1:maxiter
     end
 %     backward
     E = Y-Z{L};
-    mse(iter) = mean(dot(E(:),E(:)));
+    mse(iter) = mean(E.*E);
     for l = L-1:-1:1
         df = Z{l+1}.*(1-Z{l+1});
         dG = df.*E;
