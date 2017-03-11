@@ -11,5 +11,5 @@ index = model.index;
 X = [X;ones(1,size(X,2))];
 X = X(index,:);
 w = model.w;
-p = exp(-log1pexp(w'*X)); 
+p = sigmoid(w'*X); 
 y = round(p);
