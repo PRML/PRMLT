@@ -3,7 +3,7 @@ Introduction
 This package is a Matlab implementation of the algorithms described in the classical machine learning textbook:
 Pattern Recognition and Machine Learning by C. Bishop ([PRML](http://research.microsoft.com/en-us/um/people/cmbishop/prml/)).
 
-Note: this package requires Matlab R2016b or later, since it utilizes a new syntax of Matlab.
+Note: this package requires Matlab R2016b or later, since it utilizes a new syntax of Matlab called [Implicit expansion](https://cn.mathworks.com/help/matlab/release-notes.html?rntext=implicit+expansion&startrelease=R2016b&endrelease=R2016b&groupby=release&sortby=descending) (a.k.a. broadcasting in Python).
 
 Description
 -------
@@ -25,7 +25,7 @@ Installation
 
 FeedBack
 -------
-If you found any bugs or have any suggestion, please do fire issues. I am graceful for any feedback and do my best to improve this package.
+If you found any bug or have any suggestion, please do fire issues. I am graceful for any feedback and will do my best to improve this package.
 
 License
 -------
