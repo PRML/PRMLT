@@ -25,8 +25,8 @@ k = 3;
 n = 500;
 [X,y] = kmeansRnd(d,k,n);
 init = ceil(k*rand(1,n));
-[y_kn,en_kn,model_kn] = knKmeans(X,init,@knLin);
-[y_lin,en_lin,model_lin] = kmeans(X,init);
+[y_kn,model_kn,en_kn] = knKmeans(X,init,@knLin);
+[y_lin,model_lin,en_lin] = kmeans(X,init);
 
 idx = 1:2:n;
 Xt = X(:,idx);
