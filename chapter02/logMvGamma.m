@@ -1,4 +1,4 @@
-function y = logMvGamma(x,d)
+function y = logMvGamma(x, d)
 % Compute logarithm multivariate Gamma function 
 % which is used in the probability density function of the Wishart and inverse Wishart distributions.
 % Gamma_d(x) = pi^(d(d-1)/4) \prod_(j=1)^d Gamma(x+(1-j)/2)
@@ -9,8 +9,5 @@ function y = logMvGamma(x,d)
 % Output:
 %   y: m x n logarithm multivariate Gamma
 % Written by Michael Chen (sth4nth@gmail.com).
-sz = size(x);
-x = reshape(x,1,prod(sz));
-x = bsxfun(@plus,repmat(x,d,1),(1-(1:d)')/2);
-y = d*(d-1)/4*log(pi)+sum(gammaln(x),1);
-y = reshape(y,sz);
+y = d*(d-1)/4*log(pi)+sum(gammaln(x(:)+(1-(1:d))/2),2);
+y = reshape(y,size(x));
