@@ -4,10 +4,10 @@ function [Q, R] = gson(X)
 [d,n] = size(X);
 m = min(d,n);
 R = zeros(m,n);
-Q = zeros(d,m);
+Q = zeros(d,0);
 for i = 1:m
-    R(1:i-1,i) = Q(:,1:i-1)'*X(:,i);
-    v = X(:,i)-Q(:,1:i-1)*R(1:i-1,i);
+    R(1:i-1,i) = Q'*X(:,i);
+    v = X(:,i)-Q*R(1:i-1,i);
     R(i,i) = norm(v);
     Q(:,i) = v/R(i,i);
 end
