@@ -27,7 +27,7 @@ while any(label ~= last)
     E = sparse(last,1:n,1);
     E = E./sum(E,2);
     T = E*K;
-    [val, label] = max(T-diag(T*E')/2,[],1);
+    [val, label] = max(T-dot(T,E,2)/2,[],1);
 end
 energy = trace(K)-2*sum(val); 
 if nargout == 3
