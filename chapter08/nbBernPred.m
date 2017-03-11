@@ -8,8 +8,5 @@ function y = nbBernPred(model, X)
 % Written by Mo Chen (sth4nth@gmail.com).
 mu = model.mu;
 w = model.w;
-X = sparse(X);
-R = log(mu)'*X+log(1-mu)'*(1-X);
-R = bsxfun(@plus,R,log(w(:)));
-[~,y] = max(R,[],1);
+[~,y] = max(log(mu)'*X+log(1-mu)'*(1-X)+log(w(:)),[],1);
 
