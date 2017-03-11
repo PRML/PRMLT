@@ -1,4 +1,4 @@
-function [label, index, energy] = kmedoids0(X, init)
+function [label, index, energy] = kmedoids(X, init)
 % Perform k-medoids clustering.
 % Input:
 %   X: d x n data matrix
