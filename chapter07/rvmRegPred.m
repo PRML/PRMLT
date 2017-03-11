@@ -25,6 +25,5 @@ if nargout > 1
 end
 
 if nargin == 3 && nargout == 3
-    p = exp(logGauss(t,y,sigma));
-%     p = exp(-0.5*(((t-y)./sigma).^2+log(2*pi))-log(sigma));
+    p = exp(-0.5*(((t-y)./sigma).^2+log(2*pi))-log(sigma));
 end
