@@ -6,5 +6,5 @@ function z = logKde (X, Y, sigma)
 % Output:
 %   z: probability density in logrithm scale z=log p(x|y)
 % Written by Mo Chen (sth4nth@gmail.com).
-D = bsxfun(@plus,full(dot(X,X,1)),full(dot(Y,Y,1))')-full(2*(Y'*X));
+D = dot(X,X,1)+dot(Y,Y,1)'-2*(Y'*X);
 z = logsumexp(D/(-2*sigma^2),1)-0.5*log(2*pi)-log(sigma*size(Y,2),1);
