@@ -13,7 +13,7 @@ fprintf('EM for mixture model: running ... \n');
 X = sparse(X);
 n = size(X,2);
 label = ceil(k*rand(1,n));  % random initialization
-R = sparse(label,1:n,1,k,n,n);
+R = full(sparse(1:n,label,1));
 tol = 1e-8;
 maxiter = 500;
 llh = -inf(1,maxiter);
@@ -22,23 +22,20 @@ for iter = 2:maxiter
     [R, llh(iter)] = expectation(X,model);
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter)); break; end;
 end
-[~,label(:)] = max(R,[],1);
+[~,label(:)] = max(R,[],2);
 llh = llh(2:iter);
 
 function [R, llh] = expectation(X, model)
 mu = model.mu;
 w = model.w;
-n = size(X,2);
-R = full(log(mu)'*X+log(1-mu)'*(1-X));
-R = bsxfun(@plus,R,log(w));
-T = logsumexp(R,1);
-llh = sum(T)/n; % loglikelihood
-R = exp(bsxfun(@minus,R,T));
+R = X'*log(mu)+(1-X)'*log(1-mu)+log(w);
+T = logsumexp(R,2);
+llh = mean(T); % loglikelihood
+R = exp(R-T);
 
 function model = maximization(X, R)
-n = size(R,2);
-nk = full(sum(R,2));
-w = nk/n;
-mu = bsxfun(@times,full(X*R'),1./nk');
+nk = sum(R,1);
+w = nk/sum(nk);
+mu = (X*R)./nk;
 model.mu = mu;
 model.w = w;
