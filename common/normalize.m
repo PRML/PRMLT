@@ -8,4 +8,4 @@ if nargin == 1
     if isempty(dim), dim = 1; end
 end
 s = sum(X,dim);
-Y = bsxfun(@times,X,1./s);
+Y = X./s;
