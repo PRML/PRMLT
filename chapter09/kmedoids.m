@@ -4,7 +4,7 @@ function [label, index, energy] = kmedoids(X, init)
 %   X: d x n data matrix
 %   init: k number of clusters or label (1 x n vector)
 % Output:
-%   label: 1 x n cluster label
+%   label: 1 x n sample labels
 %   index: index of medoids
 %   energy: optimization target value
 % Written by Mo Chen (sth4nth@gmail.com).

@@ -11,6 +11,6 @@ end
 %   X: d x n data matrix
 %   label: initial sample labels
 % Output:
-%   label: 1 x n sample label
+%   label: 1 x n sample labels
 %   mu: d x k center of clusters
 % Written by Mo Chen (sth4nth@gmail.com).

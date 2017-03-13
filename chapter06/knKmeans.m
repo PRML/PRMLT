@@ -4,9 +4,9 @@ function [label, model, energy] = knKmeans(X, init, kn)
 %   K: n x n kernel matrix
 %   init: either number of clusters (k) or initial label (1xn)
 % Output:
-%   label: 1 x n clustering result label
-%   energy: optimization target value
+%   label: 1 x n sample labels
 %   model: trained model structure
+%   energy: optimization target value
 % Reference: Kernel Methods for Pattern Analysis
 % by John Shawe-Taylor, Nello Cristianini
 % Written by Mo Chen (sth4nth@gmail.com).
