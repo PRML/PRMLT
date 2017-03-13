@@ -4,9 +4,7 @@ function mu = kseeds(X, k)
 %   X: d x n data matrix
 %   k: number of seeds
 % Output:
-%   label: 1 x n sample labels
 %   mu: d x k seeds
-%   energy: kmeans target value
 % Written by Mo Chen (sth4nth@gmail.com).
 n = size(X,2);
 D = inf(1,n);
