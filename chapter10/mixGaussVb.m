@@ -27,7 +27,7 @@ model = init(X,m,prior);
 for iter = 2:maxiter
     model = expect(X,model);
     model = maximize(X,model,prior);
-    L(iter) = bound(X,model,prior)/n;
+    L(iter) = bound(X,model,prior);
     if abs(L(iter)-L(iter-1)) < tol*abs(L(iter)); break; end
 end
 L = L(2:iter);
