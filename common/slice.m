@@ -1,5 +1,6 @@
 function B = slice(A, dim, index)
 % slice(A,2,index) = A(:,index,:)
+% Written by Mo Chen (sth4nth@gmail.com).
 sz = size(A);
 sz(dim) = numel(index);
 IDX = cell(1,ndims(A));

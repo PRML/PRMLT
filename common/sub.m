@@ -1,5 +1,6 @@
 function B = sub(A, varargin)
-% submat(A,i,j,k) = A(i;j;k)
+% sub(A,i,j,k) = A(i;j;k)
+% Written by Mo Chen (sth4nth@gmail.com).
 assert(ndims(A)==numel(varargin));
 sz = cellfun(@numel,varargin);
 IDX = cell(1,ndims(A));
