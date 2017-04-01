@@ -7,4 +7,4 @@ if nargin == 1
     if isempty(dim), dim = 1; end
 end
 s = logsumexp(X,dim);
-Y = exp(X-s);
+Y = X-s;
