@@ -1,12 +1,6 @@
 clear; close all;
-% load letterA.mat;
-% X = A;
-load letterX.mat
 %% Original image
-epoch = 50;
-J = 1;   % ising parameter
-sigma = 1; % noise level
-
+load letterX.mat
 img = double(X);
 img = sign(img-mean(img(:)));
 
@@ -18,11 +12,16 @@ axis image;
 colormap gray;
 %% Noisy image
 y = img + sigma*randn(size(img)); % noisy signal
+
 subplot(2,3,2);
 imagesc(y);
 title('Noisy image');
 axis image;
 colormap gray;
+%% Parameters
+epoch = 50;
+J = 1;   % Ising parameter
+sigma = 1; % noise level
 %% Mean Field
 [A, nodePot, edgePot] = im2mrf(y, J, sigma);
 [nodeBel, edgeBel] = mrfMeanField(A, nodePot, edgePot, epoch);
@@ -33,6 +32,16 @@ maxdiff(lnZ, lnZ0)
 subplot(2,3,4);
 imagesc(reshape(nodeBel(1,:),size(img)));
 title('Mean Field');
+axis image;
+colormap gray;
+%% Ising Mean Field 
+h = reshape(0.5*diff(nodePot),size(img));
+mu = isingMeanField(J, h, epoch);
+maxdiff(reshape(mu,1,[]), [1,-1]*nodeBel)
+
+subplot(2,3,3);
+imagesc(mu)
+title('Ising Mean Field');
 axis image;
 colormap gray;
 %% Belief Propagation
