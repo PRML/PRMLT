@@ -1,4 +1,4 @@
-function [A, nodePot, edgePot] = im2mrf(im, sigma, J)
+function [A, nodePot, edgePot] = im2mrf(im, J, sigma)
 % Convert a image to Ising MRF with distribution p(x)=exp(-sum(nodePot)-sum(edgePot)-lnZ)
 % Input:
 %   im: row x col image

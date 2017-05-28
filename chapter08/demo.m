@@ -24,16 +24,15 @@ title('Noisy image');
 axis image;
 colormap gray;
 %% Mean Field
-[A, nodePot, edgePot] = im2mrf(y, sigma, J);
-[nodeBel, edgeBel, lnZ] = meanField(A, nodePot, edgePot, epoch);
-lnZ0 = gibbsEnergy(nodePot, edgePot, nodeBel, edgeBel);
-lnZ1 = betheEnergy(A, nodePot, edgePot, nodeBel, edgeBel);
-maxdiff(lnZ0, lnZ(end))
-maxdiff(lnZ0, lnZ1)
+[A, nodePot, edgePot] = im2mrf(y, J, sigma);
+[nodeBel, edgeBel] = mrfMeanField(A, nodePot, edgePot, epoch);
+lnZ = gibbsEnergy(nodePot, edgePot, nodeBel, edgeBel);
+lnZ0 = betheEnergy(A, nodePot, edgePot, nodeBel, edgeBel);
+maxdiff(lnZ, lnZ0)
 
 subplot(2,3,3);
 imagesc(reshape(nodeBel(1,:),size(img)));
-title('MF');
+title('Mean Field');
 axis image;
 colormap gray;
 %% Belief Propagation
