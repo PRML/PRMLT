@@ -1,4 +1,4 @@
-function [nodeBel, edgeBel, lnZ] = mrfMeanField(A, nodePot, edgePot, epoch)
+function [nodeBel, edgeBel] = mrfMeanField(A, nodePot, edgePot, epoch)
 % Mean field for MRF (Assuming that egdePot is symmetric)
 % p(x)=exp(-E(x))/Z, E(x)=\sum(edgePot)+sum(nodePot)
 % Input: 
@@ -9,16 +9,19 @@ function [nodeBel, edgeBel, lnZ] = mrfMeanField(A, nodePot, edgePot, epoch)
 %   nodeBel: k x n node belief q(x_i)
 %   edgeBel: k x k x m edge belief q(x_i,x_j)
 % Written by Mo Chen (sth4nth@gmail.com)
+tol = 0;
 if nargin < 4
     epoch = 50;
+    tol = 1e-8;
 end
-lnZ = -inf(1,epoch+1);
 [nodeBel,L] = softmax(-nodePot,1);    % init nodeBel    
 for iter = 1:epoch
+    nodeBel0 = nodeBel;
     for i = 1:numel(L)
         [~,j,e] = find(A(i,:));             % neighbors
         nodeBel(:,i) = softmax(-nodePot(:,i)-reshape(edgePot(:,:,e),2,[])*reshape(nodeBel(:,j),[],1));
     end
+    if max(abs(nodeBel(:)-nodeBel0(:))) < tol; break; end
 end
 
 [s,t,e] = find(tril(A));

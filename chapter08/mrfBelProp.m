@@ -1,6 +1,5 @@
-function [nodeBel, edgeBel] = belProp(A, nodePot, edgePot, epoch)
-% Belief propagation for MRF
-% Assuming egdePot is symmetric
+function [nodeBel, edgeBel] = mrfBelProp(A, nodePot, edgePot, epoch)
+% Belief propagation for MRF (Assuming that egdePot is symmetric)
 % Input: 
 %   A: n x n adjacent matrix of undirected graph, where value is edge index
 %   nodePot: k x n node potential
@@ -8,16 +7,16 @@ function [nodeBel, edgeBel] = belProp(A, nodePot, edgePot, epoch)
 % Output:
 %   nodeBel: k x n node belief
 %   edgeBel: k x k x m edge belief
-%   L: variational lower bound (Bethe energy)
 % Written by Mo Chen (sth4nth@gmail.com)
+tol = 0;
+if nargin < 4
+    epoch = 50;
+    tol = 1e-8;
+end
+
 nodePot = exp(-nodePot);  
 edgePot = exp(-edgePot);
 
-tol = 0;
-if nargin < 4
-    epoch = 10;
-    tol = 1e-4;
-end
 [k,n] = size(nodePot);
 m = size(edgePot,3);
 

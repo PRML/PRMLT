@@ -1,7 +1,5 @@
-function [nodeBel, edgeBel] = expProp(A, nodePot, edgePot, epoch)
-% Expectation propagation for MRF
-% Assuming egdePot is symmetric
-% Another implementation with precompute nodeBel and update during iterations
+function [nodeBel, edgeBel] = mrfExpProp(A, nodePot, edgePot, epoch)
+% Expectation propagation for MRF (Assuming that egdePot is symmetric)
 % Input: 
 %   A: n x n adjacent matrix of undirected graph, where value is edge index
 %   nodePot: k x n node potential
@@ -9,18 +7,16 @@ function [nodeBel, edgeBel] = expProp(A, nodePot, edgePot, epoch)
 % Output:
 %   nodeBel: k x n node belief
 %   edgeBel: k x k x m edge belief
-%   L: variational lower bound (Bethe energy)
 % Written by Mo Chen (sth4nth@gmail.com)
+tol = 0;
+if nargin < 4
+    epoch = 50;
+    tol = 1e-8;
+end
 
-% working in exp domain
 nodePot = exp(-nodePot);  
 edgePot = exp(-edgePot);
 
-tol = 0;
-if nargin < 4
-    epoch = 10;
-    tol = 1e-4;
-end
 k = size(nodePot,1);
 m = size(edgePot,3);
 
