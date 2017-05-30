@@ -7,7 +7,7 @@ Note: this package requires Matlab **R2016b** or later, since it utilizes a new 
 
 Description
 -------
-The design goal of the code are as follows:
+While developing this package, I stick to following prinples
 
 * Succinct: The code is extremely terse. Minimizing the number of lines is a primal target. As a result, the core of the algorithms can be easily spot.
 * Efficient: Many tricks for making Matlab scripts fast were applied (eg. vectorization and matrix factorization). Many functions are even comparable with C implementations. Usually, functions in this package are orders faster than Matlab builtin ones which provide the same functionality (eg. kmeans). If anyone have found any Matlab implementation that is faster than mine, I am happy to further optimize.
