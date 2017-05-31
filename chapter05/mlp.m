@@ -17,7 +17,7 @@ W = cell(L-1);
 for l = 1:L-1
     W{l} = randn(h(l),h(l+1));
 end
-Z = cell(L);
+Z = cell(1,L);
 Z{1} = X;
 maxiter = 200;
 mse = zeros(1,maxiter);
