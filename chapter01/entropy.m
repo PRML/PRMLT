@@ -6,10 +6,7 @@ function z = entropy(x)
 %   z: entropy z=H(x)
 % Written by Mo Chen (sth4nth@gmail.com).
 n = numel(x);
-[u,~,x] = unique(x);
-k = numel(u);
-idx = 1:n;
-Mx = sparse(idx,x,1,n,k,n);
-Px = nonzeros(mean(Mx,1));
+[~,~,x] = unique(x);
+Px = accumarray(x, 1)/n;
 Hx = -dot(Px,log2(Px));
 z = max(0,Hx);
