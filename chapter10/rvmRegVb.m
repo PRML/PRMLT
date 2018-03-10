@@ -56,7 +56,7 @@ for iter = 2:maxiter
     KLalpha = -sum(a*log(b));
 %     q(beta)
     e2 = sum((t-Ew'*X).^2);    
-    invUX = U\X;
+    invUX = U'\X;
     trXSX = dot(invUX(:),invUX(:));
     d = d0+0.5*(e2+trXSX);
     Ebeta = c/d; 
