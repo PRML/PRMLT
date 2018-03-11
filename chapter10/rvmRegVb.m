@@ -8,7 +8,6 @@ function [model, energy] = rvmRegVb(X, t, prior)
 %   model: trained model structure
 %   energy: variational lower bound
 % Written by Mo Chen (sth4nth@gmail.com).
-[m,n] = size(X);
 if nargin < 3
     a0 = 1e-4;
     b0 = 1e-4;
@@ -20,6 +19,7 @@ else
     c0 = prior.c;
     d0 = prior.d;
 end
+[m,n] = size(X);
 idx = (1:m)';
 dg = sub2ind([m,m],idx,idx);
 I = eye(m);

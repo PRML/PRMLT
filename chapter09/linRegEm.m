@@ -14,7 +14,7 @@ if nargin < 3
     beta = 0.5;
 end
 [d,n] = size(X);
-
+I = eye(d);
 xbar = mean(X,2);
 tbar = mean(t,2);
 
@@ -39,12 +39,12 @@ for iter = 2:maxiter
     llh(iter) = 0.5*(d*log(alpha)+n*log(beta)-alpha*m2-beta*e2-logdetA-n*log(2*pi));  % 3.86
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end
     
-    V = inv(U);
-    trS = dot(V(:),V(:));    % A=inv(S)
+    invU = U'\I;
+    trS = dot(invU(:),invU(:));    % A=inv(S)
     alpha = d/(m2+trS);   % 9.63
     
-    UX = U'\X;
-    trXSX = dot(UX(:),UX(:));
+    invUX = U'\X;
+    trXSX = dot(invUX(:),invUX(:));
     beta = n/(e2+trXSX);  % 9.68 is wrong
 end
 w0 = tbar-dot(m,xbar);
