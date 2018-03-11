@@ -46,7 +46,7 @@ for iter = 2:maxiter
     KLw = -sum(log(diag(U)));        
 %     q(alpha)
     w2 = dot(Ew,Ew);
-    invU = U\I;   
+    invU = U'\I;   
     trS = dot(invU(:),invU(:));
     b = b0+0.5*(w2+trS);                      % 10.95
     Ealpha = a/b;                              % 10.102
