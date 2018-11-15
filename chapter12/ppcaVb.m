@@ -5,7 +5,7 @@ function [model, L] = ppcaVb(X, q, prior)
 %   q: dimension of target space
 % Output:
 %   model: trained model structure
-%   ernergy: variantional lower bound
+%   L: variantional lower bound
 % Reference: 
 %   Pattern Recognition and Machine Learning by Christopher M. Bishop 
 % Written by Mo Chen (sth4nth@gmail.com).
