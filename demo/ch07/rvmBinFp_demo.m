@@ -9,4 +9,4 @@ n = 1000;
 plot(llh);
 y = rvmBinPred(model,X)+1;
 figure;
-binPlot(model,X,y);
+plotClass(X,y);
