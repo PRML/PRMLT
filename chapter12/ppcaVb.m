@@ -1,4 +1,4 @@
-function [model, energy] = ppcaVb(X, q, prior)
+function [model, L] = ppcaVb(X, q, prior)
 % Perform variatioanl Bayeisan inference for probabilistic PCA model. 
 % Input:
 %   X: d x n data matrix
@@ -27,7 +27,7 @@ if nargin < 2
 end
 tol = 1e-6;
 maxIter = 500;
-energy = -inf(1,maxIter);
+L = -inf(1,maxIter);
 
 mu = mean(X,2);
 Xo = bsxfun(@minus, X, mu);
@@ -67,10 +67,10 @@ for iter = 2:maxIter
 %     Emu = Ebeta/(lambda+n*Ebeta)*sum(X-WZ,2);
 
 %     lower bound
-    energy(iter) = KLalpha+KLbeta+KLW+KLZ;
-    if energy(iter)-energy(iter-1) < tol*abs(energy(iter-1)); break; end  
+    L(iter) = KLalpha+KLbeta+KLW+KLZ;
+    if L(iter)-L(iter-1) < tol*abs(L(iter-1)); break; end  
 end
-energy = energy(2:iter);
+L = L(2:iter);
 
 model.Z = EZ;
 model.W = EW;
