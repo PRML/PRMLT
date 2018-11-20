@@ -9,9 +9,8 @@ function Y = mlpRegPred(model, X)
 W = model.W;
 b = model.b;
 T = length(W);
-Z = cell(T+1,1);
-Z{1} = X;
+Y = X;
 for t = 1:T-1
-    Z{t+1} = tanh(W{t}'*Z{t}+b{t});
+    Y = tanh(W{t}'*Y+b{t});
 end
-Y = W{T}'*Z{T}+b{T};
+Y = W{T}'*Y+b{T};
