@@ -1,9 +1,15 @@
 clear; close all;
-h = [4,5];
-X = [0 0 1 1;0 1 0 1];
-T = [0 1 1 0];
-[model,mse] = mlp(X,T,h);
-plot(mse);
-disp(['T = [' num2str(T) ']']);
-Y = mlpPred(model,X);
-disp(['Y = [' num2str(Y) ']']);
+n = 200;
+x = linspace(0,2*pi,n);
+y = sin(x);
+
+k = [3,4];            % two hidden layers with 3 and 4 hidden nodes
+lambda = 1e-2;
+[model, L] = mlpReg(x,y,k);
+t = mlpRegPred(model,x);
+plot(L);
+figure;
+hold on
+plot(x,y,'.');
+plot(x,t);
+hold off
