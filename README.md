@@ -1,6 +1,6 @@
 Introduction
 -------
-This Matlab package implementes machine learning algorithms described in the great textbook:
+This Matlab package implements machine learning algorithms described in the great textbook:
 Pattern Recognition and Machine Learning by C. Bishop ([PRML](http://research.microsoft.com/en-us/um/people/cmbishop/prml/)).
 
 It is written purely in Matlab language. It is self-contained. There is no outside denpency.
