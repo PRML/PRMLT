@@ -3,7 +3,7 @@ Introduction
 This Matlab package implements machine learning algorithms described in the great textbook:
 Pattern Recognition and Machine Learning by C. Bishop ([PRML](http://research.microsoft.com/en-us/um/people/cmbishop/prml/)).
 
-It is written purely in Matlab language. It is self-contained. There is no outside denpency.
+It is written purely in Matlab language. It is self-contained. There is no external dependency.
 
 Note: this package requires Matlab **R2016b** or latter, since it utilizes a new Matlab syntax called [Implicit expansion](https://cn.mathworks.com/help/matlab/release-notes.html?rntext=implicit+expansion&startrelease=R2016b&endrelease=R2016b&groupby=release&sortby=descending) (a.k.a. broadcasting). It also requires Statistics Toolbox (for some simple random number generator) and Image Processing Toolbox (for reading image data).
 
