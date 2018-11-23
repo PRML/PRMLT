@@ -29,7 +29,7 @@ If you found any bug or have any suggestion, please do file issues. I am gracefu
 
 License
 -------
-Currently Released Under GPLv3
+Released Under MIT License
 
 
 Contact
