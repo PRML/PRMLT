@@ -17,8 +17,10 @@ Design Goal
 
 Installation
 -------
-1. Download the package to a local folder (e.g. ~/PRMLT/) by running: `git clone https://github.com/PRML/PRMLT.git`.
-
+1. Download the package to a local folder (e.g. ~/PRMLT/) by running: 
+```console
+git clone https://github.com/PRML/PRMLT.git
+```
 2. Run Matlab and navigate to the folder (~/PRMLT/), then run the init.m script.
 
 3. Run some demos in ~/PRMLT/demo folder. Enjoy!
