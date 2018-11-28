@@ -40,8 +40,6 @@ model.S = iwishrnd(eye(d),d);
 
 function model = maximization(X ,nu, U, Ezz, Ezy)
 n = size(X,2);
-mu0 = nu(:,1);                                    % 13.110
-P0 = U(:,:,1);                                    % 13.111, 13.107
 
 EZZ = sum(Ezz,3);
 EZY = sum(Ezy,3);
@@ -52,8 +50,8 @@ Xnu = X*nu';
 C = Xnu/EZZ;                                      % 13.115
 S = (X*X'-Xnu*C')/n;                              % 13.116, BRML 24.5.11
 
-model.mu0 = mu0;
-model.P0 = P0;
+model.mu0 = nu(:,1);                              % 13.110
+model.P0 = U(:,:,1);                              % 13.111, 13.107 
 model.A = A;
 model.G = (G+G')/2;
 model.C = C;
