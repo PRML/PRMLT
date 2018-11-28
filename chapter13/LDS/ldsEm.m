@@ -24,7 +24,7 @@ for iter = 2:maxIter
     [nu, U, llh(iter),Ezz, Ezy] = kalmanSmoother(model,X);
     if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
 %     M-step 
-    model = maximization(model, X, nu, U, Ezz, Ezy);
+    model = maximization(X, nu, U, Ezz, Ezy);
 end
 llh = llh(2:iter);
 
@@ -38,7 +38,7 @@ model.C = randn(d,k);
 model.S = iwishrnd(eye(d),d);
 
 
-function model = maximization(model, X ,nu, U, Ezz, Ezy)
+function model = maximization(X ,nu, U, Ezz, Ezy)
 n = size(X,2);
 mu0 = nu(:,1);                                    % 13.110
 P0 = U(:,:,1);                                    % 13.111, 13.107
