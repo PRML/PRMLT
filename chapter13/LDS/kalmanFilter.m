@@ -32,11 +32,11 @@ V(:,:,1) = (I-K*C)*P;                               % 13.95
 llh(1) = logGauss(X(:,1),C*mu0,R);
 for i = 2:n
     [mu(:,i), V(:,:,i), llh(i)] = ...
-        forwardStep(X(:,i), mu(:,i-1), V(:,:,i-1), A, G, C, S, I);
+        forwardUpdate(X(:,i), mu(:,i-1), V(:,:,i-1), A, G, C, S, I);
 end
 llh = sum(llh);
 
-function [mu, V, llh] = forwardStep(x, mu, V, A, G, C, S, I)
+function [mu, V, llh] = forwardUpdate(x, mu, V, A, G, C, S, I)
 P = A*V*A'+G;                                               % 13.88
 PC = P*C';                                                      
 R = C*PC+S;
