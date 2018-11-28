@@ -21,14 +21,14 @@ elseif numel(init) == 1  % random init with latent k
     E = normalize(rand(k,d),2);
 end
 tol = 1e-4;
-maxIter = 100;
+maxIter = 1000;
 llh = -inf(1,maxIter);
 for iter = 2:maxIter
     M = E*X;
 %     E-step
     [gamma,alpha,beta,c] = hmmSmoother(M,A,s);
     llh(iter) = mean(log(c));
-    if llh(iter)-llh(iter-1) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
+    if abs(llh(iter)-llh(iter-1)) < tol*abs(llh(iter-1)); break; end   % check likelihood for convergence
 %     M-step 
     s = gamma(:,1);                                                                             % 13.18
     A = normalize(A.*(alpha(:,1:n-1)*(beta(:,2:n).*M(:,2:n)./c(2:n))'),2);      % 13.19 13.43 13.65
