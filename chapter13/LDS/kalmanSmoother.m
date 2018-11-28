@@ -57,15 +57,15 @@ end
 
 function [mu1, V1, Amu, P, llh] = forwardUpdate(x, mu0, V0, A, G, C, S)
 k = numel(mu0);
-P = A*V0*A'+G;                                              % 13.88
+P = A*V0*A'+G;                                               % 13.88
 PC = P*C';
 R = C*PC+S;
-K = PC/R;                                                   % 13.92
+K = PC/R;                                                    % 13.92
 Amu = A*mu0;
 CAmu = C*Amu;
 mu1 = Amu+K*(x-CAmu);                                        % 13.89
-V1 = (eye(k)-K*C)*P;                                              % 13.90
-llh = logGauss(x,CAmu,R);                                   % 13.91
+V1 = (eye(k)-K*C)*P;                                         % 13.90
+llh = logGauss(x,CAmu,R);                                    % 13.91
 
 
 function [nu0, U0, E00, E10] = backwardUpdate(nu1, U1, mu, V, Amu, P, A)
