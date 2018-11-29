@@ -36,7 +36,13 @@ model.A = randn(k,k);
 model.G = iwishrnd(eye(k),k);
 model.C = randn(d,k);
 model.S = iwishrnd(eye(d),d);
-
+% [A,C,Z] = ldsPca(X,k,3*k);
+% model.mu0 = Z(:,1);
+% model.P0 = ;
+% model.A = A;
+% model.C = C;
+% model.G = ;
+% model.S = ;
 
 function model = maximization(X ,nu, U, Ezz, Ezy)
 n = size(X,2);
