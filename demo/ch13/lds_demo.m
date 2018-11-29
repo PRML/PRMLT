@@ -1,19 +1,20 @@
 close all;
-%% Parameter
+% Parameter
 clear; 
 d = 2;
-k = 2;
-n = 50;
+k = 3;
+n = 100;
 
-A = [1,1; 
-     0 1];
+A = [1,0,1; 
+     0 1,0;
+     0,0,1];
 G = eye(k)*1e-3;
  
-C = [1 0;
-     0 1];
+C = [1,0,0;
+     0 1,0];
 S = eye(d)*1e-1;
 
-mu0 = [0; 0];
+mu0 = [0;0;0];
 P0 = eye(k);
 
 model.A = A;
@@ -54,9 +55,9 @@ title('Kalman smoother')
 axis equal
 hold off
 %% LDS Subspace
-[A,C,z] = ldsPca(x,k,3*k);
-y = C*z;
-t = size(z,2);
+[A,C,nu] = ldsPca(x,k,3*k);
+y = C*nu;
+t = size(y,2);
 figure;
 hold on
 plot(x(1,1:t), x(2,1:t), 'ro');
@@ -66,9 +67,9 @@ title('LDS subspace learning')
 axis equal
 hold off
 %% LDS EM
-[model, llh] = ldsEm(x,k);
-nu = kalmanSmoother(model,x);
-y = model.C*nu;
+[tmodel, llh] = ldsEm(x,k);
+nu = kalmanSmoother(tmodel,x);
+y = tmodel.C*nu;
 figure
 hold on
 plot(x(1,:), x(2,:), 'ro');
