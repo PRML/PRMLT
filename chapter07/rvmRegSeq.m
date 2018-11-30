@@ -1,5 +1,4 @@
 function [model, llh] = rvmRegSeq(X, t)
-% TODO: beta is not updated.
 % Sparse Bayesian Regression (RVM) using sequential algorithm
 % Input:
 %   X: d x n data

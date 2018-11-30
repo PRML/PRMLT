@@ -1,6 +1,6 @@
 function model = nbGauss(X, t)
-% Naive bayes classifier with indepenet Gaussian, each dimension of data is
-% assumed from a 1d Gaussian distribution with independent mean and variance.
+% Naive bayes classifier with indepenet Gaussian
+% Each dimension of data is assumed from a 1d Gaussian distribution with independent mean and variance.
 % Input:
 %   X: d x n data matrix
 %   t: 1 x n label (1~k)
