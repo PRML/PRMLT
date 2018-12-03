@@ -1,5 +1,6 @@
 function Y = mlpRegPred(model, X)
-% Multilayer perceptron prediction
+% Multilayer perceptron regression prediction
+% tanh activation function is used.
 % Input:
 %   model: model structure
 %   X: d x n data matrix
