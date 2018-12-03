@@ -29,9 +29,11 @@
 %   logitMnPred      - Prediction of multiclass (multinomial) logistic regression model
 %   sigmoid          - Sigmod function
 %   softmax          - Softmax function
-% CHAPTER05    
-%   mlpReg           - Train a multilayer perceptron neural network
-%   mlpRegPred       - Multilayer perceptron prediction
+% CHAPTER05
+%   mlpClass         - Train a multilayer perceptron neural network for classification with backpropagation
+%   mlpClassPred     - Multilayer perceptron classification prediction
+%   mlpReg           - Train a multilayer perceptron neural network for regression with backpropagation
+%   mlpRegPred       - Multilayer perceptron regression prediction
 % CHAPTER06    
 %   kn2sd            - Transform a kernel matrix (or inner product matrix) to a squared distance matrix
 %   knCenter         - Centerize the data in the kernel space
