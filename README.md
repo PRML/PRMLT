@@ -10,7 +10,7 @@ Note: this package requires Matlab **R2016b** or latter, since it utilizes a new
 Design Goal
 -------
 * Succinct: The code is extremely compact. Minimizing code length is a major goal. As a result, the core of the algorithms can be easily spotted.
-* Efficient: Many tricks to speedup Matlab code were applied (eg. vectorization, matrix factorization, etc.). Usually, functions in this package are orders faster than Matlab builtin ones (eg. kmeans).
+* Efficient: Many tricks to speedup Matlab code are applied (eg. vectorization, matrix factorization, etc.). Usually, functions in this package are orders faster than Matlab builtin ones (e.g. kmeans).
 * Robust: Many tricks for numerical stability are applied, such as computing probability in log domain, square root matrix update to enforce matrix symmetry\PD, etc.
 * Readable: The code is heavily commented. Corresponding formulas in PRML are annoted. Symbols are in sync with the book.
 * Practical: The package is not only readable, but also meant to be easily used and modified to facilitate ML research. Many functions in this package are already widely used (see [Matlab file exchange](http://www.mathworks.com/matlabcentral/fileexchange/?term=authorid%3A49739)).
