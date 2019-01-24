@@ -1,9 +1,9 @@
-function [model, L] = mlpReg(X,y,k,lambda)
+function [model, L] = mlpReg(X, y, k, lambda)
 % Train a multilayer perceptron neural network for regression with backpropagation
 % tanh activation function is used
 % Input:
 %   X: d x n data matrix
-%   y: p x n response matrix
+%   y: 1 x n real value response vector
 %   k: T x 1 vector to specify number of hidden nodes in each layer
 %   lambda: regularization parameter
 % Ouput:

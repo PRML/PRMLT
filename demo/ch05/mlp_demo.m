@@ -26,7 +26,7 @@ h = 3;
 lambda = 1e-2;
 [model, llh] = mlpClass(X,y,h,lambda);
 [t,p] = mlpClassPred(model,X);
+plot(llh);
 figure;
 plotClass(X,t);
 figure;
-plot(llh);
