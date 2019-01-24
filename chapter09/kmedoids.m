@@ -18,7 +18,7 @@ end
 X = X-mean(X,2);             % reduce chance of numerical problems
 v = dot(X,X,1);
 D = v+v'-2*(X'*X);            % Euclidean distance matrix
-D(sub2ind([d,d],1:d,1:d)) = 0;              % reduce chance of numerical problems
+D(sub2ind([n,n],1:n,1:n)) = 0;              % reduce chance of numerical problems
 last = zeros(1,n);
 while any(label ~= last)
     [~,~,last(:)] = unique(label);   % remove empty clusters
