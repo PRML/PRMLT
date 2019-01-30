@@ -10,7 +10,7 @@ function [X, z, mu] = kmeansRnd(d, k, n)
 %   mu: d x k centers of clusters
 % Written by Mo Chen (sth4nth@gmail.com).
 alpha = 1;
-beta = nthroot(k,d); % in volume x^d there is k points: x^d=k
+beta = nthroot(k,d); % k points in volume x^d : x^d=k
 
 X = randn(d,n);
 w = dirichletRnd(alpha,ones(1,k)/k);
