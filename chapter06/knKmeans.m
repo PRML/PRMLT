@@ -1,4 +1,4 @@
-function [label, model, energy] = knKmeans(K, init)
+function [label, energy] = knKmeans(K, init)
 % Perform kernel kmeans clustering.
 % Input:
 %   K: n x n data matrix
@@ -26,8 +26,4 @@ while any(label ~= last)
     [val, label] = max(T-dot(T,E,2)/2,[],1);
 end
 energy = trace(K)-2*sum(val); 
-if nargout == 3
-    model.X = X;
-    model.label = label;
-    model.kn = kn;
-end
+
