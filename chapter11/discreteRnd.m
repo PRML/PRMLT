@@ -11,4 +11,4 @@ if nargin == 1
 end
 r = rand(1,n);
 p = cumsum(p(:));
-[~,x] = histc(r,[0;p/p(end)]);
+[~,~,x] = histcounts(r,[0;p/p(end)]);
