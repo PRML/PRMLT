@@ -9,6 +9,4 @@ function x = discreteRnd(p, n)
 if nargin == 1
     n = 1;
 end
-r = rand(1,n);
-p = cumsum(p(:));
-[~,~,x] = histcounts(r,[0;p/p(end)]);
+[~,~,x] = histcounts(rand(1,n),[0;cumsum(p(:))]);
