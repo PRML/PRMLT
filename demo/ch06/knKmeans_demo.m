@@ -5,8 +5,8 @@ k = 3;
 n = 200;
 [X, y] = kmeansRnd(d,k,n);
 init = ceil(k*rand(1,n));
-K = knLin(X,X);
-label = knKmeans(K,init);
+
+label = knKmeans(X,init,@knLin);
 
 label0 = kmeans(X,init);
 maxdiff(label,label0)
@@ -17,7 +17,6 @@ x2 = sin(x1);
 X = [x1,x1+pi/2;
     x2,-x2];
 
-K = knGauss(X,X,0.4);
-label = knKmeans(K,2);
+label = knKmeans(X,2,@knGauss);
 figure;
 plotClass(X,label);

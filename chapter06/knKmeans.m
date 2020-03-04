@@ -1,4 +1,4 @@
-function [label, energy] = knKmeans(K, init)
+function [label, model, energy] = knKmeans(X, init, kn)
 % Perform kernel kmeans clustering.
 % Input:
 %   K: n x n data matrix
@@ -10,6 +10,7 @@ function [label, energy] = knKmeans(K, init)
 % Reference: Kernel Methods for Pattern Analysis
 % by John Shawe-Taylor, Nello Cristianini
 % Written by Mo Chen (sth4nth@gmail.com).
+K = kn(X,X);
 n = size(K,2);
 if numel(init)==1
     k = init;
@@ -26,4 +27,8 @@ while any(label ~= last)
     [val, label] = max(T-dot(T,E,2)/2,[],1);
 end
 energy = trace(K)-2*sum(val); 
+model.kn = kn;
+model.label = label;
+model.X = X;
+
 

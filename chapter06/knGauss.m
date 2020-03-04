@@ -8,7 +8,7 @@ function K = knGauss(X, Y, s)
 %   K: nx x ny kernel matrix
 % Written by Mo Chen (sth4nth@gmail.com).
 if nargin < 3
-    s = 1;
+    s = 0.4;
 end
 
 if nargin < 2 || isempty(Y)  
